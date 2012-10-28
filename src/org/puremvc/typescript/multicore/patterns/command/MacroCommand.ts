@@ -21,7 +21,6 @@ module puremvc
 	 * Unlike <code>SimpleCommand</code>, your subclass should not override <code>execute</code>,
 	 * but instead, should override the <code>initializeMacroCommand</code> method, calling
 	 * <code>addSubCommand</code> once for each <i>SubCommand</i> to be executed.
-	 *
 	 */
 	export class MacroCommand
 		extends Notifier
@@ -39,7 +38,6 @@ module puremvc
 		 *
 		 * You should not need to define a constructor in your subclasses, instead, override the
 		 * <code>initializeMacroCommand</code> method.
-		 * 
 		 *
 		 * If your subclass does define a constructor, be  sure to call <code>super()</code>.
 		 */

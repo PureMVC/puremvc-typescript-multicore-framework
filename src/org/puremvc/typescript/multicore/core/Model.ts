@@ -6,7 +6,7 @@ module puremvc
 	"use strict";
 	
 	/**
-	 * The base <code>Model</code> class for PureMVC.
+	 * The <code>Model</code> class for PureMVC.
 	 *
 	 * A multiton <code>IModel</code> implementation.
 	 *

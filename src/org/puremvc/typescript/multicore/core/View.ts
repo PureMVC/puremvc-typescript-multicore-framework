@@ -8,7 +8,7 @@ module puremvc
 	"use strict";
 
 	/**
-	 * The base <code>View</code> class for PureMVC.
+	 * The <code>View</code> class for PureMVC.
 	 *
 	 * A multiton <code>IView</code> implementation.
 	 *

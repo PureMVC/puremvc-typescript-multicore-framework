@@ -11,7 +11,7 @@ module puremvc
 	"use strict";
 
 	/**
-	 * The base <code>Controller</code> class for PureMVC.
+	 * The <code>Controller</code> class for PureMVC.
 	 *
 	 * A multiton <code>IController</code> implementation.
 	 *
