@@ -12,39 +12,11 @@ module puremvc {
     }
 }
 module puremvc {
-    export class Controller implements IController {
-        public view: IView;
-        public commandMap: Object;
-        constructor ();
-        public initializeController(): void;
-        public executeCommand(notification: INotification): void;
-        public registerCommand(notificationName: string, commandClassRef: Function): void;
-        public hasCommand(notificationName: string): bool;
-        public removeCommand(notificationName: string): void;
-        static instance: IController;
-        static SINGLETON_MSG: string;
-        static getInstance(): IController;
-    }
-}
-module puremvc {
-    export class Model implements IModel {
-        public proxyMap: Object;
-        constructor ();
-        public initializeModel(): void;
-        public registerProxy(proxy: IProxy): void;
-        public removeProxy(proxyName: string): IProxy;
-        public retrieveProxy(proxyName: string): IProxy;
-        public hasProxy(proxyName: string): bool;
-        static SINGLETON_MSG: string;
-        static instance: IModel;
-        static getInstance(): IModel;
-    }
-}
-module puremvc {
     export class View implements IView {
         public mediatorMap: Object;
         public observerMap: Object;
-        constructor ();
+        public multitonKey: string;
+        constructor (key: string);
         public initializeView(): void;
         public registerObserver(notificationName: string, observer: IObserver): void;
         public removeObserver(notificationName: string, notifyContext: any): void;
@@ -53,9 +25,43 @@ module puremvc {
         public retrieveMediator(mediatorName: string): IMediator;
         public removeMediator(mediatorName: string): IMediator;
         public hasMediator(mediatorName: string): bool;
-        static SINGLETON_MSG: string;
-        static instance: IView;
-        static getInstance(): IView;
+        static instanceMap: Object;
+        static MULTITON_MSG: string;
+        static getInstance(key: string): IView;
+        static removeView(key: string): void;
+    }
+}
+module puremvc {
+    export class Controller implements IController {
+        public view: IView;
+        public commandMap: Object;
+        public multitonKey: string;
+        constructor (key: string);
+        public initializeController(): void;
+        public executeCommand(notification: INotification): void;
+        public registerCommand(notificationName: string, commandClassRef: Function): void;
+        public hasCommand(notificationName: string): bool;
+        public removeCommand(notificationName: string): void;
+        static instanceMap: Object;
+        static MULTITON_MSG: string;
+        static getInstance(key: string): IController;
+        static removeController(key: string): void;
+    }
+}
+module puremvc {
+    export class Model implements IModel {
+        public proxyMap: Object;
+        public multitonKey: string;
+        constructor (key: string);
+        public initializeModel(): void;
+        public registerProxy(proxy: IProxy): void;
+        public removeProxy(proxyName: string): IProxy;
+        public retrieveProxy(proxyName: string): IProxy;
+        public hasProxy(proxyName: string): bool;
+        static MULTITON_MSG: string;
+        static instanceMap: Object;
+        static getInstance(key): IModel;
+        static removeModel(key): void;
     }
 }
 module puremvc {
@@ -77,7 +83,8 @@ module puremvc {
         public model: IModel;
         public view: IView;
         public controller: IController;
-        constructor ();
+        public multitonKey: string;
+        constructor (key);
         public initializeFacade(): void;
         public initializeModel(): void;
         public initializeController(): void;
@@ -95,16 +102,21 @@ module puremvc {
         public hasMediator(mediatorName: string): bool;
         public notifyObservers(notification: INotification): void;
         public sendNotification(name: string, body?: any, type?: string): void;
-        static SINGLETON_MSG: string;
-        static instance: IFacade;
-        static getInstance(): IFacade;
+        public initializeNotifier(key: string): void;
+        static MULTITON_MSG: string;
+        static instanceMap: Object;
+        static getInstance(key: string): IFacade;
+        static hasCore(key: string): bool;
+        static removeCore(key: string): void;
     }
 }
 module puremvc {
     export class Notifier implements INotifier {
-        public facade: IFacade;
-        constructor ();
+        public multitonKey: string;
+        public initializeNotifier(key): void;
         public sendNotification(name: string, body?: any, type?: string): void;
+        public facade(): IFacade;
+        static MULTITON_MSG: string;
     }
 }
 module puremvc {

@@ -34,7 +34,7 @@ module puremvc
 		testGetInstance():void
 		{
 			// Test Factory Method
-			var controller:IController = Controller.getInstance();
+			var controller:IController = Controller.getInstance('ControllerTestKey1');
 
 			// test assertions
 			YUITest.Assert.isNotNull
@@ -49,6 +49,8 @@ module puremvc
 				controller,
 				"Expecting instance extends Controller"
 			);
+
+			Controller.removeController('ControllerTestKey1');
 		}
 
 		/**
@@ -88,6 +90,8 @@ module puremvc
 				vo.result,
 				"Expecting vo.result == 24"
 			);
+
+			Controller.removeController('ControllerTestKey2');
 		}
 
 		/**
@@ -137,6 +141,8 @@ module puremvc
 				vo.result,
 				"Expecting vo.result == 0"
 			);
+
+			Controller.removeController('ControllerTestKey3');
 		}
 
 		/**
@@ -164,6 +170,8 @@ module puremvc
 				controller.hasCommand('hasCommandTest'),
 				"Expecting controller.hasCommand('hasCommandTest') === false"
 			);
+
+			Controller.removeController('ControllerTestKey4');
 		}
 
 		/**
@@ -215,6 +223,8 @@ module puremvc
 				vo.result,
 				"Expecting vo.result == 48"
 			);
+
+			Controller.removeController('ControllerTestKey5');
 		}
 	}
 }

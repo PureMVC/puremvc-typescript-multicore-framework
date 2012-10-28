@@ -46,6 +46,8 @@ module puremvc
 				model,
 				"Expecting instance extends Model"
 			);
+
+			Model.removeModel('ModelTestKey1');
 		}
 
 		/**
@@ -105,6 +107,8 @@ module puremvc
 				data[2],
 				"Expecting data[2] == 'blue'"
 			);
+
+			Model.removeModel('ModelTestKey2');
 		}
 
 		/**
@@ -137,6 +141,8 @@ module puremvc
 				proxy,
 				"Expecting proxy === null"
 			);
+
+			Model.removeModel('ModelTestKey3');
 		}
 
 		/**
@@ -167,6 +173,8 @@ module puremvc
 				model.hasProxy('aces'),
 				"Expecting model.hasProxy('aces') === false"
 			);
+
+			Model.removeModel('ModelTestKey4');
 		}
 
 		/**
@@ -175,7 +183,7 @@ module puremvc
 		testOnRegisterAndOnRemove():void
 		{
 			// Get the Singleton View instance
-			var model:IModel = Model.getInstance('ModelTestKey4');
+			var model:IModel = Model.getInstance('ModelTestKey5');
 
 			// Create and register the test mediator
 			var proxy:IProxy = new ModelTestProxy();
@@ -199,6 +207,8 @@ module puremvc
 				proxy.getData(),
 				"Expecting proxy.getData() == ModelTestProxy.ON_REMOVE_CALLED"
 			);
+
+			Model.removeModel('ModelTestKey5');
 		}
 	}
 }

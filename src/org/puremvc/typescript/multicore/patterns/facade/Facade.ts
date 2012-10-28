@@ -412,7 +412,7 @@ module puremvc
 		 *
 		 * @protected
 		 */
-		static instanceMap:Object;
+		static instanceMap:Object = {};
 
 		/**
 	 	 * <code>Facade</code> multiton factory method.

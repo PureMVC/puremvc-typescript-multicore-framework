@@ -62,7 +62,7 @@ module puremvc
 		 */
 		handleNotification( notification:INotification )
 		{
-			this.facade.removeMediator(this.getMediatorName());
+			this.facade().removeMediator(this.getMediatorName());
 		}
 
 		/**

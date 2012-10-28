@@ -3,6 +3,8 @@ var puremvc;
     "use strict";
     var Observer = (function () {
         function Observer(notifyMethod, notifyContext) {
+            this.notify = null;
+            this.context = null;
             this.setNotifyMethod(notifyMethod);
             this.setNotifyContext(notifyContext);
         }
@@ -19,9 +21,7 @@ var puremvc;
             this.context = notifyContext;
         };
         Observer.prototype.notifyObserver = function (notification) {
-            this.getNotifyMethod().apply(this.getNotifyContext(), [
-                notification
-            ]);
+            this.getNotifyMethod().call(this.getNotifyContext(), notification);
         };
         Observer.prototype.compareNotifyContext = function (object) {
             return object === this.context;
@@ -34,63 +34,16 @@ var puremvc;
 var puremvc;
 (function (puremvc) {
     "use strict";
-    var Controller = (function () {
-        function Controller() {
-            if(Controller.instance) {
-                throw Error(Controller.SINGLETON_MSG);
-            }
-            Controller.instance = this;
-            this.commandMap = {
-            };
-            this.initializeController();
-        }
-        Controller.prototype.initializeController = function () {
-            this.view = puremvc.View.getInstance();
-        };
-        Controller.prototype.executeCommand = function (notification) {
-            var commandClassRef = this.commandMap[notification.getName()];
-            if(commandClassRef) {
-                var command = new commandClassRef();
-                command.execute(notification);
-            }
-        };
-        Controller.prototype.registerCommand = function (notificationName, commandClassRef) {
-            if(!this.commandMap[notificationName]) {
-                this.view.registerObserver(notificationName, new puremvc.Observer(this.executeCommand, this));
-            }
-            this.commandMap[notificationName] = commandClassRef;
-        };
-        Controller.prototype.hasCommand = function (notificationName) {
-            return this.commandMap[notificationName] != null;
-        };
-        Controller.prototype.removeCommand = function (notificationName) {
-            if(this.hasCommand(notificationName)) {
-                this.view.removeObserver(notificationName, this);
-                delete this.commandMap[notificationName];
-            }
-        };
-        Controller.instance = null;
-        Controller.SINGLETON_MSG = "Controller Singleton already constructed!";
-        Controller.getInstance = function getInstance() {
-            if(!Controller.instance) {
-                Controller.instance = new Controller();
-            }
-            return Controller.instance;
-        }
-        return Controller;
-    })();
-    puremvc.Controller = Controller;    
-})(puremvc || (puremvc = {}));
-
-var puremvc;
-(function (puremvc) {
-    "use strict";
     var View = (function () {
-        function View() {
-            if(View.instance) {
-                throw Error(View.SINGLETON_MSG);
+        function View(key) {
+            this.mediatorMap = null;
+            this.observerMap = null;
+            this.multitonKey = null;
+            if(View.instanceMap[key]) {
+                throw Error(View.MULTITON_MSG);
             }
-            View.instance = this;
+            View.instanceMap[key] = this;
+            this.multitonKey = key;
             this.mediatorMap = {
             };
             this.observerMap = {
@@ -140,10 +93,11 @@ var puremvc;
             if(this.mediatorMap[name]) {
                 return;
             }
+            mediator.initializeNotifier(this.multitonKey);
             this.mediatorMap[name] = mediator;
             var interests = mediator.listNotificationInterests();
             var len = interests.length;
-            if(len) {
+            if(len > 0) {
                 var observer = new puremvc.Observer(mediator.handleNotification, mediator);
                 for(var i = 0; i < len; i++) {
                     this.registerObserver(interests[i], observer);
@@ -171,13 +125,17 @@ var puremvc;
         View.prototype.hasMediator = function (mediatorName) {
             return this.mediatorMap[mediatorName] != null;
         };
-        View.SINGLETON_MSG = "View Singleton already constructed!";
-        View.instance = null;
-        View.getInstance = function getInstance() {
-            if(!View.instance) {
-                View.instance = new View();
+        View.instanceMap = {
+        };
+        View.MULTITON_MSG = "View instance for this multiton key already constructed!";
+        View.getInstance = function getInstance(key) {
+            if(!View.instanceMap[key]) {
+                View.instanceMap[key] = new View(key);
             }
-            return View.instance;
+            return View.instanceMap[key];
+        }
+        View.removeView = function removeView(key) {
+            delete View.instanceMap[key];
         }
         return View;
     })();
@@ -187,10 +145,73 @@ var puremvc;
 var puremvc;
 (function (puremvc) {
     "use strict";
+    var Controller = (function () {
+        function Controller(key) {
+            this.view = null;
+            this.commandMap = null;
+            this.multitonKey = null;
+            if(Controller.instanceMap[key]) {
+                throw Error(Controller.MULTITON_MSG);
+            }
+            Controller.instanceMap[key] = this;
+            this.multitonKey = key;
+            this.commandMap = {
+            };
+            this.initializeController();
+        }
+        Controller.prototype.initializeController = function () {
+            this.view = puremvc.View.getInstance(this.multitonKey);
+        };
+        Controller.prototype.executeCommand = function (notification) {
+            var commandClassRef = this.commandMap[notification.getName()];
+            if(commandClassRef) {
+                var command = new commandClassRef();
+                command.initializeNotifier(this.multitonKey);
+                command.execute(notification);
+            }
+        };
+        Controller.prototype.registerCommand = function (notificationName, commandClassRef) {
+            if(!this.commandMap[notificationName]) {
+                this.view.registerObserver(notificationName, new puremvc.Observer(this.executeCommand, this));
+            }
+            this.commandMap[notificationName] = commandClassRef;
+        };
+        Controller.prototype.hasCommand = function (notificationName) {
+            return this.commandMap[notificationName] != null;
+        };
+        Controller.prototype.removeCommand = function (notificationName) {
+            if(this.hasCommand(notificationName)) {
+                this.view.removeObserver(notificationName, this);
+                delete this.commandMap[notificationName];
+            }
+        };
+        Controller.instanceMap = {
+        };
+        Controller.MULTITON_MSG = "Controller instance for this multiton key already constructed!";
+        Controller.getInstance = function getInstance(key) {
+            if(!Controller.instanceMap[key]) {
+                Controller.instanceMap[key] = new Controller(key);
+            }
+            return Controller.instanceMap[key];
+        }
+        Controller.removeController = function removeController(key) {
+            delete Controller.instanceMap[key];
+        }
+        return Controller;
+    })();
+    puremvc.Controller = Controller;    
+})(puremvc || (puremvc = {}));
+
+var puremvc;
+(function (puremvc) {
+    "use strict";
     var Notification = (function () {
         function Notification(name, body, type) {
             if (typeof body === "undefined") { body = null; }
             if (typeof type === "undefined") { type = null; }
+            this.name = null;
+            this.body = null;
+            this.type = null;
             this.name = name;
             this.body = body;
             this.type = type;
@@ -225,11 +246,13 @@ var puremvc;
 (function (puremvc) {
     "use strict";
     var Model = (function () {
-        function Model() {
-            if(Model.instance) {
-                throw Error(Model.SINGLETON_MSG);
+        function Model(key) {
+            this.multitonKey = null;
+            if(Model.instanceMap[key]) {
+                throw Error(Model.MULTITON_MSG);
             }
-            Model.instance = this;
+            Model.instanceMap[key] = this;
+            this.multitonKey = key;
             this.proxyMap = {
             };
             this.initializeModel();
@@ -237,6 +260,7 @@ var puremvc;
         Model.prototype.initializeModel = function () {
         };
         Model.prototype.registerProxy = function (proxy) {
+            proxy.initializeNotifier(this.multitonKey);
             this.proxyMap[proxy.getProxyName()] = proxy;
             proxy.onRegister();
         };
@@ -254,13 +278,17 @@ var puremvc;
         Model.prototype.hasProxy = function (proxyName) {
             return this.proxyMap[proxyName] != null;
         };
-        Model.SINGLETON_MSG = "Model Singleton already constructed!";
-        Model.instance = null;
-        Model.getInstance = function getInstance() {
-            if(!Model.instance) {
-                Model.instance = new Model();
+        Model.MULTITON_MSG = "Model instance for this multiton key already constructed!";
+        Model.instanceMap = {
+        };
+        Model.getInstance = function getInstance(key) {
+            if(!Model.instanceMap[key]) {
+                Model.instanceMap[key] = new Model(key);
             }
-            return Model.instance;
+            return Model.instanceMap[key];
+        }
+        Model.removeModel = function removeModel(key) {
+            delete Model.instanceMap[key];
         }
         return Model;
     })();
@@ -271,11 +299,13 @@ var puremvc;
 (function (puremvc) {
     "use strict";
     var Facade = (function () {
-        function Facade() {
-            if(Facade.instance) {
-                throw Error(Facade.SINGLETON_MSG);
+        function Facade(key) {
+            this.multitonKey = null;
+            if(Facade.instanceMap[key]) {
+                throw Error(Facade.MULTITON_MSG);
             }
-            Facade.instance = this;
+            this.initializeNotifier(key);
+            Facade.instanceMap[key] = this;
             this.initializeFacade();
         }
         Facade.prototype.initializeFacade = function () {
@@ -285,17 +315,17 @@ var puremvc;
         };
         Facade.prototype.initializeModel = function () {
             if(!this.model) {
-                this.model = puremvc.Model.getInstance();
+                this.model = puremvc.Model.getInstance(this.multitonKey);
             }
         };
         Facade.prototype.initializeController = function () {
             if(!this.controller) {
-                this.controller = puremvc.Controller.getInstance();
+                this.controller = puremvc.Controller.getInstance(this.multitonKey);
             }
         };
         Facade.prototype.initializeView = function () {
             if(!this.view) {
-                this.view = puremvc.View.getInstance();
+                this.view = puremvc.View.getInstance(this.multitonKey);
             }
         };
         Facade.prototype.registerCommand = function (notificationName, commandClassRef) {
@@ -351,13 +381,29 @@ var puremvc;
             if (typeof type === "undefined") { type = null; }
             this.notifyObservers(new puremvc.Notification(name, body, type));
         };
-        Facade.SINGLETON_MSG = "Facade Singleton already constructed!";
-        Facade.instance = null;
-        Facade.getInstance = function getInstance() {
-            if(!Facade.instance) {
-                Facade.instance = new Facade();
+        Facade.prototype.initializeNotifier = function (key) {
+            this.multitonKey = key;
+        };
+        Facade.MULTITON_MSG = "Facade instance for this multiton key already constructed!";
+        Facade.instanceMap = {
+        };
+        Facade.getInstance = function getInstance(key) {
+            if(!Facade.instanceMap[key]) {
+                Facade.instanceMap[key] = new Facade(key);
             }
-            return Facade.instance;
+            return Facade.instanceMap[key];
+        }
+        Facade.hasCore = function hasCore(key) {
+            return Facade.instanceMap[key] ? true : false;
+        }
+        Facade.removeCore = function removeCore(key) {
+            if(!Facade.instanceMap[key]) {
+                return;
+            }
+            puremvc.Model.removeModel(key);
+            puremvc.View.removeView(key);
+            puremvc.Controller.removeController(key);
+            delete Facade.instanceMap[key];
         }
         return Facade;
     })();
@@ -369,13 +415,25 @@ var puremvc;
     "use strict";
     var Notifier = (function () {
         function Notifier() {
-            this.facade = puremvc.Facade.getInstance();
+            this.multitonKey = null;
         }
+        Notifier.prototype.initializeNotifier = function (key) {
+            this.multitonKey = key;
+        };
         Notifier.prototype.sendNotification = function (name, body, type) {
             if (typeof body === "undefined") { body = null; }
             if (typeof type === "undefined") { type = null; }
-            this.facade.sendNotification(name, body, type);
+            if(this.facade()) {
+                this.facade().sendNotification(name, body, type);
+            }
         };
+        Notifier.prototype.facade = function () {
+            if(this.multitonKey === null) {
+                throw Error(Notifier.MULTITON_MSG);
+            }
+            return puremvc.Facade.getInstance(this.multitonKey);
+        };
+        Notifier.MULTITON_MSG = "multitonKey for this Notifier not yet initialized!";
         return Notifier;
     })();
     puremvc.Notifier = Notifier;    
@@ -464,20 +522,22 @@ var puremvc;
             this.name = "PureMVC Controller class tests";
         }
         ControllerTest.prototype.testGetInstance = function () {
-            var controller = puremvc.Controller.getInstance();
+            var controller = puremvc.Controller.getInstance('ControllerTestKey1');
             YUITest.Assert.isNotNull(controller, "Expecting instance !== null");
             YUITest.Assert.isInstanceOf(puremvc.Controller, controller, "Expecting instance extends Controller");
+            puremvc.Controller.removeController('ControllerTestKey1');
         };
         ControllerTest.prototype.testRegisterAndExecuteCommand = function () {
-            var controller = puremvc.Controller.getInstance();
+            var controller = puremvc.Controller.getInstance('ControllerTestKey2');
             controller.registerCommand('ControllerTest', puremvc.ControllerTestCommand);
             var vo = new puremvc.ControllerTestVO(12);
             var note = new puremvc.Notification('ControllerTest', vo);
             controller.executeCommand(note);
             YUITest.Assert.areEqual(24, vo.result, "Expecting vo.result == 24");
+            puremvc.Controller.removeController('ControllerTestKey2');
         };
         ControllerTest.prototype.testRegisterAndRemoveCommand = function () {
-            var controller = puremvc.Controller.getInstance();
+            var controller = puremvc.Controller.getInstance('ControllerTestKey3');
             controller.registerCommand('ControllerRemoveTest', puremvc.ControllerTestCommand);
             var vo = new puremvc.ControllerTestVO(12);
             var note = new puremvc.Notification('ControllerRemoveTest', vo);
@@ -487,26 +547,29 @@ var puremvc;
             controller.removeCommand('ControllerRemoveTest');
             controller.executeCommand(note);
             YUITest.Assert.areEqual(0, vo.result, "Expecting vo.result == 0");
+            puremvc.Controller.removeController('ControllerTestKey3');
         };
         ControllerTest.prototype.testHasCommand = function () {
-            var controller = puremvc.Controller.getInstance();
+            var controller = puremvc.Controller.getInstance('ControllerTestKey4');
             controller.registerCommand('hasCommandTest', puremvc.ControllerTestCommand);
             YUITest.Assert.isTrue(controller.hasCommand('hasCommandTest'), "Expecting controller.hasCommand('hasCommandTest') === true");
             controller.removeCommand('hasCommandTest');
             YUITest.Assert.isFalse(controller.hasCommand('hasCommandTest'), "Expecting controller.hasCommand('hasCommandTest') === false");
+            puremvc.Controller.removeController('ControllerTestKey4');
         };
         ControllerTest.prototype.testReregisterAndExecuteCommand = function () {
-            var controller = puremvc.Controller.getInstance();
+            var controller = puremvc.Controller.getInstance('ControllerTestKey5');
             controller.registerCommand('ControllerTest2', puremvc.ControllerTestCommand2);
             controller.removeCommand('ControllerTest2');
             controller.registerCommand('ControllerTest2', puremvc.ControllerTestCommand2);
             var vo = new puremvc.ControllerTestVO(12);
             var note = new puremvc.Notification('ControllerTest2', vo);
-            var view = puremvc.View.getInstance();
+            var view = puremvc.View.getInstance('ControllerTestKey5');
             view.notifyObservers(note);
             YUITest.Assert.areEqual(24, vo.result, "Expecting vo.result == 24");
             view.notifyObservers(note);
             YUITest.Assert.areEqual(48, vo.result, "Expecting vo.result == 48");
+            puremvc.Controller.removeController('ControllerTestKey5');
         };
         return ControllerTest;
     })();
@@ -522,6 +585,8 @@ var puremvc;
             if (typeof proxyName === "undefined") { proxyName = null; }
             if (typeof data === "undefined") { data = null; }
                 _super.call(this);
+            this.proxyName = null;
+            this.data = null;
             this.proxyName = (proxyName != null) ? proxyName : Proxy.NAME;
             if(data != null) {
                 this.setData(data);
@@ -540,7 +605,7 @@ var puremvc;
         };
         Proxy.prototype.onRemove = function () {
         };
-        Proxy.NAME = 'Proxy';
+        Proxy.NAME = "Proxy";
         return Proxy;
     })(puremvc.Notifier);
     puremvc.Proxy = Proxy;    
@@ -578,12 +643,13 @@ var puremvc;
             this.name = "PureMVC Model class tests";
         }
         ModelTest.prototype.testGetInstance = function () {
-            var model = puremvc.Model.getInstance();
+            var model = puremvc.Model.getInstance('ModelTestKey1');
             YUITest.Assert.isNotNull(model, "Expecting instance !== null");
             YUITest.Assert.isInstanceOf(puremvc.Model, model, "Expecting instance extends Model");
+            puremvc.Model.removeModel('ModelTestKey1');
         };
         ModelTest.prototype.testRegisterAndRetrieveProxy = function () {
-            var model = puremvc.Model.getInstance();
+            var model = puremvc.Model.getInstance('ModelTestKey2');
             model.registerProxy(new puremvc.Proxy('colors', [
                 'red', 
                 'green', 
@@ -597,9 +663,10 @@ var puremvc;
             YUITest.Assert.areEqual('red', data[0], "Expecting data[0] == 'red'");
             YUITest.Assert.areEqual('green', data[1], "Expecting data[1] == 'green'");
             YUITest.Assert.areEqual('blue', data[2], "Expecting data[2] == 'blue'");
+            puremvc.Model.removeModel('ModelTestKey2');
         };
         ModelTest.prototype.testRegisterAndRemoveProxy = function () {
-            var model = puremvc.Model.getInstance();
+            var model = puremvc.Model.getInstance('ModelTestKey3');
             var proxy = new puremvc.Proxy('sizes', [
                 '7', 
                 '13', 
@@ -610,9 +677,10 @@ var puremvc;
             YUITest.Assert.areEqual('sizes', removedProxy.getProxyName(), "Expecting removedProxy.getProxyName() == 'sizes'");
             proxy = model.retrieveProxy('sizes');
             YUITest.Assert.isNull(proxy, "Expecting proxy === null");
+            puremvc.Model.removeModel('ModelTestKey3');
         };
         ModelTest.prototype.testHasProxy = function () {
-            var model = puremvc.Model.getInstance();
+            var model = puremvc.Model.getInstance('ModelTestKey4');
             var proxy = new puremvc.Proxy('aces', [
                 'clubs', 
                 'spades', 
@@ -623,14 +691,16 @@ var puremvc;
             YUITest.Assert.isTrue(model.hasProxy('aces'), "Expecting model.hasProxy('aces') === true");
             model.removeProxy('aces');
             YUITest.Assert.isFalse(model.hasProxy('aces'), "Expecting model.hasProxy('aces') === false");
+            puremvc.Model.removeModel('ModelTestKey4');
         };
         ModelTest.prototype.testOnRegisterAndOnRemove = function () {
-            var model = puremvc.Model.getInstance();
+            var model = puremvc.Model.getInstance('ModelTestKey5');
             var proxy = new puremvc.ModelTestProxy();
             model.registerProxy(proxy);
             YUITest.Assert.areEqual(puremvc.ModelTestProxy.ON_REGISTER_CALLED, proxy.getData(), "Expecting proxy.getData() == ModelTestProxy.ON_REGISTER_CALLED");
             model.removeProxy(puremvc.ModelTestProxy.NAME);
             YUITest.Assert.areEqual(puremvc.ModelTestProxy.ON_REMOVE_CALLED, proxy.getData(), "Expecting proxy.getData() == ModelTestProxy.ON_REMOVE_CALLED");
+            puremvc.Model.removeModel('ModelTestKey5');
         };
         return ModelTest;
     })();
@@ -646,6 +716,8 @@ var puremvc;
             if (typeof mediatorName === "undefined") { mediatorName = null; }
             if (typeof viewComponent === "undefined") { viewComponent = null; }
                 _super.call(this);
+            this.mediatorName = null;
+            this.viewComponent = null;
             this.mediatorName = (mediatorName != null) ? mediatorName : Mediator.NAME;
             this.viewComponent = viewComponent;
         }
@@ -711,8 +783,8 @@ var puremvc;
                 puremvc.ViewTest.NOTE2
             ];
         };
-        ViewTestMediator2.prototype.handleNotification = function (note) {
-            this.getViewTest().lastNotification = note.getName();
+        ViewTestMediator2.prototype.handleNotification = function (notification) {
+            this.getViewTest().lastNotification = notification.getName();
         };
         ViewTestMediator2.NAME = 'ViewTestMediator2';
         return ViewTestMediator2;
@@ -736,8 +808,8 @@ var puremvc;
                 puremvc.ViewTest.NOTE3
             ];
         };
-        ViewTestMediator3.prototype.handleNotification = function (note) {
-            this.getViewTest().lastNotification = note.getName();
+        ViewTestMediator3.prototype.handleNotification = function (notification) {
+            this.getViewTest().lastNotification = notification.getName();
         };
         ViewTestMediator3.NAME = 'ViewTestMediator3';
         return ViewTestMediator3;
@@ -810,7 +882,7 @@ var puremvc;
             ];
         };
         ViewTestMediator6.prototype.handleNotification = function (notification) {
-            this.facade.removeMediator(this.getMediatorName());
+            this.facade().removeMediator(this.getMediatorName());
         };
         ViewTestMediator6.prototype.onRemove = function () {
             this.getViewTest().counter++;
@@ -853,58 +925,61 @@ var puremvc;
             this.viewTestVar = 0;
         }
         ViewTest.prototype.testGetInstance = function () {
-            var view = puremvc.View.getInstance();
+            var view = puremvc.View.getInstance('ViewTestKey1');
             YUITest.Assert.isNotNull(view, "Expecting instance !== null");
             YUITest.Assert.isInstanceOf(puremvc.View, view, "Expecting instance implements View");
+            puremvc.View.removeView('ViewTestKey1');
         };
         ViewTest.prototype.testRegisterAndNotifyObserver = function () {
-            var view = puremvc.View.getInstance();
+            var view = puremvc.View.getInstance('ViewTestKey2');
             var observer = new puremvc.Observer(this.viewTestMethod, this);
             view.registerObserver(puremvc.ViewTestNote.NAME, observer);
             var note = puremvc.ViewTestNote.create(10);
             view.notifyObservers(note);
             YUITest.Assert.areEqual(10, this.viewTestVar, "Expecting viewTestVar = 10");
+            puremvc.View.removeView('ViewTestKey2');
         };
-        ViewTest.prototype.viewTestMethod = function (note) {
-            this.viewTestVar = note.getBody();
+        ViewTest.prototype.viewTestMethod = function (notification) {
+            this.viewTestVar = notification.getBody();
         };
         ViewTest.prototype.testRegisterAndRetrieveMediator = function () {
-            var view = puremvc.View.getInstance();
+            var view = puremvc.View.getInstance('ViewTestKey3');
             var viewTestMediator = new puremvc.ViewTestMediator(this);
             view.registerMediator(viewTestMediator);
             var mediator = view.retrieveMediator(puremvc.ViewTestMediator.NAME);
             YUITest.Assert.isInstanceOf(puremvc.ViewTestMediator, mediator, "Expecting comp is ViewTestMediator");
-            this.cleanup();
+            puremvc.View.removeView('ViewTestKey3');
         };
         ViewTest.prototype.testHasMediator = function () {
-            var view = puremvc.View.getInstance();
+            var view = puremvc.View.getInstance('ViewTestKey4');
             var mediator = new puremvc.Mediator('hasMediatorTest', this);
             view.registerMediator(mediator);
             YUITest.Assert.isTrue(view.hasMediator('hasMediatorTest'), "Expecting view.hasMediator('hasMediatorTest') === true");
             view.removeMediator('hasMediatorTest');
             YUITest.Assert.isFalse(view.hasMediator('hasMediatorTest'), "Expecting view.hasMediator('hasMediatorTest') === false");
+            puremvc.View.removeView('ViewTestKey4');
         };
         ViewTest.prototype.testRegisterAndRemoveMediator = function () {
-            var view = puremvc.View.getInstance();
+            var view = puremvc.View.getInstance('ViewTestKey5');
             var mediator = new puremvc.Mediator('testing', this);
             view.registerMediator(mediator);
             var removedMediator = view.removeMediator('testing');
             YUITest.Assert.areEqual('testing', removedMediator.getMediatorName(), "Expecting removedMediator.getMediatorName() == 'testing'");
             var retrievedMediator = view.retrieveMediator('testing');
             YUITest.Assert.isNull(retrievedMediator, "Expecting view.retrieveMediator( 'testing' ) === null )");
-            this.cleanup();
+            puremvc.View.removeView('ViewTestKey5');
         };
         ViewTest.prototype.testOnRegisterAndOnRemove = function () {
-            var view = puremvc.View.getInstance();
+            var view = puremvc.View.getInstance('ViewTestKey6');
             var mediator = new puremvc.ViewTestMediator4(this);
             view.registerMediator(mediator);
             YUITest.Assert.isTrue(this.onRegisterCalled, "Expecting onRegisterCalled === true");
             view.removeMediator(puremvc.ViewTestMediator4.NAME);
             YUITest.Assert.isTrue(this.onRemoveCalled, "Expecting onRemoveCalled === true");
-            this.cleanup();
+            puremvc.View.removeView('ViewTestKey6');
         };
         ViewTest.prototype.testSuccessiveRegisterAndRemoveMediator = function () {
-            var view = puremvc.View.getInstance();
+            var view = puremvc.View.getInstance('ViewTestKey7');
             view.registerMediator(new puremvc.ViewTestMediator(this));
             YUITest.Assert.isInstanceOf(puremvc.ViewTestMediator, view.retrieveMediator(puremvc.ViewTestMediator.NAME), "Expecting view.retrieveMediator( ViewTestMediator.NAME ) isInstanceOf ViewTestMediator");
             view.removeMediator(puremvc.ViewTestMediator.NAME);
@@ -914,10 +989,10 @@ var puremvc;
             YUITest.Assert.isInstanceOf(puremvc.ViewTestMediator, view.retrieveMediator(puremvc.ViewTestMediator.NAME), "Expecting view.retrieveMediator( ViewTestMediator.NAME ) is ViewTestMediator");
             view.removeMediator(puremvc.ViewTestMediator.NAME);
             YUITest.Assert.isNull(view.retrieveMediator(puremvc.ViewTestMediator.NAME), "Expecting view.retrieveMediator( ViewTestMediator.NAME ) === null");
-            this.cleanup();
+            puremvc.View.removeView('ViewTestKey7');
         };
         ViewTest.prototype.testRemoveMediatorAndSubsequentNotify = function () {
-            var view = puremvc.View.getInstance();
+            var view = puremvc.View.getInstance('ViewTestKey8');
             view.registerMediator(new puremvc.ViewTestMediator2(this));
             view.notifyObservers(new puremvc.Notification(ViewTest.NOTE1));
             YUITest.Assert.areEqual(ViewTest.NOTE1, this.lastNotification, "Expecting lastNotification == NOTE1");
@@ -930,10 +1005,10 @@ var puremvc;
             YUITest.Assert.areNotEqual(ViewTest.NOTE1, this.lastNotification, "Expecting lastNotification != NOTE1");
             view.notifyObservers(new puremvc.Notification(ViewTest.NOTE2));
             YUITest.Assert.areNotEqual(ViewTest.NOTE2, this.lastNotification, "Expecting lastNotification != NOTE2");
-            this.cleanup();
+            puremvc.View.removeView('ViewTestKey8');
         };
         ViewTest.prototype.testRemoveOneOfTwoMediatorsAndSubsequentNotify = function () {
-            var view = puremvc.View.getInstance();
+            var view = puremvc.View.getInstance('ViewTestKey9');
             view.registerMediator(new puremvc.ViewTestMediator2(this));
             view.registerMediator(new puremvc.ViewTestMediator3(this));
             view.notifyObservers(new puremvc.Notification(ViewTest.NOTE1));
@@ -951,10 +1026,10 @@ var puremvc;
             YUITest.Assert.areNotEqual(ViewTest.NOTE2, this.lastNotification, "Expecting lastNotification != NOTE2");
             view.notifyObservers(new puremvc.Notification(ViewTest.NOTE3));
             YUITest.Assert.areEqual(ViewTest.NOTE3, this.lastNotification, "Expecting lastNotification == NOTE3");
-            this.cleanup();
+            puremvc.View.removeView('ViewTestKey9');
         };
         ViewTest.prototype.testMediatorReregistration = function () {
-            var view = puremvc.View.getInstance();
+            var view = puremvc.View.getInstance('ViewTestKey10');
             view.registerMediator(new puremvc.ViewTestMediator5(this));
             view.registerMediator(new puremvc.ViewTestMediator5(this));
             this.counter = 0;
@@ -965,9 +1040,10 @@ var puremvc;
             this.counter = 0;
             view.notifyObservers(new puremvc.Notification(ViewTest.NOTE5));
             YUITest.Assert.areEqual(0, this.counter, "Expecting counter == 0");
+            puremvc.View.removeView('ViewTestKey10');
         };
         ViewTest.prototype.testModifyObserverListDuringNotification = function () {
-            var view = puremvc.View.getInstance();
+            var view = puremvc.View.getInstance('ViewTestKey11');
             view.registerMediator(new puremvc.ViewTestMediator6(puremvc.ViewTestMediator6.NAME + "/1", this));
             view.registerMediator(new puremvc.ViewTestMediator6(puremvc.ViewTestMediator6.NAME + "/2", this));
             view.registerMediator(new puremvc.ViewTestMediator6(puremvc.ViewTestMediator6.NAME + "/3", this));
@@ -982,11 +1058,7 @@ var puremvc;
             this.counter = 0;
             view.notifyObservers(new puremvc.Notification(ViewTest.NOTE6));
             YUITest.Assert.areEqual(0, this.counter, "Expecting counter == 0");
-        };
-        ViewTest.prototype.cleanup = function () {
-            puremvc.View.getInstance().removeMediator(puremvc.ViewTestMediator.NAME);
-            puremvc.View.getInstance().removeMediator(puremvc.ViewTestMediator2.NAME);
-            puremvc.View.getInstance().removeMediator(puremvc.ViewTestMediator3.NAME);
+            puremvc.View.removeView('ViewTestKey11');
         };
         ViewTest.NOTE1 = "Notification1";
         ViewTest.NOTE2 = "Notification2";
@@ -1006,6 +1078,7 @@ var puremvc;
         __extends(MacroCommand, _super);
         function MacroCommand() {
                 _super.call(this);
+            this.subCommands = null;
             this.subCommands = new Array();
             this.initializeMacroCommand();
         }
@@ -1039,7 +1112,7 @@ var puremvc;
 
         }
         MacroCommandTestSub.prototype.hasFacade = function () {
-            return this.facade instanceof puremvc.Facade;
+            return this.facade() instanceof puremvc.Facade;
         };
         return MacroCommandTestSub;
     })(puremvc.MacroCommand);
@@ -1088,8 +1161,8 @@ var puremvc;
             _super.apply(this, arguments);
 
         }
-        MacroCommandTestSub2Command.prototype.execute = function (note) {
-            var vo = note.getBody();
+        MacroCommandTestSub2Command.prototype.execute = function (notification) {
+            var vo = notification.getBody();
             vo.result2 = vo.input * vo.input;
         };
         return MacroCommandTestSub2Command;
@@ -1126,6 +1199,7 @@ var puremvc;
         }
         MacroCommandTest.prototype.testConstructor = function () {
             var macroCommandTestSub = new puremvc.MacroCommandTestSub();
+            macroCommandTestSub.initializeNotifier("macroCommandTestKey1");
             YUITest.Assert.isTrue(macroCommandTestSub.hasFacade(), "Expecting macroCommandTestSub.hasFacade() === true");
         };
         MacroCommandTest.prototype.testMacroCommandExecute = function () {
@@ -1164,8 +1238,8 @@ var puremvc;
             _super.apply(this, arguments);
 
         }
-        SimpleCommandTestCommand.prototype.execute = function (note) {
-            var vo = note.getBody();
+        SimpleCommandTestCommand.prototype.execute = function (notification) {
+            var vo = notification.getBody();
             vo.result = 2 * vo.input;
         };
         return SimpleCommandTestCommand;
@@ -1183,7 +1257,7 @@ var puremvc;
 
         }
         SimpleCommandTestSub.prototype.hasFacade = function () {
-            return this.facade instanceof puremvc.Facade;
+            return this.facade() instanceof puremvc.Facade;
         };
         return SimpleCommandTestSub;
     })(puremvc.SimpleCommand);
@@ -1201,6 +1275,7 @@ var puremvc;
         }
         SimpleCommandTest.prototype.testConstructor = function () {
             var simpleCommandTestSub = new puremvc.SimpleCommandTestSub();
+            simpleCommandTestSub.initializeNotifier("SimpleCommandTestKey1");
             YUITest.Assert.isTrue(simpleCommandTestSub.hasFacade(), "Expecting simpleCommandTestSub.hasFacade() === true");
         };
         SimpleCommandTest.prototype.testSimpleCommandExecute = function () {
@@ -1238,8 +1313,8 @@ var puremvc;
             _super.apply(this, arguments);
 
         }
-        FacadeTestCommand.prototype.execute = function (note) {
-            var vo = note.getBody();
+        FacadeTestCommand.prototype.execute = function (notification) {
+            var vo = notification.getBody();
             vo.result = 2 * vo.input;
         };
         return FacadeTestCommand;
@@ -1257,19 +1332,19 @@ var puremvc;
             this.name = "PureMVC Facade class tests";
         }
         FacadeTest.prototype.testGetInstance = function () {
-            var facade = puremvc.Facade.getInstance();
+            var facade = puremvc.Facade.getInstance('FacadeTestKey1');
             YUITest.Assert.isNotUndefined(facade, "Expecting facade not to be undefined");
             YUITest.Assert.isInstanceOf(puremvc.Facade, facade, "Expecting instance is instance of Facade");
         };
         FacadeTest.prototype.testRegisterCommandAndSendNotification = function () {
-            var facade = puremvc.Facade.getInstance();
+            var facade = puremvc.Facade.getInstance('FacadeTestKey2');
             facade.registerCommand('FacadeTestNote', puremvc.FacadeTestCommand);
             var vo = new puremvc.FacadeTestVO(32);
             facade.sendNotification('FacadeTestNote', vo);
             YUITest.Assert.areEqual(64, vo.result, "Expecting vo.result == 64");
         };
         FacadeTest.prototype.testRegisterAndRemoveCommandAndSendNotification = function () {
-            var facade = puremvc.Facade.getInstance();
+            var facade = puremvc.Facade.getInstance('FacadeTestKey3');
             facade.registerCommand('FacadeTestNote', puremvc.FacadeTestCommand);
             facade.removeCommand('FacadeTestNote');
             var vo = new puremvc.FacadeTestVO(32);
@@ -1277,7 +1352,7 @@ var puremvc;
             YUITest.Assert.areNotEqual(64, vo.result, "Expecting vo.result != 64");
         };
         FacadeTest.prototype.testRegisterAndRetrieveProxy = function () {
-            var facade = puremvc.Facade.getInstance();
+            var facade = puremvc.Facade.getInstance('FacadeTestKey4');
             facade.registerProxy(new puremvc.Proxy('colors', [
                 'red', 
                 'green', 
@@ -1294,7 +1369,7 @@ var puremvc;
             YUITest.Assert.areEqual('blue', data[2], "Expecting data[2] == 'blue'");
         };
         FacadeTest.prototype.testRegisterAndRemoveProxy = function () {
-            var facade = puremvc.Facade.getInstance();
+            var facade = puremvc.Facade.getInstance('FacadeTestKey5');
             var proxy = new puremvc.Proxy('sizes', [
                 '7', 
                 '13', 
@@ -1307,7 +1382,7 @@ var puremvc;
             YUITest.Assert.isNull(proxy, "Expecting proxy === null");
         };
         FacadeTest.prototype.testRegisterRetrieveAndRemoveMediator = function () {
-            var facade = puremvc.Facade.getInstance();
+            var facade = puremvc.Facade.getInstance('FacadeTestKey6');
             facade.registerMediator(new puremvc.Mediator(puremvc.Mediator.NAME, new Object()));
             YUITest.Assert.isNotNull(facade.retrieveMediator(puremvc.Mediator.NAME), "Expecting facade.retrieveMediator( Mediator.NAME ) !== null");
             var removedMediator = facade.removeMediator(puremvc.Mediator.NAME);
@@ -1315,7 +1390,7 @@ var puremvc;
             YUITest.Assert.isNull(facade.retrieveMediator(puremvc.Mediator.NAME), "Expecting facade.retrieveMediator( Mediator.NAME ) === null )");
         };
         FacadeTest.prototype.testHasProxy = function () {
-            var facade = puremvc.Facade.getInstance();
+            var facade = puremvc.Facade.getInstance('FacadeTestKey7');
             facade.registerProxy(new puremvc.Proxy('hasProxyTest', [
                 1, 
                 2, 
@@ -1324,18 +1399,25 @@ var puremvc;
             YUITest.Assert.isTrue(facade.hasProxy('hasProxyTest'), "Expecting facade.hasProxy('hasProxyTest') === true");
         };
         FacadeTest.prototype.testHasMediator = function () {
-            var facade = puremvc.Facade.getInstance();
+            var facade = puremvc.Facade.getInstance('FacadeTestKey8');
             facade.registerMediator(new puremvc.Mediator('facadeHasMediatorTest', new Object()));
             YUITest.Assert.isTrue(facade.hasMediator('facadeHasMediatorTest'), "Expecting facade.hasMediator('facadeHasMediatorTest') === true");
             facade.removeMediator('facadeHasMediatorTest');
             YUITest.Assert.isFalse(facade.hasMediator('facadeHasMediatorTest'), "Expecting facade.hasMediator('facadeHasMediatorTest') === false");
         };
         FacadeTest.prototype.testHasCommand = function () {
-            var facade = puremvc.Facade.getInstance();
+            var facade = puremvc.Facade.getInstance('FacadeTestKey10');
             facade.registerCommand('facadeHasCommandTest', puremvc.FacadeTestCommand);
             YUITest.Assert.isTrue(facade.hasCommand('facadeHasCommandTest'), "Expecting facade.hasCommand('facadeHasCommandTest') === true");
             facade.removeCommand('facadeHasCommandTest');
             YUITest.Assert.isFalse(facade.hasCommand('facadeHasCommandTest'), "Expecting facade.hasCommand('facadeHasCommandTest') === false");
+        };
+        FacadeTest.prototype.testHasCoreAndRemoveCore = function () {
+            YUITest.Assert.isFalse(puremvc.Facade.hasCore('FacadeTestKey11'), "Expecting Facade.hasCore('FacadeTestKey11') === false");
+            var facade = puremvc.Facade.getInstance('FacadeTestKey11');
+            YUITest.Assert.isTrue(puremvc.Facade.hasCore('FacadeTestKey11'), "Expecting Facade.hasCore('FacadeTestKey11') === true");
+            puremvc.Facade.removeCore('FacadeTestKey11');
+            YUITest.Assert.isFalse(puremvc.Facade.hasCore('FacadeTestKey11'), "Expecting Facade.hasCore('FacadeTestKey11') === false");
         };
         return FacadeTest;
     })();
@@ -1352,7 +1434,7 @@ var puremvc;
 
         }
         MediatorTestSub.prototype.hasFacade = function () {
-            return this.facade instanceof puremvc.Facade;
+            return this.facade() instanceof puremvc.Facade;
         };
         return MediatorTestSub;
     })(puremvc.Mediator);
@@ -1370,6 +1452,7 @@ var puremvc;
         }
         MediatorTest.prototype.testConstructor = function () {
             var mediatorTestSub = new puremvc.MediatorTestSub();
+            mediatorTestSub.initializeNotifier('MediatorTestKey1');
             YUITest.Assert.isTrue(mediatorTestSub.hasFacade(), "Expecting mediatorTestSub.hasFacade() === true");
         };
         MediatorTest.prototype.testNameAccessor = function () {
@@ -1417,7 +1500,7 @@ var puremvc;
                 5
             ], 'TestType');
             var ts = "Notification Name: TestNote\nBody:1,3,5\nType:TestType";
-            YUITest.Assert.areEqual(ts, note.toString(), "Expecting note.testToString():void == '" + ts + "'");
+            YUITest.Assert.areEqual(ts, note.toString(), "Expecting note.testToString() == '" + ts + "'");
         };
         return NotificationTest;
     })();
@@ -1448,8 +1531,8 @@ var puremvc;
             _super.apply(this, arguments);
 
         }
-        NotifierTestCommand.prototype.execute = function (note) {
-            var vo = note.getBody();
+        NotifierTestCommand.prototype.execute = function (notification) {
+            var vo = notification.getBody();
             vo.result = 2 * vo.input;
         };
         return NotifierTestCommand;
@@ -1467,7 +1550,7 @@ var puremvc;
 
         }
         NotifierTestSub.prototype.hasFacade = function () {
-            return this.facade instanceof puremvc.Facade;
+            return this.facade() instanceof puremvc.Facade;
         };
         return NotifierTestSub;
     })(puremvc.Notifier);
@@ -1485,10 +1568,11 @@ var puremvc;
         }
         NotifierTest.prototype.testConstructor = function () {
             var notifierTestSub = new puremvc.NotifierTestSub();
+            notifierTestSub.initializeNotifier('NotifierTestKey1');
             YUITest.Assert.isTrue(notifierTestSub.hasFacade(), "Expecting notifierTestSub.hasFacade() === true");
         };
         NotifierTest.prototype.testSendNotification = function () {
-            var facade = puremvc.Facade.getInstance();
+            var facade = puremvc.Facade.getInstance('NotifierTestKey2');
             facade.registerCommand('NotifierTestNote', puremvc.NotifierTestCommand);
             var vo = new puremvc.NotifierTestVO(32);
             facade.sendNotification('NotifierTestNote', vo);
@@ -1525,12 +1609,13 @@ var puremvc;
         };
         ObserverTest.prototype.testCompareNotifyContext = function () {
             var observer = new puremvc.Observer(this.observerTestMethod, this);
-            var negTestObj = new Object();
+            var negTestObj = {
+            };
             YUITest.Assert.isFalse(observer.compareNotifyContext(negTestObj), "Expecting observer.compareNotifyContext(negTestObj) === false");
             YUITest.Assert.isTrue(observer.compareNotifyContext(this), "Expecting observer.compareNotifyContext(this) === true");
         };
-        ObserverTest.prototype.observerTestMethod = function (note) {
-            this.observerTestVar = note.getBody();
+        ObserverTest.prototype.observerTestMethod = function (notification) {
+            this.observerTestVar = notification.getBody();
         };
         return ObserverTest;
     })();
@@ -1548,7 +1633,7 @@ var puremvc;
 
         }
         ProxyTestSub.prototype.hasFacade = function () {
-            return this.facade instanceof puremvc.Facade;
+            return this.facade() instanceof puremvc.Facade;
         };
         return ProxyTestSub;
     })(puremvc.Proxy);
@@ -1566,6 +1651,7 @@ var puremvc;
         }
         ProxyTest.prototype.testConstructorInitialization = function () {
             var proxyTestSub = new puremvc.ProxyTestSub();
+            proxyTestSub.initializeNotifier("key");
             YUITest.Assert.isTrue(proxyTestSub.hasFacade(), "Expecting proxyTestSub.hasFacade() === true");
         };
         ProxyTest.prototype.testConstructor = function () {

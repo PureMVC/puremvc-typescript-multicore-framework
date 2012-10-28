@@ -80,6 +80,8 @@ module puremvc
 				view,
 				"Expecting instance implements View"
 			);
+
+			View.removeView('ViewTestKey1');
 		}
 
 		/**
@@ -129,18 +131,20 @@ module puremvc
 				this.viewTestVar,
 				"Expecting viewTestVar = 10"
 			);
+
+			View.removeView('ViewTestKey2');
 		}
 
 		/**
 		 * A utility method to test the notification of Observers by the view.
 		 *
-		 * @param note
+		 * @param notification
 		 *		The note to test.
 		 */
-		viewTestMethod( note:Notification )
+		viewTestMethod( notification:Notification )
 		{
 			// set the local viewTestVar to the number on the event payload
-			this.viewTestVar = note.getBody();
+			this.viewTestVar = notification.getBody();
 		}
 
 		/**
@@ -167,7 +171,7 @@ module puremvc
 				"Expecting comp is ViewTestMediator"
 			);
 
-			this.cleanup();
+			View.removeView('ViewTestKey3');
 		}
 
 		/**
@@ -199,6 +203,8 @@ module puremvc
 				view.hasMediator('hasMediatorTest'),
 				"Expecting view.hasMediator('hasMediatorTest') === false"
 			);
+
+			View.removeView('ViewTestKey4');
 		}
 
 		/**
@@ -233,7 +239,7 @@ module puremvc
 				"Expecting view.retrieveMediator( 'testing' ) === null )"
 			);
 
-			this.cleanup();
+			View.removeView('ViewTestKey5');
 		}
 
 		/**
@@ -265,7 +271,7 @@ module puremvc
 				"Expecting onRemoveCalled === true"
 			);
 
-			this.cleanup();
+			View.removeView('ViewTestKey6');
 		}
 
 		/**
@@ -325,7 +331,7 @@ module puremvc
 				"Expecting view.retrieveMediator( ViewTestMediator.NAME ) === null"
 			);
 
-			this.cleanup();
+			View.removeView('ViewTestKey7');
 		}
 
 		/**
@@ -389,7 +395,7 @@ module puremvc
 				"Expecting lastNotification != NOTE2"
 			);
 
-			this.cleanup();
+			View.removeView('ViewTestKey8');
 		}
 
 		/**
@@ -471,7 +477,7 @@ module puremvc
 				"Expecting lastNotification == NOTE3"
 			);
 
-			this.cleanup();
+			View.removeView('ViewTestKey9');
 		}
 
 		/**
@@ -525,6 +531,8 @@ module puremvc
 				this.counter,
 				"Expecting counter == 0"
 			);
+
+			View.removeView('ViewTestKey10');
 		}
 
 		/**
@@ -582,17 +590,7 @@ module puremvc
 				"Expecting counter == 0"
 			);
 
-		}
-
-		/**
-		 * @private
-		 */
-		cleanup()
-		{
-
-			View.getInstance().removeMediator( ViewTestMediator.NAME );
-			View.getInstance().removeMediator( ViewTestMediator2.NAME );
-			View.getInstance().removeMediator( ViewTestMediator3.NAME );
+			View.removeView('ViewTestKey11');
 		}
 
 		/**
