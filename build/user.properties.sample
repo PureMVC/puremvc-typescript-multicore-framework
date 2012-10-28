@@ -1,0 +1,8 @@
+; SAMPLE FILE
+;
+; 1) You have to rename this file to «user.properties»
+; 2) Set the TypeScript compiler full system path here instead of «MY_TYPESCRIPT_COMPILER_PATH».
+;
+; e.g. on windows: typescript.compiler.path = C:/Documents and Settings/{USER NAME HERE}/Application Data/npm/tsc.cmd
+
+typescript.compiler.path = MY_TYPESCRIPT_COMPILER_PATH

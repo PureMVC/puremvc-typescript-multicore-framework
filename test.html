@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+
+        <meta charset="utf-8" />
+
+		<title>PureMVC TypeScript Standard Framework Unit Tests</title>
+
+		<!-- Needed by YUI Test Unit Test Framework Library -->
+		<link type="text/css" rel="stylesheet" href="test/lib/fonts-min.css" />
+		<script type="text/javascript" src="test/lib/yui-min.js"></script>
+		<script type="text/javascript" src="test/lib/yuitest_1.0.0b1.js"></script>
+
+		<!-- Custom Test Runner -->
+		<link type="text/css" rel="stylesheet" href="test/lib/testrunner.css" />
+		<script type="text/javascript" src="test/lib/testrunner.js"></script>
+
+		<!-- PureMVC TypeScript Standard Framework minified  library -->
+		<script type="text/javascript" src="bin/puremvc-typescript-standard-1.0-min.js"></script>
+
+		<!-- PureMVC TypeScript Standard Framework Unit Test Cases -->
+		<script type="text/javascript">
+			//Since we tell TypeScript compiler to use a module for YUI Test but run tests from outside TypeScript.
+			var __YUITest__ = YUITest;
+		</script>
+		<script type="text/javascript" src="test/bin/puremvc-typescript-standard-1.0-unit-tests.js"></script>
+
+	</head>
+
+	<body class="yui3-skin-sam  yui-skin-sam"> 
+
+		<h1>PureMVC TypeScript Standard Framework Unit Tests</h1>
+
+		<div id="testLogger" class="yui3-skin-sam"></div>
+
+		<script type="text/javascript">
+		runTests
+		(
+			"PureMVC TypeScript Standard Framework Unit Tests",
+			[
+				new YUITest.TestCase( new puremvc.ControllerTest ),
+				new YUITest.TestCase( new puremvc.ModelTest ),
+				new YUITest.TestCase( new puremvc.ViewTest ),
+				new YUITest.TestCase( new puremvc.MacroCommandTest ),
+				new YUITest.TestCase( new puremvc.SimpleCommandTest ),
+				new YUITest.TestCase( new puremvc.FacadeTest ),
+				new YUITest.TestCase( new puremvc.MediatorTest ),
+				new YUITest.TestCase( new puremvc.NotificationTest ),
+				new YUITest.TestCase( new puremvc.NotifierTest ),
+				new YUITest.TestCase( new puremvc.ObserverTest ),
+				new YUITest.TestCase( new puremvc.ProxyTest )
+			]
+		);
+		</script> 
+
+	</body>
+
+</html>
