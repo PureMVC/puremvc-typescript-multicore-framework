@@ -1,9 +1,9 @@
-## [PureMVC](http://puremvc.github.com/) Standard Framework for [TypeScript](https://github.com/PureMVC/puremvc-typescript-standard-framework/wiki)
+## [PureMVC](http://puremvc.github.com/) Multicore Framework for [TypeScript](https://github.com/PureMVC/puremvc-typescript-multicore-framework/wiki)
 
-These are sources, unit tests and minified library for PureMVC Standard Framework for TypeScript.
+These are sources, unit tests and minified library for PureMVC Multicore Framework for TypeScript.
 
 ## Status
-Development - [Version 1.0](https://github.com/PureMVC/puremvc-typescript-standard/blob/master/VERSION)
+Development - [Version 1.0](https://github.com/PureMVC/puremvc-typescript-multicore/blob/master/VERSION)
 
 Best to consider it development while the TypeScript language specification is not finalized.
 
@@ -17,9 +17,7 @@ Best to consider it development while the TypeScript language specification is n
 
 As this port depends on the TypeScript language you may want to start by reading TypeScript "getting started":http://www.typescriptlang.org/.
 
-Unit Test can be run live in the browser using included HTML files :
-* One PureMVC Framework plain JavaScript (compiled from TypeScript) file per test [test-plain.html](https://github.com/PureMVC/puremvc-typescript-standard/blob/master/test-plain.html)
-* Minified PureMVC Framework JavaScript library (compiled from TypeScript) [test-minified.html](https://github.com/PureMVC/puremvc-typescript-standard/blob/master/test-minified.html)
+Unit Test can be run live in the browser using included HTML file [test.html](https://github.com/PureMVC/puremvc-typescript-multicore/blob/master/test-minified.html)
 
 ## Build
 
@@ -27,13 +25,13 @@ To build the project you'll need to download and install :
 * [TypeScript compiler](http://www.typescriptlang.org/#Download)
 * [Ant](http://ant.apache.org/)
 
-1. Rename the file [user.properties.sample](https://github.com/PureMVC/puremvc-typescript-standard/blob/master/user.properties.sample) to **user.properties**
+1. Rename the file [user.properties.sample](https://github.com/PureMVC/puremvc-typescript-multicore/blob/master/user.properties.sample) to **user.properties**
 2. Edit the file and replace **MY_TYPESCRIPT_COMPILER_PATH** bt the real TypeScript compiler full
 system path. e.g. on windows: `<code>`typescript.compiler.path = C:/Documents and Settings/{USER NAME HERE}/Application Data/npm/tsc.cmd
-3. Use your favorite editor to run Ant or simply type `<code>`ant puremvc-typescript-standard/build
+3. Use your favorite editor to run Ant or simply type `<code>`ant puremvc-typescript-multicore/build
 
 ## License
-* PureMVC TypeScript Standard Framework - Copyright © 2012 Frederic Saunier
+* PureMVC TypeScript Multicore Framework - Copyright © 2012 Frederic Saunier
 * PureMVC - Copyright © 2006-2012 Futurescale, Inc.
 * All rights reserved.
 

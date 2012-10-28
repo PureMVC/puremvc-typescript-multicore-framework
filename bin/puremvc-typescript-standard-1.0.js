@@ -1,39 +1,6 @@
 var puremvc;
 (function (puremvc) {
     "use strict";
-    var Observer = (function () {
-        function Observer(notifyMethod, notifyContext) {
-            this.setNotifyMethod(notifyMethod);
-            this.setNotifyContext(notifyContext);
-        }
-        Observer.prototype.getNotifyMethod = function () {
-            return this.notify;
-        };
-        Observer.prototype.setNotifyMethod = function (notifyMethod) {
-            this.notify = notifyMethod;
-        };
-        Observer.prototype.getNotifyContext = function () {
-            return this.context;
-        };
-        Observer.prototype.setNotifyContext = function (notifyContext) {
-            this.context = notifyContext;
-        };
-        Observer.prototype.notifyObserver = function (notification) {
-            this.getNotifyMethod().apply(this.getNotifyContext(), [
-                notification
-            ]);
-        };
-        Observer.prototype.compareNotifyContext = function (object) {
-            return object === this.context;
-        };
-        return Observer;
-    })();
-    puremvc.Observer = Observer;    
-})(puremvc || (puremvc = {}));
-
-var puremvc;
-(function (puremvc) {
-    "use strict";
     var Controller = (function () {
         function Controller() {
             if(Controller.instance) {
@@ -230,41 +197,55 @@ var puremvc;
     puremvc.View = View;    
 })(puremvc || (puremvc = {}));
 
+var __extends = this.__extends || function (d, b) {
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+}
 var puremvc;
 (function (puremvc) {
     "use strict";
-    var Notification = (function () {
-        function Notification(name, body, type) {
-            if (typeof body === "undefined") { body = null; }
-            if (typeof type === "undefined") { type = null; }
-            this.name = name;
-            this.body = body;
-            this.type = type;
+    var MacroCommand = (function (_super) {
+        __extends(MacroCommand, _super);
+        function MacroCommand() {
+                _super.call(this);
+            this.subCommands = new Array();
+            this.initializeMacroCommand();
         }
-        Notification.prototype.getName = function () {
-            return this.name;
+        MacroCommand.prototype.initializeMacroCommand = function () {
         };
-        Notification.prototype.setBody = function (body) {
-            this.body = body;
+        MacroCommand.prototype.addSubCommand = function (commandClassRef) {
+            this.subCommands.push(commandClassRef);
         };
-        Notification.prototype.getBody = function () {
-            return this.body;
+        MacroCommand.prototype.execute = function (notification) {
+            var subCommands = this.subCommands.slice(0);
+            var len = this.subCommands.length;
+            for(var i = 0; i < len; i++) {
+                var commandClassRef = subCommands[i];
+                var commandInstance = new commandClassRef();
+                commandInstance.execute(notification);
+            }
+            this.subCommands.splice(0);
         };
-        Notification.prototype.setType = function (type) {
-            this.type = type;
+        return MacroCommand;
+    })(puremvc.Notifier);
+    puremvc.MacroCommand = MacroCommand;    
+})(puremvc || (puremvc = {}));
+
+var puremvc;
+(function (puremvc) {
+    "use strict";
+    var SimpleCommand = (function (_super) {
+        __extends(SimpleCommand, _super);
+        function SimpleCommand() {
+            _super.apply(this, arguments);
+
+        }
+        SimpleCommand.prototype.execute = function (notification) {
         };
-        Notification.prototype.getType = function () {
-            return this.type;
-        };
-        Notification.prototype.toString = function () {
-            var msg = "Notification Name: " + this.getName();
-            msg += "\nBody:" + ((this.getBody() == null) ? "null" : this.getBody().toString());
-            msg += "\nType:" + ((this.getType() == null) ? "null" : this.getType());
-            return msg;
-        };
-        return Notification;
-    })();
-    puremvc.Notification = Notification;    
+        return SimpleCommand;
+    })(puremvc.Notifier);
+    puremvc.SimpleCommand = SimpleCommand;    
 })(puremvc || (puremvc = {}));
 
 var puremvc;
@@ -367,74 +348,6 @@ var puremvc;
 var puremvc;
 (function (puremvc) {
     "use strict";
-    var Notifier = (function () {
-        function Notifier() {
-            this.facade = puremvc.Facade.getInstance();
-        }
-        Notifier.prototype.sendNotification = function (name, body, type) {
-            if (typeof body === "undefined") { body = null; }
-            if (typeof type === "undefined") { type = null; }
-            this.facade.sendNotification(name, body, type);
-        };
-        return Notifier;
-    })();
-    puremvc.Notifier = Notifier;    
-})(puremvc || (puremvc = {}));
-
-var __extends = this.__extends || function (d, b) {
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-}
-var puremvc;
-(function (puremvc) {
-    "use strict";
-    var MacroCommand = (function (_super) {
-        __extends(MacroCommand, _super);
-        function MacroCommand() {
-                _super.call(this);
-            this.subCommands = new Array();
-            this.initializeMacroCommand();
-        }
-        MacroCommand.prototype.initializeMacroCommand = function () {
-        };
-        MacroCommand.prototype.addSubCommand = function (commandClassRef) {
-            this.subCommands.push(commandClassRef);
-        };
-        MacroCommand.prototype.execute = function (notification) {
-            var subCommands = this.subCommands.slice(0);
-            var len = this.subCommands.length;
-            for(var i = 0; i < len; i++) {
-                var commandClassRef = subCommands[i];
-                var commandInstance = new commandClassRef();
-                commandInstance.execute(notification);
-            }
-            this.subCommands.splice(0);
-        };
-        return MacroCommand;
-    })(puremvc.Notifier);
-    puremvc.MacroCommand = MacroCommand;    
-})(puremvc || (puremvc = {}));
-
-var puremvc;
-(function (puremvc) {
-    "use strict";
-    var SimpleCommand = (function (_super) {
-        __extends(SimpleCommand, _super);
-        function SimpleCommand() {
-            _super.apply(this, arguments);
-
-        }
-        SimpleCommand.prototype.execute = function (notification) {
-        };
-        return SimpleCommand;
-    })(puremvc.Notifier);
-    puremvc.SimpleCommand = SimpleCommand;    
-})(puremvc || (puremvc = {}));
-
-var puremvc;
-(function (puremvc) {
-    "use strict";
     var Mediator = (function (_super) {
         __extends(Mediator, _super);
         function Mediator(mediatorName, viewComponent) {
@@ -466,6 +379,93 @@ var puremvc;
         return Mediator;
     })(puremvc.Notifier);
     puremvc.Mediator = Mediator;    
+})(puremvc || (puremvc = {}));
+
+var puremvc;
+(function (puremvc) {
+    "use strict";
+    var Notification = (function () {
+        function Notification(name, body, type) {
+            if (typeof body === "undefined") { body = null; }
+            if (typeof type === "undefined") { type = null; }
+            this.name = name;
+            this.body = body;
+            this.type = type;
+        }
+        Notification.prototype.getName = function () {
+            return this.name;
+        };
+        Notification.prototype.setBody = function (body) {
+            this.body = body;
+        };
+        Notification.prototype.getBody = function () {
+            return this.body;
+        };
+        Notification.prototype.setType = function (type) {
+            this.type = type;
+        };
+        Notification.prototype.getType = function () {
+            return this.type;
+        };
+        Notification.prototype.toString = function () {
+            var msg = "Notification Name: " + this.getName();
+            msg += "\nBody:" + ((this.getBody() == null) ? "null" : this.getBody().toString());
+            msg += "\nType:" + ((this.getType() == null) ? "null" : this.getType());
+            return msg;
+        };
+        return Notification;
+    })();
+    puremvc.Notification = Notification;    
+})(puremvc || (puremvc = {}));
+
+var puremvc;
+(function (puremvc) {
+    "use strict";
+    var Notifier = (function () {
+        function Notifier() {
+            this.facade = puremvc.Facade.getInstance();
+        }
+        Notifier.prototype.sendNotification = function (name, body, type) {
+            if (typeof body === "undefined") { body = null; }
+            if (typeof type === "undefined") { type = null; }
+            this.facade.sendNotification(name, body, type);
+        };
+        return Notifier;
+    })();
+    puremvc.Notifier = Notifier;    
+})(puremvc || (puremvc = {}));
+
+var puremvc;
+(function (puremvc) {
+    "use strict";
+    var Observer = (function () {
+        function Observer(notifyMethod, notifyContext) {
+            this.setNotifyMethod(notifyMethod);
+            this.setNotifyContext(notifyContext);
+        }
+        Observer.prototype.getNotifyMethod = function () {
+            return this.notify;
+        };
+        Observer.prototype.setNotifyMethod = function (notifyMethod) {
+            this.notify = notifyMethod;
+        };
+        Observer.prototype.getNotifyContext = function () {
+            return this.context;
+        };
+        Observer.prototype.setNotifyContext = function (notifyContext) {
+            this.context = notifyContext;
+        };
+        Observer.prototype.notifyObserver = function (notification) {
+            this.getNotifyMethod().apply(this.getNotifyContext(), [
+                notification
+            ]);
+        };
+        Observer.prototype.compareNotifyContext = function (object) {
+            return object === this.context;
+        };
+        return Observer;
+    })();
+    puremvc.Observer = Observer;    
 })(puremvc || (puremvc = {}));
 
 var puremvc;
