@@ -192,13 +192,14 @@ module puremvc
 			if( this.mediatorMap[ name ] )
 				return;
 
+			mediator.initializeNotifier( this.multitonKey );
 			//Register the Mediator for retrieval by name.
 			this.mediatorMap[ name ] = mediator;
 			
 			//Get Notification interests, if any.
 			var interests:string[] = mediator.listNotificationInterests();
-			var len/*Number*/ = interests.length;
-			if( len )
+			var len:Number = interests.length;
+			if( len>0 )
 			{
 				//Create Observer referencing this mediator's handlNotification method.
 				var observer:IObserver = new Observer( mediator.handleNotification, mediator );
@@ -245,22 +246,21 @@ module puremvc
 			if( !mediator )
 				return null;
 
-				//Get Notification interests, if any.
-				var interests:string[] = mediator.listNotificationInterests();
-				
-				//For every notification this mediator is interested in...
-				var i:number = interests.length;
-				while( i-- ) 
-					this.removeObserver( interests[i], mediator );
-				
-				// remove the mediator from the map		
-				delete this.mediatorMap[ mediatorName ];
-	
-				//Alert the mediator that it has been removed
-				mediator.onRemove();
+			//Get Notification interests, if any.
+			var interests:string[] = mediator.listNotificationInterests();
 
-				return mediator;
+			//For every notification this mediator is interested in...
+			var i:number = interests.length;
+			while( i-- )
+				this.removeObserver( interests[i], mediator );
 
+			// remove the mediator from the map
+			delete this.mediatorMap[ mediatorName ];
+
+			//Alert the mediator that it has been removed
+			mediator.onRemove();
+
+			return mediator;
 		}
 		
 		/**
