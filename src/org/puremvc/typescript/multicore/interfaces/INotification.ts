@@ -23,9 +23,6 @@ module puremvc
 	 * <code>Event</code>, while PureMVC <code>INotification</code>s follow a 'Publish/Subscribe'
 	 * pattern. PureMVC classes need not be related to each other in a parent/child relationship in
 	 * order to communicate with one another using <code>INotification</code>s.
-	 *
-	 * @see puremvc.IView IView
-	 * @see puremvc.IObserver IObserver
 	 */
 	export interface INotification
 	{

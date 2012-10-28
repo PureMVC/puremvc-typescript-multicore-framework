@@ -2,7 +2,7 @@
 
 ///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/IModel.ts'/>
 
-///<reference path='../../../../../../src/org/puremvc/typescript/multicore/core/Model.ts'/>
+///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/core/Model.ts'/>
 ///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notification.ts'/>
 ///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/proxy/Proxy.ts'/>
 

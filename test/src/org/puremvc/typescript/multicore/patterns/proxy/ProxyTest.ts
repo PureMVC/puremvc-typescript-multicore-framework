@@ -1,10 +1,10 @@
 ///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
 
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/IProxy.ts'/>
+///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
+///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/IProxy.ts'/>
 
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notification.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/proxy/Proxy.ts'/>
+///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notification.ts'/>
+///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/proxy/Proxy.ts'/>
 
 ///<reference path='ProxyTestSub.ts'/>
 

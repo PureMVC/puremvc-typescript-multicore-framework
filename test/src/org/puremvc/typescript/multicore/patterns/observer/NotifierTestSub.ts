@@ -1,9 +1,9 @@
 ///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
 
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotifier.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/facade/Facade.ts'/>
+///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotifier.ts'/>
+///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/facade/Facade.ts'/>
 
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notifier.ts'/>
+///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notifier.ts'/>
 
 module puremvc
 {

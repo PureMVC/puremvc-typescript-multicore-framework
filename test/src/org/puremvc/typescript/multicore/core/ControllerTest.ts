@@ -2,8 +2,8 @@
 
 ///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
 
-///<reference path='../../../../../../src/org/puremvc/typescript/multicore/core/Controller.ts'/>
-///<reference path='../../../../../../src/org/puremvc/typescript/multicore/core/View.ts'/>
+///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/core/Controller.ts'/>
+///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/core/View.ts'/>
 ///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notification.ts'/>
 ///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/command/SimpleCommand.ts'/>
 

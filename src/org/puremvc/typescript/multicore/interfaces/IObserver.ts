@@ -1,4 +1,4 @@
-///<reference path='../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
 
 module puremvc
 {
@@ -25,9 +25,6 @@ module puremvc
 	 * Observers can receive <code>Notification</code>s by having their <code>notifyObserver</code>
 	 * method invoked, passing in an object implementing the <code>INotification</code> interface,
 	 * such as a subclass of <code>Notification</code>.
-	 * 
-	 * @see puremvc.IView IView
-	 * @see puremvc.INotification INotification
 	 */
 	export interface IObserver
 	{

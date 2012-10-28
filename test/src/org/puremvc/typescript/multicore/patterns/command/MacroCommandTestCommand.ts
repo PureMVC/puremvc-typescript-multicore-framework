@@ -1,9 +1,9 @@
 ///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
 
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/ICommand.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
+///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/ICommand.ts'/>
+///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
 
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/command/MacroCommand.ts'/>
+///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/command/MacroCommand.ts'/>
 
 ///<reference path='MacroCommandTestSub1Command.ts'/>
 ///<reference path='MacroCommandTestSub2Command.ts'/>

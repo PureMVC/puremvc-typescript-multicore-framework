@@ -15,12 +15,6 @@ module puremvc
 	 * the convenience method <code>sendNotification</code>	for sending <code>Notifications</code>,
 	 * but it also eases implementation as these classes have frequent <code>Facade</code>
 	 * interactions and usually require access to the facade anyway.
-	 * 
-	 * @see puremvc.Facade Facade
-	 * @see puremvc.Mediator Mediator
-	 * @see puremvc.Proxy Proxy
-	 * @see puremvc.SimpleCommand SimpleCommand
-	 * @see puremvc.MacroCommand MacroCommand
 	 */
 	export interface INotifier
 	{
