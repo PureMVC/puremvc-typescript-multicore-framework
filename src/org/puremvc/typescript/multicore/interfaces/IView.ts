@@ -3,6 +3,8 @@
 ///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
 module puremvc
 {
+	"use strict";
+	
 	/**
 	 * The interface definition for a PureMVC view.
 	 *

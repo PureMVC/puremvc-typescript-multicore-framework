@@ -2,6 +2,7 @@
 
 module puremvc
 {
+	"use strict";
 	
 	/**
 	 * The interface definition for a PureMVC Mediator.
