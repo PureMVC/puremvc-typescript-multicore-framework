@@ -1,3 +1,5 @@
+///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotifier.ts'/>
+
 module puremvc
 {
 	/**
@@ -13,11 +15,13 @@ module puremvc
 	 * <LI>Maintain references to one or more pieces of model data.
 	 * <LI>Provide methods for manipulating that data.
 	 * <LI>Generate <code>INotifications</code> when their model data changes.
-	 * <LI>Expose their name as a <code>public static const</code> called <code>NAME</code>, if they are not instantiated multiple times.
-	 * <LI>Encapsulate interaction with local or remote services used to fetch and persist model data.
-	 *
+	 * <LI>Expose their name as a <code>constant</code> called <code>NAME</code>, if they are not
+	 * instantiated multiple times.
+	 * <LI>Encapsulate interaction with local or remote services used to fetch and persist model
+	 * data.
 	 */
 	export interface IProxy
+		extends INotifier
 	{
 		/**
 		 * Get the name of the <code>IProxy></code> instance.

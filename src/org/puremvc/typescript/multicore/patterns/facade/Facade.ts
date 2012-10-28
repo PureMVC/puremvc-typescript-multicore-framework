@@ -15,7 +15,7 @@ module puremvc
 	"use strict";
 
 	/**
-	 * A singleton <code>IFacade</code> implementation.
+	 * A base Multiton <code>IFacade</code> implementation.
 	 * 
 	 * In PureMVC, the <code>Facade</code> class assumes these responsibilities:
 	 *
@@ -36,42 +36,54 @@ module puremvc
 		implements IFacade
 	{
 		/**
-		 * Local reference to the <code>Model</code> singleton.
+		 * Local reference to the <code>Model</code> multiton.
 		 *
 		 * @protected
 		 */
 		model:IModel;
 
 		/**
-		 * Local reference to the <code>View</code> singleton.
+		 * Local reference to the <code>View</code> multiton.
 		 *
 		 * @protected
 		 */
 		view:IView;
 			 
 		/**
-		 * Local reference to the <code>Controller</code> singleton.
+		 * Local reference to the <code>Controller</code> multiton.
 		 *
 		 * @protected
 		 */
 		controller:IController;
 
 		/**
-		 * Constructor. 
+		 * The multiton Key for this Core.
 		 *
-		 * This <code>IFacade</code> implementation is a Singleton, so you should not call the
-		 * constructor directly, but instead call the static Singleton Factory method
-		 * <code>Facade.getInstance()</code>.
-		 * 
-		 * @throws Error
-		 *		Error if an instance of this singleton has already been constructed.
+		 * @protected
 		 */
-		constructor()
-		{
-			if( Facade.instance )
-				throw Error( Facade.SINGLETON_MSG );
+		multitonKey:string = null;
 
-			Facade.instance = this;
+		/**
+		 * Constructs a <code>Controller</code> instance.
+		 *
+		 * This <code>IFacade</code> implementation is a multiton, so you should not call the
+		 * constructor directly, but instead call the static multiton factory method
+		 * <code>Facade.getInstance( key )</code>.
+		 * 
+		 *
+		 * @param key
+		 *		Multiton key for this instance of <code>Facade</code>
+		 *
+		 * @throws Error
+		 *		Throws an error if an instance for this multiton key has already been constructed.
+		 */
+		constructor( key )
+		{
+			if( Facade.instanceMap[ key ] )
+				throw Error( Facade.MULTITON_MSG );
+
+			this.initializeNotifier( key );
+			Facade.instanceMap[ key ] = this;
 			this.initializeFacade();
 		}
 
@@ -118,7 +130,7 @@ module puremvc
 		initializeModel():void
 		{
 			if( !this.model )
-				this.model = Model.getInstance();
+				this.model = Model.getInstance( this.multitonKey );
 		}
 
 		/**
@@ -141,7 +153,7 @@ module puremvc
 		initializeController():void
 		{
 			if( !this.controller )
-				this.controller = Controller.getInstance();
+				this.controller = Controller.getInstance( this.multitonKey );
 		}
 
 		/**
@@ -168,7 +180,7 @@ module puremvc
 		initializeView():void
 		{
 			if( !this.view )
-				this.view = View.getInstance();
+				this.view = View.getInstance( this.multitonKey );
 		}
 
 		/**
@@ -182,7 +194,7 @@ module puremvc
 		 * @param commandClassRef
 		 * 		A reference to the constructor of the <code>ICommand</code>.
 		 */
-		public registerCommand( notificationName:string, commandClassRef:Function ):void
+		registerCommand( notificationName:string, commandClassRef:Function ):void
 		{
 			this.controller.registerCommand( notificationName, commandClassRef );
 		}
@@ -195,7 +207,7 @@ module puremvc
 		 *		The name of the <code>INotification</code> to remove the <code>ICommand</code>
 		 *		mapping for.
 		 */
-		public removeCommand( notificationName:string ):void
+		removeCommand( notificationName:string ):void
 		{
 			this.controller.removeCommand( notificationName );
 		}
@@ -211,7 +223,7 @@ module puremvc
 		 * 		A <code>Command</code> is currently registered for the given
 		 *		<code>notificationName</code>.
 		 */
-		public hasCommand( notificationName:string ):bool
+		hasCommand( notificationName:string ):bool
 		{
 			return this.controller.hasCommand(notificationName);
 		}
@@ -222,7 +234,7 @@ module puremvc
 		 * @param proxy
 		 *		The <code>IProxy</code> to be registered with the <code>Model</code>.
 		 */
-		public registerProxy( proxy:IProxy ):void
+		registerProxy( proxy:IProxy ):void
 		{
 			this.model.registerProxy( proxy );
 		}
@@ -237,7 +249,7 @@ module puremvc
 		 * 		The <code>IProxy</code> previously registered with the given
 		 *		<code>proxyName</code>.
 		 */
-		public retrieveProxy( proxyName:string ):IProxy
+		retrieveProxy( proxyName:string ):IProxy
 		{
 			return this.model.retrieveProxy( proxyName );
 		}
@@ -251,7 +263,7 @@ module puremvc
 		 * @return
 		 *		The <code>IProxy</code> that was removed from the <code>Model</code>
 		 */
-		public removeProxy ( proxyName:string ):IProxy
+		removeProxy ( proxyName:string ):IProxy
 		{
 			var proxy:IProxy;
 			if( this.model )
@@ -268,10 +280,9 @@ module puremvc
 		 *		<code>IModel</code>.
 		 *
 		 * @return
-		 * 		A <code>Proxy</code> is currently registered with the given
-		 * 		<code>proxyName</code>.
+		 * 		A <code>Proxy</code> is currently registered with the given	<code>proxyName</code>.
 		 */
-		public hasProxy( proxyName:string ):bool
+		hasProxy( proxyName:string ):bool
 		{
 			return this.model.hasProxy( proxyName );
 		}
@@ -282,7 +293,7 @@ module puremvc
 		 * @param mediator
 		 		A reference to the <code>IMediator</code>.
 		 */
-		public registerMediator( mediator:IMediator ):void
+		registerMediator( mediator:IMediator ):void
 		{
 			if( this.view )
 				this.view.registerMediator( mediator );
@@ -298,7 +309,7 @@ module puremvc
 		 *		The <code>IMediator</code> previously registered with the given
 		 *		<code>mediatorName</code>.
 		 */
-		public retrieveMediator( mediatorName:string ):IMediator
+		retrieveMediator( mediatorName:string ):IMediator
 		{
 			return this.view.retrieveMediator( mediatorName );
 		}
@@ -312,7 +323,7 @@ module puremvc
 		 * @return
 		 *		The <code>IMediator</code> that was removed from the <code>IView</code>
 		 */
-		public removeMediator( mediatorName:string ):IMediator
+		removeMediator( mediatorName:string ):IMediator
 		{
 			var mediator:IMediator;
 			if( this.view )
@@ -331,26 +342,26 @@ module puremvc
 		 * @return
 		 * 		An <code>IMediator</code> is registered with the given <code>mediatorName</code>.
 		 */
-		public hasMediator( mediatorName:string ):bool
+		hasMediator( mediatorName:string ):bool
 		{
 			return this.view.hasMediator( mediatorName );
 		}
 
 		/**
-		 * Notify the <code>IObservers</code> for a particular <code>INotification</code>.
+		 * Notify <code>Observer</code>s.
+		 *
+		 * This method is left public mostly for backward compatibility, and to allow you to
+		 * send custom notification classes using the <code>Facade</code>.
 		 *
 		 *
-		 * This method is left public mostly for backward compatibility, and to allow you to send
-		 * custom notification classes using the facade.
-		 *
-		 * Usually you should just call sendNotification and pass the parameters, never having to
-		 * construct the notification yourself.
+		 * Usually you should just call <code>sendNotification</code> and pass the parameters,
+		 * never having to construct the <code>Notification</code> yourself.
 		 * 
 		 * @param notification
 		 * 		The <code>INotification</code> to have the <code>IView</code> notify
 		 *		<code>IObserver</code>s	of.
 		 */
-		public notifyObservers ( notification:INotification ):void
+		notifyObservers ( notification:INotification ):void
 		{
 			if( this.view )
 				this.view.notifyObservers( notification );
@@ -365,42 +376,94 @@ module puremvc
 		 *		The name of the notification to send.
 		 *
 		 * @param body
-		 *		The body of the notification to send (optional).
+		 *		The body of the notification to send.
 		 *
 		 * @param type
-		 *		The type of the notification to send (optional)
+		 *		The type of the notification to send.
 		 */
-		//TODO There's some optional parameters in there, TypeScript knows how to handle them.
-		public sendNotification( name:string, body:any=null, type:string=null ):void
+		sendNotification( name:string, body:any=null, type:string=null ):void
 		{
 			this.notifyObservers( new Notification( name, body, type ) );
+		}
+		
+		/** 
+		 * Set the multiton key for this <code>Facade</code> instance.
+		 *
+		 * Not called directly, but instead from the constructor when
+		 * <code>Facade.getInstance(key)</code> is invoked.
+		 *
+		 * @param key
+		 *		The multiton key for this <code>Facade</code> instance to initialize the
+		 *		<code>Notifier</code> with.
+		 */
+		initializeNotifier( key:string ):void
+		{
+			this.multitonKey = key;
 		}
 
 		/**
 		 * @constant
 		 * @protected
 		 */
-		static SINGLETON_MSG:string = "Facade Singleton already constructed!";
+		static MULTITON_MSG:string = "Facade instance for this multiton key already constructed!";
 
 		/**
 		 * The Singleton Facade instance.
 		 *
 		 * @protected
 		 */
-		static instance:IFacade;
+		static instanceMap:Object;
 
 		/**
-		 * Facade Singleton factory method.
+	 	 * <code>Facade</code> multiton factory method.
+		 * 
+		 * @param key
+		 *		The multiton key of the instance of <code>Facade</code> to create or retrieve.
 		 * 
 		 * @return
-		 * 		The singleton instance of the <code>Facade</code>.
+		 * 		The singleton instance of <code>Facade</code>.
 		 */
-		public static getInstance():IFacade
+		static getInstance( key:string ):IFacade
 		{
-			if( !Facade.instance )
-				Facade.instance = new Facade();
+			if( !Facade.instanceMap[ key ] )
+				Facade.instanceMap[ key ] = new Facade( key );
 
-			return Facade.instance;
+			return Facade.instanceMap[ key ];
+		}
+
+		/**
+		 * Check if a Core is registered or not.
+		 * 
+		 * @param key
+		 *		The multiton key for the Core in question.
+		 *
+		 * @return
+		 *		The core is registered with the given <code>key</code>.
+		 */
+		static hasCore( key:string ):bool
+		{
+			return Facade.instanceMap[ key ] ? true : false;
+		}
+
+		/**
+		 * Remove a Core.
+		 *
+		 * Remove the <code>Model</code>, <code>View</code>, <code>Controller</code> and
+		 * <code>Facade</code> instances for the given key.
+		 * 
+		 * @param key
+		 *		Key identifier of the Core to remove.
+		 */
+		static removeCore( key:string ):void
+		{
+			if( !Facade.instanceMap[ key ] )
+				return;
+
+			Model.removeModel( key ); 
+			View.removeView( key );
+			Controller.removeController( key );
+
+			delete Facade.instanceMap[ key ];
 		}
 	}
 }

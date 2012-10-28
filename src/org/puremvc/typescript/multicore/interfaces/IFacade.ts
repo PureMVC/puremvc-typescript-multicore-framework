@@ -143,7 +143,6 @@ module puremvc
 		/**
 		 * Notify the <code>IObservers</code> for a particular <code>INotification</code>.
 		 *
-		 *
 		 * This method is left public mostly for backward compatibility, and to allow you to send
 		 * custom notification classes using the facade.
 		 *
@@ -154,6 +153,6 @@ module puremvc
 		 * 		The <code>INotification</code> to have the <code>IView</code> notify
 		 *		<code>IObserver</code>s	of.
 		 */
-		notifyObservers( note:INotification ):void;
+		notifyObservers( notification:INotification ):void;
 	}
 }

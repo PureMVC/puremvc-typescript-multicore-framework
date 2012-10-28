@@ -8,9 +8,9 @@ module puremvc
 	"use strict";
 
 	/**
-	 * The <code>View</code> class for PureMVC.
+	 * The base <code>View</code> class for PureMVC.
 	 *
-	 * A singleton <code>IView</code> implementation.
+	 * A multiton <code>IView</code> implementation.
 	 *
 	 * In PureMVC, the <code>View</code> class assumes these responsibilities:
 	 * <UL>
@@ -33,41 +33,54 @@ module puremvc
 		 *
 		 * @protected
 		 */
-		mediatorMap:Object;
+		mediatorMap:Object = null;
 
 		/**
 		 * Mapping of <code>Notification</code> names to <code>Observers</code> lists.
 		 *
 		 * @protected
 		 */
-		observerMap:Object;
+		observerMap:Object = null;
+		
+		/**
+		 * Multiton key for this <code>View</code> instance.
+		 *
+		 * @protected
+		 */
+		multitonKey:string = null;
 
 		/**
-		 * This <code>IView</code> implementation is a Singleton, so you should not call the
-		 * constructor directly, but instead call the static Singleton Factory method
-		 * <code>View.getInstance()</code>.
-		 * 
+		 * This <code>IView</code> implementation is a multiton, so you should not call the
+		 * constructor directly, but instead call the static multiton Factory method
+		 * <code>View.getInstance( key )</code>.
+		 *
+		 * @param {String} key
+		 *		Multiton key for this instance of <code>View</code>.
+		 *
 		 * @throws Error
-		 * 		Throws an error if an instance for this singleton has already been constructed.
+		 * 		Throws an error if an instance for this multiton has already been constructed.
 		 */
-		constructor()
+		constructor( key:string )
 		{
-			if( View.instance )
-				throw Error( View.SINGLETON_MSG );
+			if( View.instanceMap[ key ] )
+				throw Error( View.MULTITON_MSG );
+				
+			View.instanceMap[ key ] = this;
 
-			View.instance = this;
+			this.multitonKey = key;
 			this.mediatorMap = {};
 			this.observerMap = {};
+			
 			this.initializeView();
 		}
 		
 		/**
-		 * Initialize the Singleton View instance.
+		 * Initialize the multiton <code>View</code> instance.
 		 * 
 		 * Called automatically by the constructor. This is the opportunity to initialize the
-		 * singleton instance in a subclass without overriding the constructor.
+		 * multiton instance in a subclass without overriding the constructor.
 		 */
-		public initializeView():void
+		initializeView():void
 		{
 
 		}
@@ -83,7 +96,7 @@ module puremvc
 		 * @param observer
 		 * 		The <code>IObserver</code> to register.
 		 */
-		public registerObserver( notificationName:string, observer:IObserver ):void
+		registerObserver( notificationName:string, observer:IObserver ):void
 		{
 			var observers:IObserver[] = this.observerMap[ notificationName ];
 			if( observers )
@@ -103,7 +116,7 @@ module puremvc
 		 * 		Remove the <code>IObserver</code> with this object as its
 		 *		<code>notifyContext</code>.
 		 */
-		public removeObserver( notificationName:string, notifyContext:any ):void
+		removeObserver( notificationName:string, notifyContext:any ):void
 		{
 			//The observer list for the notification under inspection
 			var observers:IObserver[] = this.observerMap[ notificationName ];
@@ -138,7 +151,7 @@ module puremvc
 		 * @param notification
 		 * 		The <code>INotification</code> to notify <code>IObserver</code>s of.
 		 */
-		public notifyObservers( notification:INotification ):void
+		notifyObservers( notification:INotification ):void
 		{
 			var notificationName:string = notification.getName();
 	
@@ -171,9 +184,10 @@ module puremvc
 		 * @param mediator
 		 * 		A reference to an <code>IMediator</code> implementation instance.
 		 */
-		public registerMediator( mediator:IMediator ):void
+		registerMediator( mediator:IMediator ):void
 		{
 			var name:string = mediator.getMediatorName();
+
 			//Do not allow re-registration (you must removeMediator first).
 			if( this.mediatorMap[ name ] )
 				return;
@@ -208,7 +222,7 @@ module puremvc
 		 * 		The <code>IMediator</code> instance previously registered with the given
 		 *		<code>mediatorName</code> or an explicit <code>null</code> if it doesn't exists.
 		 */
-		public retrieveMediator( mediatorName:string ):IMediator
+		retrieveMediator( mediatorName:string ):IMediator
 		{
 			//Return a strict null when the mediator doesn't exist
 			return this.mediatorMap[ mediatorName ] || null;
@@ -224,7 +238,7 @@ module puremvc
 		 *		The <code>IMediator</code> that was removed from the <code>View</code> or a
 		 *		strict <code>null</null> if the <code>Mediator</code> didn't exist.
 		 */
-		public removeMediator( mediatorName:string ):IMediator
+		removeMediator( mediatorName:string ):IMediator
 		{
 			// Retrieve the named mediator
 			var mediator:IMediator = this.mediatorMap[ mediatorName ];
@@ -258,36 +272,53 @@ module puremvc
 		 * @return
 		 *		A <code>Mediator</code> is registered with the given <code>mediatorName</code>.
 		 */
-		public hasMediator( mediatorName:string ):bool
+		hasMediator( mediatorName:string ):bool
 		{
 			return this.mediatorMap[ mediatorName ] != null;
 		}
 
 		/**
-		 * @constant
-		 * @protected
-		 */
-		static SINGLETON_MSG:string = "View Singleton already constructed!";
-
-		/**
-		 * Singleton instance local reference.
+		 * <code>View</code>s singleton instance map.
 		 *
 		 * @protected
 		 */
-		 static instance:IView;
+		 static instanceMap:Object = {};
 
 		/**
-		 * <code>View</code> Singleton Factory method.
-		 * 
-		 * @return
-		 * 		The singleton instance of the <code>View</code>.
+		 * Error message used to indicate that a <code>View</code> singleton instance is
+		 * already constructed for this multiton key.
+		 *
+		 * @constant
+		 * @protected
 		 */
-		public static getInstance():IView
-		{
-			if( !View.instance )
-				View.instance = new View();
+		static MULTITON_MSG:string = "View instance for this multiton key already constructed!";
 
-			return View.instance;
+		/**
+		 * Retrieve the singleton instance of the <code>View</code>.
+		 *
+		 * @param key
+		 *		The multiton key of the instance of <code>View</code> to create or retrieve.
+		 *
+		 * @return
+		 * 		The singleton instance of <code>View</code>.
+		 */
+		static getInstance( key:string ):IView
+		{
+			if( !View.instanceMap[key] )
+				View.instanceMap[key] = new View( key );
+
+			return View.instanceMap[key];
 		}
+
+		/**
+		 * Remove a <code>View</code> instance.
+		 *
+		 * @param key
+		 * 		Key identifier of <code>View</code> instance to remove.
+		 */
+		static removeView( key:string ):void
+		{
+			delete View.instanceMap[ key ];
+		};
 	}
 }

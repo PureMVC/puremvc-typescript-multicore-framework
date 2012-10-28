@@ -1,5 +1,6 @@
 ///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/INotifier.ts'/>
 ///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/IFacade.ts'/>
+
 ///<reference path='../../../../../../org/puremvc/typescript/multicore/patterns/facade/Facade.ts'/>
 
 module puremvc
@@ -26,19 +27,31 @@ module puremvc
 		implements INotifier
 	{
 		/**
-		 * Local reference to the singleton <code>Facade</code>.
+		 * The multiton key for this core.
 		 *
 		 * @protected
 		 */
-		facade:IFacade;
-		
+		multitonKey:string = null;
+
 		/**
-		 * Constructs a <code>Notifier</code> instance.
+		 * Initialize a <code>Notifier</code> instance with its cor multiton key.
+		 *
+		 * This is how a <code>Notifier</code> gets its multiton key. Calls to 
+		 * <code>sendNotification <code> or to access the facade will fail until after this method
+		 * has been called.
+		 * 
+		 * <code>Mediator</code>s, <code>Command</code>s or <code>Proxie</code>s may override
+		 * this method in order to send notifications or access the multiton Facade instance as
+		 * soon as possible. They CANNOT access the facade in their constructors, since this
+		 * method will not yet have been called.
+		 * 
+		 * @param key
+		 *		The multiton key for this <code>Notifier</code> to use.
 		 */
-		constructor()
-		{
-			this.facade = Facade.getInstance();
-		}
+		 initializeNotifier( key )
+		 {
+			this.multitonKey = key;
+		 }
 
 		/**
 		 * Create and send a <code>Notification</code>.
@@ -50,15 +63,40 @@ module puremvc
 		 * 		The name of the notification to send.
 		 * 
 		 * @param body
-		 * 		The body of the notification (optional).
+		 * 		The body of the notification.
 		 *
 		 * @param type
-		 * 		The type of the notification (optional).
+		 * 		The type of the notification.
 		 */
-		//TODO optional
-		public sendNotification( name:string, body:any=null, type:string=null ):void
+		sendNotification( name:string, body:any=null, type:string=null ):void
 		{
-			this.facade.sendNotification( name, body, type );
+			if( this.facade() ) 
+				this.facade().sendNotification( name, body, type );
 		}
+
+		/**
+		 * Return the multiton <code>Facade</code> instance.
+		 *
+		 * @return
+		 *		The multiton <code>Facade</code> instance.
+		 *
+		 * @throws
+		 *		Throws an error if the multiton key for this Notifier is not yet initialized.
+		 */
+		facade():IFacade
+		{
+			if( this.multitonKey === null )
+					throw Error( Notifier.MULTITON_MSG );
+
+			return Facade.getInstance( this.multitonKey );
+		}
+
+		/**
+		 * Message Constants
+		 *
+		 * @constant
+		 * @protected
+		 */
+		static MULTITON_MSG:string = "multitonKey for this Notifier not yet initialized!";
 	}
 }

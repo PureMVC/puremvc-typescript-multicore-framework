@@ -1,4 +1,5 @@
 ///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotifier.ts'/>
 
 module puremvc
 {
@@ -6,6 +7,7 @@ module puremvc
 	 * The interface definition for a PureMVC Command.
 	 */
 	export interface ICommand
+		extends INotifier
 	{
 		/**
 		 * Fulfill the use-case initiated by the given <code>INotification</code>.

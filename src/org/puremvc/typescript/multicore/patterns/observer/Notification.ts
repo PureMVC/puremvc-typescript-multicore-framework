@@ -32,22 +32,22 @@ module puremvc
 		implements INotification
 	{
 		/**
-		 * The name of the notification.
+		 * The name of the <code>Notification</code>.
 		 * @protected
 		 */
-		name:string;
+		name:string = null;
 
 		/**
-		 * The body data to send with the notification.
+		 * The body data to send with the <code>Notification</code>.
 		 * @protected
 		 */
-		body:any;
+		body:any = null;
 
 		/**
-		 * The type identifier of the notification.
+		 * The type identifier of the <code>Notification</code>.
 		 * @protected
 		 */
-		type:string;
+		type:string = null;
 
 		/**
 		 * Constructs a <code>Notification</code> instance.
@@ -56,10 +56,10 @@ module puremvc
 		 * 		The name of the notification.
 		 *
 		 * @param body
-		 * 		Body data to send with the notification.
+		 * 		Body data to send with the <code>Notification</code>.
 		 * 
 		 * @param type
-		 * 		Type identifier of the notification.
+		 * 		Type identifier of the <code>Notification</code>.
 		 */
 		constructor( name:string, body:any=null, type:string=null )
 		{
@@ -74,7 +74,7 @@ module puremvc
 		 * @return
 		 *		The name of the <code>Notification</code> instance.
 		 */
-		public getName():string
+		getName():string
 		{
 			return this.name;
 		}
@@ -83,9 +83,9 @@ module puremvc
 		 * Set the body of the <code>Notification</code> instance.
 		 *
 		 * @param body
-		 * 		The body of the notification instance.
+		 * 		The body of the <code>Notification</code> instance.
 		 */
-		public setBody( body:any ):void
+		setBody( body:any ):void
 		{
 			this.body = body;
 		}
@@ -96,7 +96,7 @@ module puremvc
 		 * @return
 		 *		The body object of the <code>Notification</code> instance.
 		 */
-		public getBody():any
+		getBody():any
 		{
 			return this.body;
 		}
@@ -107,7 +107,7 @@ module puremvc
 		 * @param type
 		 * 		The type of the <code>Notification</code> instance.
 		 */
-		public setType( type:string ):void
+		setType( type:string ):void
 		{
 			this.type = type;
 		}
@@ -118,7 +118,7 @@ module puremvc
 		 * @return
 		 *		The type of the <code>Notification</code> instance.
 		 */
-		public getType():string
+		getType():string
 		{
 			return this.type;
 		}
@@ -129,7 +129,7 @@ module puremvc
 		 * @return
 		 * 		The textual representation of the <code>Notification</code>	instance.
 		 */
-		public toString():string
+		toString():string
 		{
 			var msg:string = "Notification Name: " + this.getName();
 			msg += "\nBody:" + (( this.getBody() == null ) ? "null" : this.getBody().toString());

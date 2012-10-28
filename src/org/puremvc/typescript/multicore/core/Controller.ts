@@ -2,14 +2,18 @@
 ///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/IView.ts'/>
 ///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
 ///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/ICommand.ts'/>
+
 ///<reference path='../../../../../org/puremvc/typescript/multicore/patterns/observer/Observer.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/core/View.ts'/>
 
 module puremvc
 {
 	"use strict";
 
 	/**
-	 * A Singleton <code>IController</code> implementation.
+	 * The base <code>Controller</code> class for PureMVC.
+	 *
+	 * A multiton <code>IController</code> implementation.
 	 *
 	 * In PureMVC, the <code>Controller</code> class follows the 'Command and Controller' strategy,
 	 * and assumes these responsibilities:
@@ -37,35 +41,49 @@ module puremvc
 		 *
 		 * @protected
 		 */		
-		view:IView;
+		view:IView = null;
 
 		/**
 		 * Mapping of <code>Notification<code> names to <code>Command</code> constructors references.
 		 *
 		 * @protected
 		 */		
-		commandMap:Object;
+		commandMap:Object = null;
 
 		/**
-		 * This <code>IController</code> implementation is a Singleton, so you should not call the
-		 * constructor directly, but instead call the static Singleton Factory method
-		 * <code>Controller.getInstance()</code>.
-		 * 
-		 * @throws Error
-		 * 		Throws an error if an instance for this singleton has already been constructed.
+		 * The multiton Key for this Core.
+		 *
+		 * @protected
 		 */
-		constructor()
+		multitonKey:string = null;
+		
+		/**
+		 * Constructs a <code>Controller</code> instance.
+		 *
+		 * This <code>IController</code> implementation is a multiton, so you should not call the
+		 * constructor directly, but instead call the static multiton Factory method
+		 * <code>Controller.getInstance( key )</code>.
+		 * 
+		 * @param key
+		 *		Multiton key for this instance of <code>Controller</code>
+		 *
+		 * @throws Error
+		 * 		Throws an error if an instance for this multiton key has already been constructed.
+		 */
+		constructor( key:string )
 		{
-			if( Controller.instance )
-				throw Error( Controller.SINGLETON_MSG );
+			if( Controller.instanceMap[ key ] )
+				throw Error( Controller.MULTITON_MSG );
 
-			Controller.instance = this;
+			Controller.instanceMap[ key ] = this;
+
+			this.multitonKey = key;
 			this.commandMap = {};
 			this.initializeController();
 		}
 
 		/**
-		 * Initialize the Singleton <code>Controller</code> instance.
+		 * Initialize the multiton <code>Controller</code> instance.
 		 * 
 		 * Called automatically by the constructor.
 		 * 
@@ -75,9 +93,9 @@ module puremvc
 		 * 
 		 * <pre>
 		 *		// ensure that the Controller is talking to my IView implementation
-		 *		public initializeController():void
+		 *		initializeController():void
 		 *		{
-		 *			this.view = MyView.getInstance();
+		 *			this.view = MyView.getInstance( this.multitonKey );
 		 *		}
 		 * </pre>
 		 *
@@ -85,7 +103,7 @@ module puremvc
 		 */
 		initializeController():void
 		{
-			this.view = View.getInstance();
+			this.view = View.getInstance( this.multitonKey );
 		}
 
 		/**
@@ -95,13 +113,14 @@ module puremvc
 		 * @param notification
 		 * 		The <code>INotification</code> the command will receive as parameter.
 		 */
-		public executeCommand( notification:INotification ):void
+		executeCommand( notification:INotification ):void
 		{
 			//TODO Identify if here *any* is the right choice instead of Function ( won't compile if set to Function because it is not newable on new commandClassRef )
 			var commandClassRef:any = this.commandMap[ notification.getName() ];
 			if( commandClassRef )
 			{
 				var command:ICommand = new commandClassRef();
+				command.initializeNotifier( this.multitonKey );
 				command.execute( notification );
 			}
 		}
@@ -124,7 +143,7 @@ module puremvc
 		 * @param commandClassRef
 		 * 		The constructor of the <code>ICommand</code>.
 		 */
-		public registerCommand( notificationName:string, commandClassRef:Function ):void
+		registerCommand( notificationName:string, commandClassRef:Function ):void
 		{
 			if( !this.commandMap[ notificationName ] )
 				this.view.registerObserver( notificationName, new Observer( this.executeCommand, this ) );
@@ -143,7 +162,7 @@ module puremvc
 		 * 		An <code>ICommand</code> is currently registered for the given
 		 * 		<code>notificationName</code>.
 		 */
-		public hasCommand( notificationName:string ):bool
+		hasCommand( notificationName:string ):bool
 		{
 			return this.commandMap[ notificationName ] != null;
 		}
@@ -156,9 +175,9 @@ module puremvc
 		 * 		The name of the <code>INotification</code> to remove the <code>ICommand</code>
 		 * 		mapping for.
 		 */
-		public removeCommand( notificationName:string ):void
+		removeCommand( notificationName:string ):void
 		{
-			// if the Command is registered...
+			//If the Command is registered...
 			if( this.hasCommand( notificationName ) )
 			{
 				this.view.removeObserver( notificationName, this );			
@@ -167,33 +186,47 @@ module puremvc
 		}
 
 		/**
-		 * Singleton instance local reference.
+		 * The multiton map used to store <code>Controller</code>s instances.
 		 *
 		 * @protected
 		 */
-		static instance:IController;
+		static instanceMap:Object = {};
 
 		/**
-		 * Error message used to indicate that a controller singleton is already constructed when
-		 * trying to constructs the class twice.
+		 * Error message used to indicate that a <code>Controller</code> singleton instance is
+		 * already constructed for this multiton key.
 		 *
 		 * @protected
 		 * @constant
 		 */
-		static SINGLETON_MSG:string = "Controller Singleton already constructed!";
+		static MULTITON_MSG:string = "Controller instance for this multiton key already constructed!";
 		
 		/**
-		 * <code>Controller</code> Singleton Factory method.
-		 * 
+		 * <code>Controller</code> multiton factory method.
+		 *
+		 * @param key
+		 *		The multiton key of the instance of <code>Controller</code> to create or retrieve.
+		 *
 		 * @return
-		 * 		The singleton instance of the <code>Controller</code>
+		 * 		The multiton instance of <code>Controller</code>
 		 */
-		public static getInstance():IController
+		static getInstance( key:string ):IController
 		{
-			if( !Controller.instance )
-				Controller.instance = new Controller();
+			if( !Controller.instanceMap[ key ] )
+				Controller.instanceMap[ key ] = new Controller( key );
 
-			return Controller.instance;
+			return Controller.instanceMap[ key ];
+		}
+
+		/**
+		 * Remove a <code>Controller</code> instance.
+		 * 
+		 * @param key
+		 *		Multiton key of the <code>Controller</code> instance to remove.
+		 */
+		static removeController( key:string ):void
+		{
+			delete Controller.instanceMap[ key ];
 		}
 	}
 }

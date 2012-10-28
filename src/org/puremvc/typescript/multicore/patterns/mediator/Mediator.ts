@@ -22,14 +22,14 @@ module puremvc
 		 *
 		 * @protected
 		 */
-		mediatorName:string;
+		mediatorName:string = null;
 
 		/**
 		 * The <code>Mediator</code>'s view component.
 		 *
 		 * @protected
 		 */
-		viewComponent:any;
+		viewComponent:any = null;
 
 		/**
 		 * Constructs a <code>Mediator</code> instance.
@@ -54,7 +54,7 @@ module puremvc
 		 * @return
 		 * 		The <code>Mediator</code> instance name
 		 */		
-		public getMediatorName():string
+		getMediatorName():string
 		{	
 			return this.mediatorName;
 		}
@@ -66,16 +66,16 @@ module puremvc
 		 * view object to a type, like this:
 		 * 
 		 * <code>
-		 *		public getMenu():Menu
+		 *		getMenu():Menu
 		 *		{
 		 *			return <Menu> this.viewComponent;
 		 *		}
 		 * </code>
 		 * 
 		 * @return
-		 * 		The <code>Mediator</code>'s view component.
+		 * 		The <code>Mediator</code>'s default view component.
 		 */
-		public getViewComponent():any
+		getViewComponent():any
 		{	
 			return this.viewComponent;
 		}
@@ -86,7 +86,7 @@ module puremvc
 		 * @param viewComponent
 		 * 		The default view component to set for this <code>Mediator</code>.
 		 */
-		public setViewComponent( viewComponent:any ):void
+		setViewComponent( viewComponent:any ):void
 		{
 			this.viewComponent = viewComponent;
 		}
@@ -98,7 +98,7 @@ module puremvc
 		 * @return
 		 * 		The list of notifications names in which is interested the <code>Mediator</code>.
 		 */
-		public listNotificationInterests():string[]
+		listNotificationInterests():string[]
 		{
 			return new string[];
 		}
@@ -113,7 +113,7 @@ module puremvc
 		 * @param note
 		 * 		The notification instance to be handled.
 		 */ 
-		public handleNotification( notification:INotification ):void
+		handleNotification( notification:INotification ):void
 		{
 
 		}
@@ -122,7 +122,7 @@ module puremvc
 		 * Called by the View when the Mediator is registered. This method has to be overridden
 		 * by the subclass to know when the instance is registered.
 		 */ 
-		public onRegister():void
+		onRegister():void
 		{
 
 		}
@@ -131,7 +131,7 @@ module puremvc
 		 * Called by the View when the Mediator is removed. This method has to be overridden
 		 * by the subclass to know when the instance is removed.
 		 */ 
-		public onRemove():void
+		onRemove():void
 		{
 
 		}
@@ -141,6 +141,6 @@ module puremvc
 		 *
 		 * @constant
 		 */
-		public static NAME:string = 'Mediator';
+		static NAME:string = 'Mediator';
 	}
 }

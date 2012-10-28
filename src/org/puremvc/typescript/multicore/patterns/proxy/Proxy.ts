@@ -1,5 +1,6 @@
 ///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/IProxy.ts'/>
 ///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/INotifier.ts'/>
+
 ///<reference path='../../../../../../org/puremvc/typescript/multicore/patterns/observer/Notifier.ts'/>
 
 module puremvc
@@ -19,9 +20,10 @@ module puremvc
 	 * <LI>Maintain references to one or more pieces of model data.
 	 * <LI>Provide methods for manipulating that data.
 	 * <LI>Generate <code>INotifications</code> when their model data changes.
-	 * <LI>Expose their name as a <code>public static const</code> called <code>NAME</code>, if they are not instantiated multiple times.
-	 * <LI>Encapsulate interaction with local or remote services used to fetch and persist model data.
-	 *
+	 * <LI>Expose their name as a <code>constant</code> called <code>NAME</code>, if they are not
+	 * instantiated multiple times.
+	 * <LI>Encapsulate interaction with local or remote services used to fetch and persist model
+	 * data.
 	 */
 	export class Proxy
 		extends Notifier
@@ -32,17 +34,16 @@ module puremvc
 		 *
 		 * @protected
 		 */
-		proxyName:string;
+		proxyName:string = null;
 
 		/**
 		 * The name of the <code>Proxy</code>.
 		 *
 		 * @protected
 		 */
-		data:any;
+		data:any = null;
 
 		/**
-		 *
 		 * Constructs a <code>Proxy</code> instance.
 		 *
 		 * @param proxyName
@@ -67,7 +68,7 @@ module puremvc
 		 * @return
 		 * 		The name of the <code>Proxy></code> instance.
 		 */
-		public getProxyName():string
+		getProxyName():string
 		{
 			return this.proxyName;
 		}		
@@ -78,7 +79,7 @@ module puremvc
 		 * @param data
 		 * 		The data to set for the <code>Proxy></code> instance.
 		 */
-		public setData( data:any ):void
+		setData( data:any ):void
 		{
 			this.data = data;
 		}
@@ -89,7 +90,7 @@ module puremvc
 		 * @return
 		 * 		The data held in the <code>Proxy</code> instance.
 		 */
-		public getData():any
+		getData():any
 		{
 			return this.data;
 		}
@@ -98,7 +99,7 @@ module puremvc
 		 * Called by the Model when the <code>Proxy</code> is registered. This method has to be
 		 * overridden by the subclass to know when the instance is registered.
 		 */
-		public onRegister():void
+		onRegister():void
 		{
 
 		}
@@ -107,7 +108,7 @@ module puremvc
 		 * Called by the Model when the <code>Proxy</code> is removed. This method has to be
 		 * overridden by the subclass to know when the instance is removed.
 		 */
-		public onRemove():void
+		onRemove():void
 		{
 
 		}
@@ -118,6 +119,6 @@ module puremvc
 		 * @type
 		 * @constant
 		 */
-		 public static NAME:string = 'Proxy';
+		 static NAME:string = "Proxy";
 	}
 }

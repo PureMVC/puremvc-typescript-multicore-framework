@@ -34,5 +34,16 @@ module puremvc
 		 * 		The type of the notification (optional).
 		 */
 		sendNotification( name:string, body?:any, type?:string ):void;
+
+		/**
+		 * Initialize this INotifier instance.
+		 * 
+		 * This is how a Notifier gets its multitonKey. Calls to sendNotification or to access the
+		 * facade will fail until after this method has been called.
+		 * 
+		 * @param key
+		 *		The multiton key for this <code>INotifier</code> to use.
+		 */
+		initializeNotifier( key:string ):void;
 	}
 }

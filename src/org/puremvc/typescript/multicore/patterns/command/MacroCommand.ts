@@ -32,7 +32,7 @@ module puremvc
 		 *
 		 * @protected
 		 */
-		subCommands:Function[];
+		subCommands:Function[] = null;
 		
 		/**
 		 * Constructs a <code>MacroCommand</code> instance.
@@ -59,7 +59,7 @@ module puremvc
 		 * 
 		 * <pre>
 		 *		// Initialize MyMacroCommand
-		 *		public initializeMacroCommand():void
+		 *		initializeMacroCommand():void
 		 *		{
 		 *			this.addSubCommand( FirstCommand );
 		 *			this.addSubCommand( SecondCommand );
@@ -70,7 +70,7 @@ module puremvc
 		 * Note that <i>subCommand</i>s may be any <code>ICommand</code> implementor so
 		 * <code>MacroCommand</code>s or <code>SimpleCommand</code>s are both acceptable.
 		 */
-		public initializeMacroCommand():void
+		initializeMacroCommand():void
 		{
 		
 		}
@@ -83,7 +83,7 @@ module puremvc
 		 * @param commandClassRef
 		 *		A reference to the constructor of the <code>ICommand</code>.
 		 */
-		public addSubCommand( commandClassRef:Function ):void
+		addSubCommand( commandClassRef:Function ):void
 		{
 			this.subCommands.push(commandClassRef);
 		}
@@ -100,13 +100,13 @@ module puremvc
 		 *
 		 * @final
 		 */
-		public execute( notification:INotification ):void
+		execute( notification:INotification ):void
 		{
 			var	subCommands:Function[] = this.subCommands.slice(0);
 			var	len:number = this.subCommands.length;
 			for( var i:number=0; i<len; i++ )
 			{
-				//TODO Any ?
+				//TODO Identify if here *any* is the right choice instead of Function ( won't compile if set to Function because it is not newable on new commandClassRef )
 				var commandClassRef:any = subCommands[i];
 				var commandInstance:ICommand = new commandClassRef();
 				commandInstance.execute( notification );

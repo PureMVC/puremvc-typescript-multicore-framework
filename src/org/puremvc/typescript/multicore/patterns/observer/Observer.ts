@@ -36,13 +36,13 @@ module puremvc
 		 * The notification method of the interested object.
 		 * @protected
 		 */
-		notify:Function;
+		notify:Function = null;
 
 		/**
 		 * The notification context of the interested object.
 		 * @protected
 		 */
-		context:any;
+		context:any = null;
 
 		/**
 		 * Constructs an <code>Observer</code> instance.
@@ -78,7 +78,7 @@ module puremvc
 		 * @param notifyMethod
 		 * 		The notification (callback) method of the interested object.
 		 */
-		public setNotifyMethod( notifyMethod:Function ):void
+		setNotifyMethod( notifyMethod:Function ):void
 		{
 			this.notify = notifyMethod;
 		}
@@ -100,7 +100,7 @@ module puremvc
 		 * @param notifyContext
 		 * 		The notification context (this) of the interested object.
 		 */
-		public setNotifyContext( notifyContext:any ):void
+		setNotifyContext( notifyContext:any ):void
 		{
 			this.context = notifyContext;
 		}
@@ -112,9 +112,9 @@ module puremvc
 		 * 		The <code>INotification</code> to pass to the interested object's notification
 		 * 		method.
 		 */
-		public notifyObserver( notification:INotification ):void
+		notifyObserver( notification:INotification ):void
 		{
-			this.getNotifyMethod().apply(this.getNotifyContext(),[notification]);
+			this.getNotifyMethod().call( this.getNotifyContext(), notification );
 		}
 	
 		/**
@@ -126,7 +126,7 @@ module puremvc
 		 * @return
 		 * 		The object and the notification context are the same.
 		 */
-		 public compareNotifyContext( object:any ):bool
+		 compareNotifyContext( object:any ):bool
 		 {
 		 	return object === this.context;
 		 }		

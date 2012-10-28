@@ -1,14 +1,14 @@
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/IModel.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/IProxy.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/IModel.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/IProxy.ts'/>
 
 module puremvc
 {
 	"use strict";
 	
 	/**
-	 * The <code>Model</code> class for PureMVC.
+	 * The base <code>Model</code> class for PureMVC.
 	 *
-	 * A singleton <code>IModel</code> implementation.
+	 * A multiton <code>IModel</code> implementation.
 	 *
 	 * In PureMVC, the <code>IModel</code> class provides access to model objects
 	 * <code>Proxie</code>s by named lookup.
@@ -32,28 +32,40 @@ module puremvc
 		proxyMap:Object;
 
 		/**
-		 * This <code>IModel</code> implementation is a Singleton,  so you should not call the
-		 * constructor directly, but instead call the static Singleton Factory method
-		 * <code>Model.getInstance()</code>.
-		 * 
-		 * @throws Error
-		 * 		Error if Singleton instance has already been constructed.
+		 * The multiton Key for this Core.
+		 *
+		 * @protected
 		 */
-		constructor()
-		{
-			if( Model.instance )
-				throw Error( Model.SINGLETON_MSG );
+		multitonKey:string = null;
 
-			Model.instance = this;
-			this.proxyMap = {};
+		/**
+		 * This <code>IModel</code> implementation is a multiton,  so you should not call the
+		 * constructor directly, but instead call the static multiton Factory method
+		 * <code>Model.getInstance( key )</code>.
+		 * 
+		 * @param key
+		 *		Multiton key for this instance of <code>Model</code>.
+		 *
+		 * @throws Error
+		 * 		Throws an error if an instance for this multiton key has already been constructed.
+		 */
+		constructor( key:string )
+		{
+			if( Model.instanceMap[ key ] )
+				throw Error( Model.MULTITON_MSG );
+
+			Model.instanceMap[ key ] = this;
+			this.multitonKey = key;
+			this.proxyMap = {};	
+
 			this.initializeModel();
 		}
 		
 		/**
-		 * Initialize the Singleton <code>Model</code> instance.
+		 * Initialize the multiton <code>Model</code> instance.
 		 *
 		 * Called automatically by the constructor, this is the opportunity to initialize the
-		 * Singleton instance in a subclass without overriding the constructor.
+		 * multiton instance in a subclass without overriding the constructor.
 		 *
 		 * @protected
 		 */
@@ -68,8 +80,9 @@ module puremvc
 		 * @param proxy
 		 *		An <code>IProxy</code> to be held by the <code>Model</code>.
 		 */
-		public registerProxy( proxy:IProxy ):void
+		registerProxy( proxy:IProxy ):void
 		{
+			proxy.initializeNotifier( this.multitonKey );
 			this.proxyMap[ proxy.getProxyName() ] = proxy;
 			proxy.onRegister();
 		}
@@ -84,7 +97,7 @@ module puremvc
 		 *		The <code>IProxy</code> that was removed from the <code>Model</code> or an
 		 *		explicit <code>null</null> if the <code>IProxy</code> didn't exist.
 		 */
-		public removeProxy( proxyName:string ):IProxy
+		removeProxy( proxyName:string ):IProxy
 		{
 			var proxy:IProxy = this.proxyMap[ proxyName ];
 			if( proxy )
@@ -106,7 +119,7 @@ module puremvc
 		 *		The <code>IProxy</code> instance previously registered with the given
 		 *		<code>proxyName</code> or an explicit <code>null</code> if it doesn't exists.
 		 */
-		public retrieveProxy( proxyName:string ):IProxy
+		retrieveProxy( proxyName:string ):IProxy
 		{
 				//Return a strict null when the proxy doesn't exist
 				return this.proxyMap[proxyName] || null;
@@ -121,39 +134,53 @@ module puremvc
 		 * @return
 		 *		A Proxy is currently registered with the given <code>proxyName</code>.
 		 */
-		public hasProxy( proxyName:string ):bool
+		hasProxy( proxyName:string ):bool
 		{
 			return this.proxyMap[ proxyName ] != null;
 		}
 
 		/**
-		 * Error message used to indicate that a controller singleton is already constructed when
-		 * trying to constructs the class twice.
+		 * Error message used to indicate that a <code>Model</code> singleton instance is
+		 * already constructed for this multiton key.
 		 *
 		 * @constant
 		 * @protected
 		 */
-		 static SINGLETON_MSG:string = "Model Singleton already constructed!";
+		 static MULTITON_MSG:string = "Model instance for this multiton key already constructed!";
 
 		/**
-		 * Singleton instance local reference.
+		 * <code>Model</code>s singleton instance map.
 		 *
 		 * @protected
 		 */
-		 static instance:IModel;
-				
+		static instanceMap:Object = {};
+
 		/**
-		 * <code>Model</code> singleton factory method.
-		 * 
+		 * Retrieve the singleton instance of the <code>Model</code>.
+		 *
+		 * @param key
+		 *		The multiton key of the instance of <code>Model</code> to create or retrieve.
+		 *
 		 * @return
 		 * 		The singleton instance of the <code>Model</code>.
 		 */
-		public static getInstance():IModel
+		static getInstance( key ):IModel
 		{
-			if( !Model.instance )
-				Model.instance = new Model();
+			if( !Model.instanceMap[ key ] )
+				Model.instanceMap[key] = new Model( key );
 
-			return Model.instance;
+			return Model.instanceMap[ key ];
+		}
+
+		/**
+		 * Remove a <code>Model</code> instance
+		 * 
+		 * @param {String} key
+		 *		Multiton key identifier for the <code>Model</code> instance to remove.
+		 */
+		static removeModel( key ):void
+		{
+			delete Model.instanceMap[ key ];
 		}
 	}
 }

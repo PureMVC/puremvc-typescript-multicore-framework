@@ -59,7 +59,7 @@ module puremvc
 		 * @param notification
 		 * 		The <code>INotification</code> to notify <code>IObserver</code>s of.
 		 */
-		notifyObservers( note:INotification ):void;
+		notifyObservers( notification:INotification ):void;
 
 		/**
 		 * Register an <code>IMediator</code> instance with the <code>View</code>.
