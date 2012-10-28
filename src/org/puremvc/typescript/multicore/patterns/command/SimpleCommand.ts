@@ -1,6 +1,7 @@
 ///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/ICommand.ts'/>
 ///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/INotifier.ts'/>
 ///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
+
 ///<reference path='../../../../../../org/puremvc/typescript/multicore/patterns/observer/Notifier.ts'/>
 
 module puremvc

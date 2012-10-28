@@ -177,7 +177,7 @@ module puremvc
 		 */
 		removeCommand( notificationName:string ):void
 		{
-			//If the Command is registered...
+			// if the Command is registered...
 			if( this.hasCommand( notificationName ) )
 			{
 				this.view.removeObserver( notificationName, this );			
@@ -186,7 +186,7 @@ module puremvc
 		}
 
 		/**
-		 * The multiton map used to store <code>Controller</code>s instances.
+		 * <code>Controller</code> singleton instance map.
 		 *
 		 * @protected
 		 */

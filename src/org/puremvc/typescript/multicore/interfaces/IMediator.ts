@@ -6,14 +6,12 @@ module puremvc
 	/**
 	 * The interface definition for a PureMVC Mediator.
 	 *
-	 *
 	 * In PureMVC, <code>IMediator</code> implementors assume these responsibilities:
 	 * <UL>
 	 * <LI>Implement a common method which returns a list of all <code>INotification</code>s 
 	 * the <code>IMediator</code> has interest in.
 	 * <LI>Implement a notification callback method.
 	 * <LI>Implement methods that are called when the IMediator is registered or removed from the View.
-	 *
 	 *
 	 * Additionally, <code>IMediator</code>s typically:
 	 * <UL>
@@ -24,13 +22,11 @@ module puremvc
 	 * <LI>Respond to and generate <code>INotifications</code>, interacting with of the rest of the
 	 * PureMVC application.
 	 *
-	 *
 	 * When an <code>IMediator</code> is registered with the <code>IView</code>, 
 	 * the <code>IView</code> will call the <code>IMediator</code>'s 
 	 * <code>listNotificationInterests</code> method. The <code>IMediator</code> will 
 	 * return a list of <code>INotification</code> names which
 	 * it wishes to be notified about.
-	 * 
 	 *
 	 * The <code>IView</code> will then create an <code>Observer</code> object 
 	 * encapsulating that <code>IMediator</code>'s (<code>handleNotification</code>) method

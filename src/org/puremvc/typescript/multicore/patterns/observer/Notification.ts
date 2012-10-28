@@ -33,18 +33,21 @@ module puremvc
 	{
 		/**
 		 * The name of the <code>Notification</code>.
+		 *
 		 * @protected
 		 */
 		name:string = null;
 
 		/**
 		 * The body data to send with the <code>Notification</code>.
+		 *
 		 * @protected
 		 */
 		body:any = null;
 
 		/**
 		 * The type identifier of the <code>Notification</code>.
+		 *
 		 * @protected
 		 */
 		type:string = null;

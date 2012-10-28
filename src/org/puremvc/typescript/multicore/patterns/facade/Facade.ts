@@ -15,7 +15,7 @@ module puremvc
 	"use strict";
 
 	/**
-	 * A base Multiton <code>IFacade</code> implementation.
+	 * A base multiton <code>IFacade</code> implementation.
 	 * 
 	 * In PureMVC, the <code>Facade</code> class assumes these responsibilities:
 	 *
@@ -40,21 +40,21 @@ module puremvc
 		 *
 		 * @protected
 		 */
-		model:IModel;
+		model:IModel = null;
 
 		/**
 		 * Local reference to the <code>View</code> multiton.
 		 *
 		 * @protected
 		 */
-		view:IView;
+		view:IView = null;
 			 
 		/**
 		 * Local reference to the <code>Controller</code> multiton.
 		 *
 		 * @protected
 		 */
-		controller:IController;
+		controller:IController = null;
 
 		/**
 		 * The multiton Key for this Core.
@@ -89,7 +89,7 @@ module puremvc
 
 		/**
 		 * Called automatically by the constructor.
-		 * Initialize the Singleton <code>Facade</code> instance.
+		 * Initialize the singleton <code>Facade</code> instance.
 		 *
 		 * Override in your subclass to do any subclass specific initializations. Be sure to
 		 * extend the <code>Facade</code> with the methods and properties on your implementation
@@ -348,14 +348,14 @@ module puremvc
 		}
 
 		/**
-		 * Notify <code>Observer</code>s.
+		 * Notify the <code>IObservers</code> for a particular <code>INotification</code>.
 		 *
 		 * This method is left public mostly for backward compatibility, and to allow you to
 		 * send custom notification classes using the <code>Facade</code>.
 		 *
 		 *
 		 * Usually you should just call <code>sendNotification</code> and pass the parameters,
-		 * never having to construct the <code>Notification</code> yourself.
+		 * never having to construct the <code>INotification</code> yourself.
 		 * 
 		 * @param notification
 		 * 		The <code>INotification</code> to have the <code>IView</code> notify
@@ -408,7 +408,7 @@ module puremvc
 		static MULTITON_MSG:string = "Facade instance for this multiton key already constructed!";
 
 		/**
-		 * The Singleton Facade instance.
+		 * <code>Facade</code> singleton instance map.
 		 *
 		 * @protected
 		 */
@@ -432,7 +432,7 @@ module puremvc
 		}
 
 		/**
-		 * Check if a Core is registered or not.
+		 * Check if a core is registered or not.
 		 * 
 		 * @param key
 		 *		The multiton key for the Core in question.
@@ -446,13 +446,13 @@ module puremvc
 		}
 
 		/**
-		 * Remove a Core.
+		 * Remove a core.
 		 *
 		 * Remove the <code>Model</code>, <code>View</code>, <code>Controller</code> and
 		 * <code>Facade</code> instances for the given key.
 		 * 
 		 * @param key
-		 *		Key identifier of the Core to remove.
+		 *		Key identifier of the core to remove.
 		 */
 		static removeCore( key:string ):void
 		{

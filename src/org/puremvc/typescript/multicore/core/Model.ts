@@ -27,9 +27,10 @@ module puremvc
 	{
 		/**
 		 * HashTable of <code>IProxy</code> registered with the <code>Model</code>.
+		 *
 		 * @protected
 		 */
-		proxyMap:Object;
+		proxyMap:Object = null;
 
 		/**
 		 * The multiton Key for this Core.
@@ -39,7 +40,7 @@ module puremvc
 		multitonKey:string = null;
 
 		/**
-		 * This <code>IModel</code> implementation is a multiton,  so you should not call the
+		 * This <code>IModel</code> implementation is a multiton, so you should not call the
 		 * constructor directly, but instead call the static multiton Factory method
 		 * <code>Model.getInstance( key )</code>.
 		 * 
@@ -149,14 +150,14 @@ module puremvc
 		 static MULTITON_MSG:string = "Model instance for this multiton key already constructed!";
 
 		/**
-		 * <code>Model</code>s singleton instance map.
+		 * <code>Model</code> singleton instance map.
 		 *
 		 * @protected
 		 */
 		static instanceMap:Object = {};
 
 		/**
-		 * Retrieve the singleton instance of the <code>Model</code>.
+		 * <code>Model</code> multiton factory method.
 		 *
 		 * @param key
 		 *		The multiton key of the instance of <code>Model</code> to create or retrieve.
@@ -175,7 +176,7 @@ module puremvc
 		/**
 		 * Remove a <code>Model</code> instance
 		 * 
-		 * @param {String} key
+		 * @param key
 		 *		Multiton key identifier for the <code>Model</code> instance to remove.
 		 */
 		static removeModel( key ):void

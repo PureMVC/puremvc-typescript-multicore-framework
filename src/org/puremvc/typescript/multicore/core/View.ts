@@ -54,11 +54,11 @@ module puremvc
 		 * constructor directly, but instead call the static multiton Factory method
 		 * <code>View.getInstance( key )</code>.
 		 *
-		 * @param {String} key
+		 * @param key
 		 *		Multiton key for this instance of <code>View</code>.
 		 *
 		 * @throws Error
-		 * 		Throws an error if an instance for this multiton has already been constructed.
+		 *		Throws an error if an instance for this multiton has already been constructed.
 		 */
 		constructor( key:string )
 		{
@@ -193,6 +193,7 @@ module puremvc
 				return;
 
 			mediator.initializeNotifier( this.multitonKey );
+
 			//Register the Mediator for retrieval by name.
 			this.mediatorMap[ name ] = mediator;
 			
@@ -278,7 +279,7 @@ module puremvc
 		}
 
 		/**
-		 * <code>View</code>s singleton instance map.
+		 * <code>View</code> singleton instance map.
 		 *
 		 * @protected
 		 */
@@ -294,13 +295,13 @@ module puremvc
 		static MULTITON_MSG:string = "View instance for this multiton key already constructed!";
 
 		/**
-		 * Retrieve the singleton instance of the <code>View</code>.
+		 * <code>View</code> multiton factory method.
 		 *
 		 * @param key
 		 *		The multiton key of the instance of <code>View</code> to create or retrieve.
 		 *
 		 * @return
-		 * 		The singleton instance of <code>View</code>.
+		 *		The singleton instance of <code>View</code>.
 		 */
 		static getInstance( key:string ):IView
 		{
@@ -319,6 +320,6 @@ module puremvc
 		static removeView( key:string ):void
 		{
 			delete View.instanceMap[ key ];
-		};
+		}
 	}
 }

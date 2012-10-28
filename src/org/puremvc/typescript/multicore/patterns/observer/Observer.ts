@@ -108,7 +108,7 @@ module puremvc
 		/**
 		 * Notify the interested object.
 		 * 
-		 * @param note
+		 * @param notification
 		 * 		The <code>INotification</code> to pass to the interested object's notification
 		 * 		method.
 		 */

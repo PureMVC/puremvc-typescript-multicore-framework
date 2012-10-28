@@ -110,7 +110,7 @@ module puremvc
 		 * Typically this will be handled in a switch statement, with one 'case' entry per
 		 * <code>INotification</code> the <code>Mediator</code> is interested in.
 		 *
-		 * @param note
+		 * @param notification
 		 * 		The notification instance to be handled.
 		 */ 
 		handleNotification( notification:INotification ):void

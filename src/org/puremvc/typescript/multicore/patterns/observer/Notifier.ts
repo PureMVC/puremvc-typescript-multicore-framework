@@ -49,9 +49,9 @@ module puremvc
 		 *		The multiton key for this <code>Notifier</code> to use.
 		 */
 		 initializeNotifier( key )
-		 {
+		{
 			this.multitonKey = key;
-		 }
+		}
 
 		/**
 		 * Create and send a <code>Notification</code>.
