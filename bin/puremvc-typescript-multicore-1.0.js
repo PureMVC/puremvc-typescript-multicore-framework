@@ -207,6 +207,7 @@ var puremvc;
     "use strict";
     var Model = (function () {
         function Model(key) {
+            this.proxyMap = null;
             this.multitonKey = null;
             if(Model.instanceMap[key]) {
                 throw Error(Model.MULTITON_MSG);
@@ -300,6 +301,9 @@ var puremvc;
     "use strict";
     var Facade = (function () {
         function Facade(key) {
+            this.model = null;
+            this.view = null;
+            this.controller = null;
             this.multitonKey = null;
             if(Facade.instanceMap[key]) {
                 throw Error(Facade.MULTITON_MSG);
