@@ -33,6 +33,7 @@ module puremvc
 			// Create a new subclass of Notifier and verify that its facade
 			// has well been created
 			var mediatorTestSub:MediatorTestSub = new MediatorTestSub();
+			mediatorTestSub.initializeNotifier('MediatorTestKey1');
 
 			// test assertions
 			YUITest.Assert.isTrue

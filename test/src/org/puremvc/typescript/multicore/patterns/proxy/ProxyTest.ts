@@ -33,6 +33,7 @@ module puremvc
 		{
 			// Create a new subclass of Notifier and verify that its facade has well been created.
 			var proxyTestSub:ProxyTestSub = new ProxyTestSub();
+			proxyTestSub.initializeNotifier( "key" );
 
 			// test assertions
 			YUITest.Assert.isTrue

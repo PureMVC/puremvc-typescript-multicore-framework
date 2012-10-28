@@ -21,12 +21,12 @@ module puremvc
 		/**
 		 * Fabricate a result by multiplying the input by 2
 		 *
-		 * @param note
+		 * @param notification
 		 * 		The Notification carrying the NotifierTestVO
 		 */
-		execute( note:INotification )
+		execute( notification:INotification )
 		{
-			var vo:NotifierTestVO = note.getBody();
+			var vo:NotifierTestVO = notification.getBody();
 
 			// Fabricate a result
 			vo.result = 2 * vo.input;

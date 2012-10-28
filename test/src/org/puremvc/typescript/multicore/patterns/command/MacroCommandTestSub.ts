@@ -26,7 +26,7 @@ module puremvc
 		 */
 		hasFacade():bool
 		{
-			return this.facade instanceof Facade;
+			return this.facade() instanceof Facade;
 		}
 	}
 }

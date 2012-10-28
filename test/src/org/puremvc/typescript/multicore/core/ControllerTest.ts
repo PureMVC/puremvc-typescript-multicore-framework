@@ -69,7 +69,7 @@ module puremvc
 		testRegisterAndExecuteCommand():void
 		{
 			// Create the controller, register the ControllerTestCommand to handle 'ControllerTest' notes
-			var controller:IController = Controller.getInstance();
+			var controller:IController = Controller.getInstance('ControllerTestKey2');
 			controller.registerCommand( 'ControllerTest', ControllerTestCommand );
 
 			// Create a 'ControllerTest' note
@@ -99,7 +99,7 @@ module puremvc
 		testRegisterAndRemoveCommand():void
 		{
 			// Create the controller, register the ControllerTestCommand to handle 'ControllerTest' notes
-			var controller:IController = Controller.getInstance();
+			var controller:IController = Controller.getInstance('ControllerTestKey3');
 			controller.registerCommand( 'ControllerRemoveTest', ControllerTestCommand );
 
 			// Create a 'ControllerTest' note
@@ -145,7 +145,7 @@ module puremvc
 		testHasCommand():void
 		{
 			// register the ControllerTestCommand to handle 'hasCommandTest' notes
-			var controller:IController = Controller.getInstance();
+			var controller:IController = Controller.getInstance('ControllerTestKey4');
 			controller.registerCommand( 'hasCommandTest', ControllerTestCommand );
 
 			// test that hasCommand returns true for hasCommandTest notifications
@@ -177,7 +177,7 @@ module puremvc
 		testReregisterAndExecuteCommand():void
 		{
 			// Fetch the controller, register the ControllerTestCommand2 to handle 'ControllerTest2' notes
-			var controller:IController = Controller.getInstance();
+			var controller:IController = Controller.getInstance('ControllerTestKey5');
 			controller.registerCommand( 'ControllerTest2', ControllerTestCommand2 );
 
 			// Remove the Command from the Controller
@@ -191,7 +191,7 @@ module puremvc
 			var note:Notification = new Notification( 'ControllerTest2', vo );
 
 			// retrieve a reference to the View.
-			var view:IView = View.getInstance();
+			var view:IView = View.getInstance('ControllerTestKey5');
 
 			// send the Notification
 			view.notifyObservers(note);

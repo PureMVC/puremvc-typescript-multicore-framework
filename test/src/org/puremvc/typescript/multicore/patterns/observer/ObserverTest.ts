@@ -99,7 +99,7 @@ module puremvc
 		{
 			// Create observer passing in notification method and context
 			var observer:IObserver = new Observer( this.observerTestMethod, this );
-			var negTestObj:Object = new Object();
+			var negTestObj:Object = {};
 
 			// test assertions
 			YUITest.Assert.isFalse
@@ -117,10 +117,14 @@ module puremvc
 
 		/**
 		 * A function that is used as the observer notification method.
+		 *
+		 * @param notification
+		 *		The <code>Notification</code> used to test that <code>Observer</code> is well
+		 *		notified.
 		 */
-		private observerTestMethod( note:INotification ):void
+		private observerTestMethod( notification:INotification ):void
 		{
-			this.observerTestVar = note.getBody();
+			this.observerTestVar = notification.getBody();
 		}
 	}
 }

@@ -102,7 +102,7 @@ module puremvc
 			(
 				ts,
 				note.toString(),
-				"Expecting note.testToString():void == '" + ts + "'"
+				"Expecting note.testToString() == '" + ts + "'"
 			);
 		}
 	}

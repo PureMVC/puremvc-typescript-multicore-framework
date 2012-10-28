@@ -20,14 +20,14 @@ module puremvc
 		implements ICommand
 	{
 		/**
-		 * Fabricate a result by multiplying the input by 2
+		 * Fabricate a result by multiplying the input by 2.
 		 *
-		 * @param note
-		 * 		The <code>Notification</code> carrying the <code>MacroCommandTestVO</code>
+		 * @param notification
+		 * 		The <code>Notification</code> carrying the <code>MacroCommandTestVO</code>.
 		 */
-		execute( note:INotification )
+		execute( notification:INotification )
 		{
-			var vo:MacroCommandTestVO = note.getBody();
+			var vo:MacroCommandTestVO = notification.getBody();
 
 			// Fabricate a result
 			vo.result2 = vo.input * vo.input;

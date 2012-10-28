@@ -31,7 +31,7 @@ module puremvc
 		testGetInstance():void
 		{
 			// Test Factory Method
-			var model:IModel = Model.getInstance()
+			var model:IModel = Model.getInstance('ModelTestKey1')
 
 			// test assertions
 			YUITest.Assert.isNotNull
@@ -59,7 +59,7 @@ module puremvc
 		testRegisterAndRetrieveProxy():void
 		{
 			// register a proxy and retrieve it.
-			var model:IModel = Model.getInstance();
+			var model:IModel = Model.getInstance('ModelTestKey2');
 			model.registerProxy( new Proxy( 'colors', ['red', 'green', 'blue'] ) );
 
 			var proxy:IProxy = model.retrieveProxy('colors');
@@ -113,7 +113,7 @@ module puremvc
 		testRegisterAndRemoveProxy():void
 		{
 			// register a proxy, remove it, then try to retrieve it
-			var model:IModel = Model.getInstance();
+			var model:IModel = Model.getInstance('ModelTestKey3');
 			var proxy:IProxy = new Proxy( 'sizes', ['7', '13', '21'] );
 			model.registerProxy( proxy );
 
@@ -145,7 +145,7 @@ module puremvc
 		testHasProxy():void
 		{
 			// register a proxy
-			var model:IModel = Model.getInstance();
+			var model:IModel = Model.getInstance('ModelTestKey4');
 			var proxy:IProxy = new Proxy( 'aces', [ 'clubs', 'spades', 'hearts', 'diamonds' ] );
 			model.registerProxy( proxy );
 
@@ -175,7 +175,7 @@ module puremvc
 		testOnRegisterAndOnRemove():void
 		{
 			// Get the Singleton View instance
-			var model:IModel = Model.getInstance();
+			var model:IModel = Model.getInstance('ModelTestKey4');
 
 			// Create and register the test mediator
 			var proxy:IProxy = new ModelTestProxy();

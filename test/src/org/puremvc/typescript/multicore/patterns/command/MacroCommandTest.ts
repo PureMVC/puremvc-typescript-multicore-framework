@@ -36,6 +36,7 @@ module puremvc
 		{
 			// Create a new subclass of Notifier and verify that its facade has well been created
 			var macroCommandTestSub:MacroCommandTestSub = new MacroCommandTestSub();
+			macroCommandTestSub.initializeNotifier("macroCommandTestKey1")
 
 			// test assertions
 			YUITest.Assert.isTrue

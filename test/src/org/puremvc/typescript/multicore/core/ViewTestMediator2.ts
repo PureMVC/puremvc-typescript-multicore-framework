@@ -55,12 +55,12 @@ module puremvc
 		/**
 		 * @override
 		 *
-		 * @param note
+		 * @param notification
 		 * 		The notification instance to be handled.
 		 */
-		handleNotification( note:INotification )
+		handleNotification( notification:INotification )
 		{
-			this.getViewTest().lastNotification = note.getName();
+			this.getViewTest().lastNotification = notification.getName();
 		}
 
 		/**

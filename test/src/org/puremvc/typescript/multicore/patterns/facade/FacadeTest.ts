@@ -36,7 +36,7 @@ module puremvc
 		testGetInstance():void
 		{
 			// Test Factory Method
-			var facade:IFacade = Facade.getInstance();
+			var facade:IFacade = Facade.getInstance('FacadeTestKey1');
 
 			// test assertions
 			YUITest.Assert.isNotUndefined
@@ -69,7 +69,7 @@ module puremvc
 			 * Create the Facade, register the FacadeTestCommand to handle 'FacadeTest'
 			 * notifications.
 			 */
-			var facade:IFacade = Facade.getInstance();
+			var facade:IFacade = Facade.getInstance('FacadeTestKey2');
 			facade.registerCommand( 'FacadeTestNote', FacadeTestCommand );
 
 			/*
@@ -102,7 +102,7 @@ module puremvc
 		{
 			// Create the Facade, register the FacadeTestCommand to
 			// handle 'FacadeTest' events
-			var facade:IFacade = Facade.getInstance();
+			var facade:IFacade = Facade.getInstance('FacadeTestKey3');
 			facade.registerCommand( 'FacadeTestNote', FacadeTestCommand );
 			facade.removeCommand( 'FacadeTestNote' );
 
@@ -131,7 +131,7 @@ module puremvc
 		testRegisterAndRetrieveProxy():void
 		{
 			// register a proxy and retrieve it.
-			var facade:IFacade = Facade.getInstance();
+			var facade:IFacade = Facade.getInstance('FacadeTestKey4');
 			facade.registerProxy( new Proxy( 'colors', ['red', 'green', 'blue'] ) );
 
 			var proxy:IProxy = facade.retrieveProxy( 'colors' );
@@ -194,7 +194,7 @@ module puremvc
 		testRegisterAndRemoveProxy():void
 		{
 			// register a proxy, remove it, then try to retrieve it
-			var facade:IFacade = Facade.getInstance();
+			var facade:IFacade = Facade.getInstance('FacadeTestKey5');
 			var proxy:IProxy = new Proxy( 'sizes', ['7', '13', '21'] );
 			facade.registerProxy( proxy );
 
@@ -224,7 +224,7 @@ module puremvc
 		testRegisterRetrieveAndRemoveMediator():void
 		{
 			// register a mediator, remove it, then try to retrieve it
-			var facade:IFacade = Facade.getInstance();
+			var facade:IFacade = Facade.getInstance('FacadeTestKey6');
 			facade.registerMediator( new Mediator( Mediator.NAME, new Object() ) );
 
 			// retrieve the mediator
@@ -259,7 +259,7 @@ module puremvc
 		testHasProxy():void
 		{
 			// register a Proxy
-			var facade:IFacade = Facade.getInstance();
+			var facade:IFacade = Facade.getInstance('FacadeTestKey7');
 			facade.registerProxy( new Proxy( 'hasProxyTest', [1,2,3] ) );
 
 			// assert that the model.hasProxy method returns true
@@ -277,7 +277,7 @@ module puremvc
 		testHasMediator():void
 		{
 			// register a Mediator
-			var facade:IFacade = Facade.getInstance();
+			var facade:IFacade = Facade.getInstance('FacadeTestKey8');
 			facade.registerMediator( new Mediator( 'facadeHasMediatorTest', new Object() ) );
 
 			// assert that the facade.hasMediator method returns true
@@ -305,7 +305,7 @@ module puremvc
 		testHasCommand():void
 		{
 			// register the ControllerTestCommand to handle 'hasCommandTest' notes
-			var facade:IFacade = Facade.getInstance();
+			var facade:IFacade = Facade.getInstance('FacadeTestKey10');
 			facade.registerCommand( 'facadeHasCommandTest', FacadeTestCommand );
 
 			// test that hasCommand returns true for hasCommandTest notifications
@@ -323,6 +323,39 @@ module puremvc
 			(
 				facade.hasCommand('facadeHasCommandTest'),
 				"Expecting facade.hasCommand('facadeHasCommandTest') === false"
+			);
+		}
+
+  		/**
+  		 * Tests the hasCore and removeCore methods
+  		 */
+  		testHasCoreAndRemoveCore():void
+		{
+   			// assert that the Facade.hasCore method returns false first
+   			YUITest.Assert.isFalse
+			(
+				Facade.hasCore('FacadeTestKey11'),
+				"Expecting Facade.hasCore('FacadeTestKey11') === false"	
+			);
+			
+   			// register a Core
+			var facade:IFacade = Facade.getInstance('FacadeTestKey11');
+						
+   			// assert that the Facade.hasCore method returns true now that a Core is registered
+   			YUITest.Assert.isTrue
+			(
+   				Facade.hasCore('FacadeTestKey11'),
+				"Expecting Facade.hasCore('FacadeTestKey11') === true"
+			);
+			
+   			// remove the Core
+			Facade.removeCore('FacadeTestKey11');
+			
+   			// assert that the Facade.hasCore method returns false now that the core has been removed.
+   			YUITest.Assert.isFalse
+			(
+   				Facade.hasCore('FacadeTestKey11'),
+				"Expecting Facade.hasCore('FacadeTestKey11') === false"
 			);
 		}
 	}

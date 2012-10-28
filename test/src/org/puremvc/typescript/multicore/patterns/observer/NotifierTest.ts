@@ -35,6 +35,7 @@ module puremvc
 			// Create a new subclass of Notifier and verify that its facade
 			// has well been created
 			var notifierTestSub:NotifierTestSub = new NotifierTestSub();
+			notifierTestSub.initializeNotifier('NotifierTestKey1')
 
 			// test assertions
 			YUITest.Assert.isTrue
@@ -51,7 +52,7 @@ module puremvc
 		{
 			// Create the Facade, register the FacadeTestCommand to
 			// handle 'NotifierTest' notifications
-			var facade:IFacade = Facade.getInstance();
+			var facade:IFacade = Facade.getInstance('NotifierTestKey2');
 			facade.registerCommand( 'NotifierTestNote', NotifierTestCommand );
 
 			// Send notification. The Command associated with the event
