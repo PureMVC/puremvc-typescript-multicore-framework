@@ -1,10 +1,10 @@
-///<reference path='../../../../../../../test/lib/YUITest.d.ts'/>
+///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
 
-///<reference path='../../../../../../../src/org/puremvc/typescript/interfaces/IFacade.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/interfaces/INotification.ts'/>
+///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/IFacade.ts'/>
+///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
 
-///<reference path='../../../../../../../src/org/puremvc/typescript/patterns/facade/Facade.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/patterns/observer/Notification.ts'/>
+///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/facade/Facade.ts'/>
+///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notification.ts'/>
 
 ///<reference path='NotifierTestCommand' />
 ///<reference path='NotifierTestSub' />

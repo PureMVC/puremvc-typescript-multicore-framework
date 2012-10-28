@@ -1,7 +1,7 @@
-///<reference path='../../../../../org/puremvc/typescript/interfaces/IMediator.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/interfaces/INotifier.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/interfaces/INotification.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/patterns/observer/Notifier.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/IMediator.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotifier.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/patterns/observer/Notifier.ts'/>
 
 module puremvc
 {

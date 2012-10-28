@@ -1,4 +1,4 @@
-///<reference path='../../../../org/puremvc/typescript/interfaces/IProxy.ts'/>
+///<reference path='../../../../org/puremvc/typescript/multicore/interfaces/IProxy.ts'/>
 
 module puremvc
 {

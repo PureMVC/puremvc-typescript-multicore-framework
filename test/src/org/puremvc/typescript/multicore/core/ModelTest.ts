@@ -1,10 +1,10 @@
-///<reference path='../../../../../../test/lib/YUITest.d.ts'/>
+///<reference path='../../../../../../../test/lib/YUITest.d.ts'/>
 
-///<reference path='../../../../../../src/org/puremvc/typescript/interfaces/IModel.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/interfaces/IModel.ts'/>
 
-///<reference path='../../../../../../src/org/puremvc/typescript/core/Model.ts'/>
-///<reference path='../../../../../../src/org/puremvc/typescript/patterns/observer/Notification.ts'/>
-///<reference path='../../../../../../src/org/puremvc/typescript/patterns/proxy/Proxy.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicorecore/Model.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notification.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/patterns/proxy/Proxy.ts'/>
 
 ///<reference path='ModelTestProxy.ts'/>
 

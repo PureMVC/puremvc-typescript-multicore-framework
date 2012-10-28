@@ -1,9 +1,9 @@
-///<reference path='../../../../../../test/lib/YUITest.d.ts'/>
+///<reference path='../../../../../../../test/lib/YUITest.d.ts'/>
 
-///<reference path='../../../../../../src/org/puremvc/typescript/interfaces/INotification.ts'/>
-///<reference path='../../../../../../src/org/puremvc/typescript/interfaces/ICommand.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/interfaces/ICommand.ts'/>
 
-///<reference path='../../../../../../src/org/puremvc/typescript/patterns/command/SimpleCommand.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/patterns/command/SimpleCommand.ts'/>
 
 ///<reference path='ControllerTestVO.ts'/>
 

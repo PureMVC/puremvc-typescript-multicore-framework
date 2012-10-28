@@ -1,8 +1,8 @@
-///<reference path='../../../../org/puremvc/typescript/interfaces/IController.ts'/>
-///<reference path='../../../../org/puremvc/typescript/interfaces/IView.ts'/>
-///<reference path='../../../../org/puremvc/typescript/interfaces/INotification.ts'/>
-///<reference path='../../../../org/puremvc/typescript/interfaces/ICommand.ts'/>
-///<reference path='../../../../org/puremvc/typescript/patterns/observer/Observer.ts'/>
+///<reference path='../../../../org/puremvc/typescript/multicore/interfaces/IController.ts'/>
+///<reference path='../../../../org/puremvc/typescript/multicore/interfaces/IView.ts'/>
+///<reference path='../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
+///<reference path='../../../../org/puremvc/typescript/multicore/interfaces/ICommand.ts'/>
+///<reference path='../../../../org/puremvc/typescript/multicore/patterns/observer/Observer.ts'/>
 
 module puremvc
 {

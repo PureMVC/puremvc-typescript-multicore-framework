@@ -1,4 +1,4 @@
-///<reference path='../../../../../../../test/lib/YUITest.d.ts'/>
+///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
 
 module puremvc
 {

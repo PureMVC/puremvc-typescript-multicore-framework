@@ -1,8 +1,8 @@
-///<reference path='../../../../../../test/lib/YUITest.d.ts'/>
+///<reference path='../../../../../../../test/lib/YUITest.d.ts'/>
 
-///<reference path='../../../../../../src/org/puremvc/typescript/interfaces/IProxy.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/interfaces/IProxy.ts'/>
 
-///<reference path='../../../../../../src/org/puremvc/typescript/patterns/proxy/Proxy.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/patterns/proxy/Proxy.ts'/>
 
 module puremvc
 {

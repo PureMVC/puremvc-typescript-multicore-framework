@@ -1,4 +1,4 @@
-///<reference path='../../../../../org/puremvc/typescript/interfaces/INotification.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
 
 module puremvc
 {

@@ -1,14 +1,14 @@
-///<reference path='../../../../../../../test/lib/YUITest.d.ts'/>
+///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
 
-///<reference path='../../../../../../../src/org/puremvc/typescript/interfaces/IFacade.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/interfaces/IMediator.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/interfaces/INotification.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/interfaces/IProxy.ts'/>
+///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/IFacade.ts'/>
+///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/IMediator.ts'/>
+///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
+///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/IProxy.ts'/>
 
-///<reference path='../../../../../../../src/org/puremvc/typescript/patterns/facade/Facade.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/patterns/mediator/Mediator.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/patterns/observer/Notification.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/patterns/proxy/Proxy.ts'/>
+///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/facade/Facade.ts'/>
+///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/mediator/Mediator.ts'/>
+///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notification.ts'/>
+///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/proxy/Proxy.ts'/>
 
 ///<reference path='FacadeTestCommand.ts'/>
 ///<reference path='FacadeTestVO.ts'/>

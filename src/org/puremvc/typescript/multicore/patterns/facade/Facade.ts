@@ -1,14 +1,14 @@
-///<reference path='../../../../../org/puremvc/typescript/interfaces/IFacade.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/interfaces/IModel.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/interfaces/IView.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/interfaces/IController.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/interfaces/IProxy.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/interfaces/IMediator.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/interfaces/INotification.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/core/Controller.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/core/Model.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/core/View.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/patterns/observer/Notification.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/IFacade.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/IModel.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/IView.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/IController.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/IProxy.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/IMediator.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicorecore/Controller.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicorecore/Model.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicorecore/View.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/patterns/observer/Notification.ts'/>
 
 module puremvc
 {

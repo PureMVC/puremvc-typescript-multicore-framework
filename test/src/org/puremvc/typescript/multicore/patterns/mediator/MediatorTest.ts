@@ -1,8 +1,8 @@
-///<reference path='../../../../../../../test/lib/YUITest.d.ts'/>
+///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
 
-///<reference path='../../../../../../../src/org/puremvc/typescript/interfaces/IMediator.ts'/>
+///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/IMediator.ts'/>
 
-///<reference path='../../../../../../../src/org/puremvc/typescript/patterns/mediator/Mediator.ts'/>
+///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/mediator/Mediator.ts'/>
 
 ///<reference path='MediatorTestSub.ts'/>
 

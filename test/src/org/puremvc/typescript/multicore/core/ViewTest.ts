@@ -1,13 +1,13 @@
-///<reference path='../../../../../../test/lib/YUITest.d.ts'/>
+///<reference path='../../../../../../../test/lib/YUITest.d.ts'/>
 
-///<reference path='../../../../../../src/org/puremvc/typescript/interfaces/INotification.ts'/>
-///<reference path='../../../../../../src/org/puremvc/typescript/interfaces/IView.ts'/>
-///<reference path='../../../../../../src/org/puremvc/typescript/interfaces/IMediator.ts'/>
-///<reference path='../../../../../../src/org/puremvc/typescript/interfaces/IObserver.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/interfaces/IView.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/interfaces/IMediator.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/interfaces/IObserver.ts'/>
 
-///<reference path='../../../../../../src/org/puremvc/typescript/patterns/mediator/Mediator.ts'/>
-///<reference path='../../../../../../src/org/puremvc/typescript/patterns/observer/Observer.ts'/>
-///<reference path='../../../../../../src/org/puremvc/typescript/patterns/observer/Notification.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/patterns/mediator/Mediator.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Observer.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notification.ts'/>
 
 ///<reference path='ViewTestMediator.ts'/>
 ///<reference path='ViewTestMediator2.ts'/>
@@ -544,8 +544,7 @@ module puremvc
 
 			// Create and register several mediator instances that respond to notification 6
 			// by removing themselves, which will cause the observer list for that notification
-			// to change. versions prior to Standard Version 2.0.4 will see every other mediator
-			// fails to be notified.
+			// to change.
 			view.registerMediator( new ViewTestMediator6( ViewTestMediator6.NAME+"/1", this ) );
 			view.registerMediator( new ViewTestMediator6( ViewTestMediator6.NAME+"/2", this ) );
 			view.registerMediator( new ViewTestMediator6( ViewTestMediator6.NAME+"/3", this ) );

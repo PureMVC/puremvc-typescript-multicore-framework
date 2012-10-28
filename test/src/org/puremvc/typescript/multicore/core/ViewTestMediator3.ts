@@ -1,8 +1,8 @@
-///<reference path='../../../../../../test/lib/YUITest.d.ts'/>
+///<reference path='../../../../../../../test/lib/YUITest.d.ts'/>
 
-///<reference path='../../../../../../src/org/puremvc/typescript/interfaces/IMediator.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/interfaces/IMediator.ts'/>
 
-///<reference path='../../../../../../src/org/puremvc/typescript/patterns/mediator/Mediator.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/patterns/mediator/Mediator.ts'/>
 
 ///<reference path='ViewTest.ts'/>
 
@@ -29,8 +29,7 @@ module puremvc
 		}
 
 		/**
-		 * Standard getter to return the view handled by the
-		 * <code>Mediator</code>.
+		 * Standard getter to return the view handled by the <code>Mediator</code>.
 		 *
 		 * @return
 		 * 		The view handled by the <code>Mediator</code>.
@@ -44,13 +43,11 @@ module puremvc
 		 * @override
 		 *
 		 * @return
-		 * 		The list of notifications names in which is interested the
-		 * 		<code>Mediator</code>.
+		 * 		The list of notifications names in which is interested the <code>Mediator</code>.
 		 */
 		listNotificationInterests():string[]
 		{
-			// be sure that the mediator has some Observers created
-			// in order to test removeMediator
+			// Be sure that the mediator has some Observers created in order to test removeMediator.
 			return [ ViewTest.NOTE3 ];
 		}
 

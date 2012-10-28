@@ -1,11 +1,11 @@
-///<reference path='../../../../../../test/lib/YUITest.d.ts'/>
+///<reference path='../../../../../../../test/lib/YUITest.d.ts'/>
 
-///<reference path='../../../../../../src/org/puremvc/typescript/interfaces/INotification.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
 
-///<reference path='../../../../../../src/org/puremvc/typescript/core/Controller.ts'/>
-///<reference path='../../../../../../src/org/puremvc/typescript/core/View.ts'/>
-///<reference path='../../../../../../src/org/puremvc/typescript/patterns/observer/Notification.ts'/>
-///<reference path='../../../../../../src/org/puremvc/typescript/patterns/command/SimpleCommand.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicorecore/Controller.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicorecore/View.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notification.ts'/>
+///<reference path='../../../../../../src/org/puremvc/typescript/multicore/patterns/command/SimpleCommand.ts'/>
 
 ///<reference path='ControllerTestVO.ts'/>
 ///<reference path='ControllerTestCommand2.ts'/>
@@ -169,13 +169,10 @@ module puremvc
 		/**
 		 * Tests Removing and Reregistering a Command
 		 *
-		 * Tests that when a Command is re-registered that it isn't fired twice.
-		 * This involves, minimally, registration with the controller but
-		 * notification via the View, rather than direct execution of
-		 * the Controller's executeCommand method as is done above in
-		 * testRegisterAndRemove. The bug under test was fixed in AS3 Standard
-		 * Version 2.0.2. If you run the unit tests with 2.0.1 this
-		 * test will fail.
+		 * Tests that when a Command is re-registered that it isn't fired twice. This involves,
+		 * minimally, registration with the controller but notification via the View, rather than
+		 * direct execution of the Controller's executeCommand method as is done above in
+		 * testRegisterAndRemove.
 		 */
 		testReregisterAndExecuteCommand():void
 		{
