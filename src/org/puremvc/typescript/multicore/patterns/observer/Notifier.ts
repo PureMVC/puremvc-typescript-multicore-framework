@@ -1,6 +1,6 @@
-///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotifier.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/IFacade.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/multicore/patterns/facade/Facade.ts'/>
+///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/INotifier.ts'/>
+///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/IFacade.ts'/>
+///<reference path='../../../../../../org/puremvc/typescript/multicore/patterns/facade/Facade.ts'/>
 
 module puremvc
 {

@@ -1,5 +1,5 @@
-///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/IObserver.ts'/>
+///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
+///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/IObserver.ts'/>
 
 module puremvc
 {
