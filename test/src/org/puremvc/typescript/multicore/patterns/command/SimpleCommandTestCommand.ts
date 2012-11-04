@@ -1,22 +1,17 @@
-///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
-
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/ICommand.ts'/>
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/command/SimpleCommand.ts'/>
+///<reference path='../../../../../../../../test/lib/puremvc-typescript-multicore-1.0.d.ts'/>
 
 ///<reference path='SimpleCommandTestVO.ts'/>
 
-module puremvc
+module test
 {
 	"use strict";
 
 	/**
-	 * A SimpleCommand subclass used by SimpleCommandTest.
+	 * A <code>SimpleCommand</code> subclass used by <code>SimpleCommandTest</code>.
 	 */
 	export class SimpleCommandTestCommand
-		extends SimpleCommand
-		implements ICommand
+		extends puremvc.SimpleCommand
+		implements puremvc.ICommand
 	{
 		/**
 		 * Fabricate a result by multiplying the input by 2.
@@ -24,7 +19,7 @@ module puremvc
 		 * @param notification
 		 * 		The <code>Notification</code> carrying the <code>SimpleCommandTestVO</code>.
 		 */
-		execute( notification:INotification )
+		execute( notification:puremvc.INotification )
 		{
 			var vo:SimpleCommandTestVO = notification.getBody();
 

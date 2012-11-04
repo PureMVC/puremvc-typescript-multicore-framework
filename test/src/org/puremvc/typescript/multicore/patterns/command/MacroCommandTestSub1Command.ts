@@ -1,32 +1,25 @@
-///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
-
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/ICommand.ts'/>
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notification.ts'/>
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/command/SimpleCommand.ts'/>
+///<reference path='../../../../../../../../test/lib/puremvc-typescript-multicore-1.0.d.ts'/>
 
 ///<reference path='MacroCommandTestVO.ts'/>
 
-module puremvc
+module test
 {
 	"use strict";
 
 	/**
-	 * A SimpleCommand subclass used by MacroCommandTestCommand.
+	 * A <code>SimpleCommand</code> subclass used by <code>MacroCommandTestCommand</code>.
 	 */
 	export class MacroCommandTestSub1Command
-		extends SimpleCommand
-		implements ICommand
+		extends puremvc.SimpleCommand
+		implements puremvc.ICommand
 	{
 		/**
-		 * Fabricate a result by multiplying the input by 2
+		 * Fabricate a result by multiplying the input by 2.
 		 *
 		 * @param note
-		 * 		The <code>Notification</code> carrying the
-		 * 		<code>MacroCommandTestVO</code>
+		 * 		The <code>Notification</code> carrying the <code>MacroCommandTestVO</code>.
 		 */
-		execute( note:INotification )
+		execute( note:puremvc.INotification )
 		{
 			var vo:MacroCommandTestVO = note.getBody();
 

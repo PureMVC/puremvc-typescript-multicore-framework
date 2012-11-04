@@ -1,24 +1,17 @@
-///<reference path='../../../../../../../test/lib/YUITest.d.ts'/>
-
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/ICommand.ts'/>
-
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/command/SimpleCommand.ts'/>
+///<reference path='../../../../../../../test/lib/puremvc-typescript-multicore-1.0.d.ts'/>
 
 ///<reference path='ControllerTestVO.ts'/>
 
-module puremvc
+module test
 {
 	"use strict";
 
-	import YUITest = module("YUITest");
-
 	/**
-	 * A SimpleCommand subclass used by ControllerTest.
+	 * A <code>SimpleCommand</code> subclass used by <code>ControllerTest</code>.
 	 */
 	export class ControllerTestCommand2
-		extends SimpleCommand
-		implements ICommand
+		extends puremvc.SimpleCommand
+		implements puremvc.ICommand
 	{
 		/**
 		 * Fabricate a result by multiplying the input by 2 and adding to the existing result.
@@ -26,12 +19,12 @@ module puremvc
 		 * This tests accumulation effect that would show if the command were executed more than
 		 * once.
 		 *
-		 * @param note
+		 * @param notification
 		 * 		The note carrying the ControllerTestVO.
 		 */
-		execute( note:INotification )
+		execute( notification:puremvc.INotification )
 		{
-			var vo:ControllerTestVO = note.getBody();
+			var vo:ControllerTestVO = notification.getBody();
 
 			// Fabricate a result
 			vo.result = vo.result+(2 * vo.input);

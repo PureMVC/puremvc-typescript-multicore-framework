@@ -1,12 +1,6 @@
-///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
+///<reference path='../../../../../../../../test/lib/puremvc-typescript-multicore-1.0.d.ts'/>
 
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/IMediator.ts'/>
-
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/facade/Facade.ts'/>
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/mediator/Mediator.ts'/>
-
-module puremvc
+module test
 {
 	"use strict";
 
@@ -14,8 +8,8 @@ module puremvc
 	 * A <code>Mediator</code> utility subclass used by <code>MediatorTest</code>.
 	 */
 	export class MediatorTestSub
-		extends Mediator
-		implements IMediator
+		extends puremvc.Mediator
+		implements puremvc.IMediator
 	{
 		/**
 		 * A method to test if <code>Facade</code> instance of the object has well been declared
@@ -27,7 +21,7 @@ module puremvc
 		 */
 		hasFacade():bool
 		{
-			return this.facade() instanceof Facade;
+			return this.facade() instanceof puremvc.Facade;
 		}
 	}
 }

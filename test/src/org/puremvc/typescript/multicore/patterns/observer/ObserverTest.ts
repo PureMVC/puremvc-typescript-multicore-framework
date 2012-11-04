@@ -1,16 +1,9 @@
 ///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
+///<reference path='../../../../../../../../test/lib/puremvc-typescript-multicore-1.0.d.ts'/>
 
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/IObserver.ts'/>
-
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Observer.ts'/>
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notification.ts'/>
-
-module puremvc
+module test
 {
 	"use strict";
-
-	import YUITest = module("YUITest");
 
 	/**
 	 * Tests PureMVC Observer class.
@@ -44,7 +37,7 @@ module puremvc
 			 * Create observer with null args, then use accessors to set notification method and
 			 * context.
 			 */
-			var observer:IObserver = new Observer( null, null );
+			var observer:puremvc.IObserver = new puremvc.Observer( null, null );
 			observer.setNotifyContext(this);
 			observer.setNotifyMethod( this.observerTestMethod );
 
@@ -54,7 +47,7 @@ module puremvc
 			 * successful notification will result in our local observerTestVar being set to the
 			 * value we pass in on the note body.
 			 */
-			var note:INotification = new Notification( 'ObserverTestNote', 10 );
+			var note:puremvc.INotification = new puremvc.Notification( 'ObserverTestNote', 10 );
 			observer.notifyObserver(note);
 
 			// test assertions
@@ -72,7 +65,7 @@ module puremvc
 		testObserverConstructor():void
 		{
 			// Create observer passing in notification method and context.
-			var observer:IObserver = new Observer( this.observerTestMethod, this );
+			var observer:puremvc.IObserver = new puremvc.Observer( this.observerTestMethod, this );
 
 			/*
 			 * Create a test note, setting a body value and notify the observer with it. since the
@@ -80,7 +73,7 @@ module puremvc
 			 * notification will result in our local observerTestVar being set to the value we pass
 			 * in on the note body.
 			 */
-			var note:INotification = new Notification( 'ObserverTestNote', 5 );
+			var note:puremvc.INotification = new puremvc.Notification( 'ObserverTestNote', 5 );
 			observer.notifyObserver(note);
 
 			// test assertions
@@ -98,8 +91,8 @@ module puremvc
 		testCompareNotifyContext():void
 		{
 			// Create observer passing in notification method and context
-			var observer:IObserver = new Observer( this.observerTestMethod, this );
-			var negTestObj:Object = {};
+			var observer:puremvc.IObserver = new puremvc.Observer( this.observerTestMethod, this );
+			var negTestObj:Object = new Object();
 
 			// test assertions
 			YUITest.Assert.isFalse
@@ -122,7 +115,7 @@ module puremvc
 		 *		The <code>Notification</code> used to test that <code>Observer</code> is well
 		 *		notified.
 		 */
-		private observerTestMethod( notification:INotification ):void
+		private observerTestMethod( notification:puremvc.INotification ):void
 		{
 			this.observerTestVar = notification.getBody();
 		}

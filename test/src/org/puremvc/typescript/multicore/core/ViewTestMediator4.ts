@@ -1,12 +1,8 @@
-///<reference path='../../../../../../../test/lib/YUITest.d.ts'/>
-
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/IMediator.ts'/>
-
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/mediator/Mediator.ts'/>
+///<reference path='../../../../../../../test/lib/puremvc-typescript-multicore-1.0.d.ts'/>
 
 ///<reference path='ViewTest.ts'/>
 
-module puremvc
+module test
 {
 	"use strict";
 
@@ -14,8 +10,8 @@ module puremvc
 	 * A Mediator class used by ViewTest.
 	 */
 	export class ViewTestMediator4
-		extends Mediator
-		implements IMediator
+		extends puremvc.Mediator
+		implements puremvc.IMediator
 	{
 		/**
 		 * Constructs a <code>Mediator</code> subclass instance.

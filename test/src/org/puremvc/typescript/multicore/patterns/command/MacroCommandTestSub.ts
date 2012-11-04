@@ -1,11 +1,6 @@
-///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
+///<reference path='../../../../../../../../test/lib/puremvc-typescript-multicore-1.0.d.ts'/>
 
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/ICommand.ts'/>
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/command/MacroCommand.ts'/>
-
-module puremvc
+module test
 {
 	"use strict";
 
@@ -13,8 +8,8 @@ module puremvc
 	 * A <code>MacroCommand</code> utility subclass used by <code>MacroCommandTest</code>.
 	 */
 	export class MacroCommandTestSub
-		extends MacroCommand
-		implements ICommand
+		extends puremvc.MacroCommand
+		implements puremvc.ICommand
 	{
 		/**
 		 * A method to test if <code>Facade</code> instance of the object has
@@ -26,7 +21,7 @@ module puremvc
 		 */
 		hasFacade():bool
 		{
-			return this.facade() instanceof Facade;
+			return this.facade() instanceof puremvc.Facade;
 		}
 	}
 }

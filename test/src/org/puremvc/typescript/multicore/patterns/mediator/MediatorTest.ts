@@ -1,16 +1,11 @@
 ///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
-
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/IMediator.ts'/>
-
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/mediator/Mediator.ts'/>
+///<reference path='../../../../../../../../test/lib/puremvc-typescript-multicore-1.0.d.ts'/>
 
 ///<reference path='MediatorTestSub.ts'/>
 
-module puremvc
+module test
 {
 	"use strict";
-
-	import YUITest = module("YUITest");
 
 	/**
 	 * Test the PureMVC Mediator class.
@@ -49,12 +44,12 @@ module puremvc
 		testNameAccessor():void
 		{
 			// Create a new Mediator and use accessors to set the mediator name
-			var mediator:IMediator = new Mediator();
+			var mediator:puremvc.IMediator = new puremvc.Mediator();
 
 			// test assertions
 			YUITest.Assert.areEqual
 			(
-				Mediator.NAME,
+				puremvc.Mediator.NAME,
 				mediator.getMediatorName(),
 				"Expecting mediator.getMediatorName() == Mediator.NAME"
 			);
@@ -69,7 +64,7 @@ module puremvc
 			var view:Object = new Object();
 
 			// Create a new Proxy and use accessors to set the proxy name
-			var mediator:IMediator = new Mediator( Mediator.NAME, view );
+			var mediator:puremvc.IMediator = new puremvc.Mediator( puremvc.Mediator.NAME, view );
 
 			// test assertions
 			YUITest.Assert.isNotNull

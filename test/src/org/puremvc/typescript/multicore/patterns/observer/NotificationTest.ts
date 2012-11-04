@@ -1,14 +1,9 @@
 ///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
+///<reference path='../../../../../../../../test/lib/puremvc-typescript-multicore-1.0.d.ts'/>
 
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notification.ts'/>
-
-module puremvc
+module test
 {
 	"use strict";
-
-	import YUITest = module("YUITest");
 
 	/**
 	 * Test the PureMVC Notification class.
@@ -27,7 +22,7 @@ module puremvc
 		testNameAccessors():void
 		{
 			// Create a new Notification and use accessors to set the note name
-			var note:INotification = new Notification('TestNote');
+			var note:puremvc.INotification = new puremvc.Notification('TestNote');
 
 			// test assertions
 			YUITest.Assert.areEqual
@@ -45,7 +40,7 @@ module puremvc
 		{
 
 			// Create a new Notification and use accessors to set the body
-			var note:INotification = new Notification(null);
+			var note:puremvc.INotification = new puremvc.Notification(null);
 			note.setBody(5);
 
 			// test assertions
@@ -63,7 +58,7 @@ module puremvc
 		testConstructor():void
 		{
 			// Create a new Notification using the Constructor to set the note name and body.
-			var note:INotification = new Notification( 'TestNote', 5, 'TestNoteType' );
+			var note:puremvc.INotification = new puremvc.Notification( 'TestNote', 5, 'TestNoteType' );
 
 			// test assertions
 			YUITest.Assert.areEqual
@@ -94,7 +89,7 @@ module puremvc
 		testToString():void
 		{
 			// Create a new Notification and use accessors to set the note name.
-			var note:INotification = new Notification( 'TestNote', [1,3,5], 'TestType' );
+			var note:puremvc.INotification = new puremvc.Notification( 'TestNote', [1,3,5], 'TestType' );
 			var ts:String = "Notification Name: TestNote\nBody:1,3,5\nType:TestType";
 
 			// test assertions

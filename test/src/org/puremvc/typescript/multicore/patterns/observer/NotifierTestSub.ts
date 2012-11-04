@@ -1,11 +1,6 @@
-///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
+///<reference path='../../../../../../../../test/lib/puremvc-typescript-multicore-1.0.d.ts'/>
 
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotifier.ts'/>
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/facade/Facade.ts'/>
-
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notifier.ts'/>
-
-module puremvc
+module test
 {
 	"use strict";
 
@@ -13,8 +8,8 @@ module puremvc
 	 * A <code>Notifier</code> utility subclass used by <code>NotifierTest</code>.
 	 */
 	export class NotifierTestSub
-		extends Notifier
-		implements INotifier
+		extends puremvc.Notifier
+		implements puremvc.INotifier
 	{
 		/**
 		 * A method to test if <code>Facade</code> instance of the object has well been declared
@@ -26,7 +21,7 @@ module puremvc
 		 */
 		hasFacade():bool
 		{
-			return this.facade() instanceof Facade;
+			return this.facade() instanceof puremvc.Facade;
 		}
 	}
 }

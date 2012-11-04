@@ -9,6 +9,7 @@ function runTests( name, tests )
 			var r = new Y.Console
 			(
 				{
+					useBrowserConsole: true, // tests will be reported both in the YUI and browser native console
 					newestOnTop : false,
 					style: 'block' // to anchor in the example content
 				}
@@ -38,13 +39,13 @@ function runTests( name, tests )
 
 					case TestRunner.COMPLETE_EVENT:
 						message = Y.substitute
-							(
-								"Testing completed at " +
-									(new Date()).toString() + ".\n" +
-									"Passed:{passed} Failed:{failed} " +
-									"Total:{total} ({ignored} ignored)",
-								event.results
-							);
+						(
+							"Testing completed at " +
+								(new Date()).toString() + ".\n" +
+								"Passed:{passed} Failed:{failed} " +
+								"Total:{total} ({ignored} ignored)",
+							event.results
+						);
 						messageType = "info";
 					break;
 
@@ -70,13 +71,13 @@ function runTests( name, tests )
 
 					case TestRunner.TEST_SUITE_COMPLETE_EVENT:
 						message = Y.substitute
-							(
-								"Test suite \"" +
-									event.testSuite.name + "\" completed" + ".\n" +
-									"Passed:{passed} Failed:{failed} " +
-									"Total:{total} ({ignored} ignored)",
-								event.results
-							);
+						(
+							"Test suite \"" +
+								event.testSuite.name + "\" completed" + ".\n" +
+								"Passed:{passed} Failed:{failed} " +
+								"Total:{total} ({ignored} ignored)",
+							event.results
+						);
 						messageType = "info";
 					break;
 
@@ -87,13 +88,13 @@ function runTests( name, tests )
 
 					case TestRunner.TEST_CASE_COMPLETE_EVENT:
 						message = Y.substitute
-							(
-								"Test case \"" +
-									event.testCase.name + "\" completed.\n" +
-									"Passed:{passed} Failed:{failed} " +
-									"Total:{total} ({ignored} ignored)",
-								event.results
-							);
+						(
+							"Test case \"" +
+								event.testCase.name + "\" completed.\n" +
+								"Passed:{passed} Failed:{failed} " +
+								"Total:{total} ({ignored} ignored)",
+							event.results
+						);
 						messageType = "info";
 					break;
 

@@ -1,10 +1,6 @@
-///<reference path='../../../../../../../test/lib/YUITest.d.ts'/>
+///<reference path='../../../../../../../test/lib/puremvc-typescript-multicore-1.0.d.ts'/>
 
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/IProxy.ts'/>
-
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/proxy/Proxy.ts'/>
-
-module puremvc
+module test
 {
 	"use strict";
 
@@ -12,8 +8,8 @@ module puremvc
 	 * A <code>Proxy</code> subclass used by <code>ModelTest</code> testCase.
 	 */
 	export class ModelTestProxy
-		extends Proxy
-		implements IProxy
+		extends puremvc.Proxy
+		implements puremvc.IProxy
 	{
 		/**
 		 * Constructs a <code>ModelTestProxy</code> instance passing super its default name and

@@ -4318,3 +4318,5 @@ YUITest.PageManager = YUITest.Util.mix(new YUITest.EventTarget(), {
         
     }();
 
+if( typeof define === "function" )
+	define( "YUITest", [], function(){ return YUITest; } );

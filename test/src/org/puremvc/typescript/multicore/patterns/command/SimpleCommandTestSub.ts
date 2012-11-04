@@ -1,12 +1,8 @@
-///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
-
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/ICommand.ts'/>
-
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/command/SimpleCommand.ts'/>
+///<reference path='../../../../../../../../test/lib/puremvc-typescript-multicore-1.0.d.ts'/>
 
 ///<reference path='SimpleCommandTestVO.ts'/>
 
-module puremvc
+module test
 {
 	"use strict";
 
@@ -14,8 +10,8 @@ module puremvc
 	 * A <code>SimpleCommand</code> utility subclass used by <code>SimpleCommandTest</code>.
 	 */
 	export class SimpleCommandTestSub
-		extends SimpleCommand
-		implements ICommand
+		extends puremvc.SimpleCommand
+		implements puremvc.ICommand
 	{
 		/**
 		 * A method to test if <code>Facade</code> instance of the object has well been declared
@@ -27,7 +23,7 @@ module puremvc
 		 */
 		hasFacade():bool
 		{
-			return this.facade() instanceof Facade;
+			return this.facade() instanceof puremvc.Facade;
 		}
 	}
 }

@@ -1,20 +1,13 @@
 ///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
-
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/IFacade.ts'/>
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/facade/Facade.ts'/>
-///<reference path='../../../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notification.ts'/>
+///<reference path='../../../../../../../../test/lib/puremvc-typescript-multicore-1.0.d.ts'/>
 
 ///<reference path='NotifierTestCommand' />
 ///<reference path='NotifierTestSub' />
 ///<reference path='NotifierTestVO' />
 
-module puremvc
+module test
 {
 	"use strict";
-
-	import YUITest = module("YUITest");
 
 	/**
 	 * Test the PureMVC Notifier class.
@@ -52,7 +45,7 @@ module puremvc
 		{
 			// Create the Facade, register the FacadeTestCommand to
 			// handle 'NotifierTest' notifications
-			var facade:IFacade = Facade.getInstance('NotifierTestKey2');
+			var facade:puremvc.IFacade = puremvc.Facade.getInstance('NotifierTestKey2');
 			facade.registerCommand( 'NotifierTestNote', NotifierTestCommand );
 
 			// Send notification. The Command associated with the event

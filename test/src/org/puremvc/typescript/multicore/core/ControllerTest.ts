@@ -1,21 +1,13 @@
 ///<reference path='../../../../../../../test/lib/YUITest.d.ts'/>
-
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/core/Controller.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/core/View.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notification.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/command/SimpleCommand.ts'/>
+///<reference path='../../../../../../../test/lib/puremvc-typescript-multicore-1.0.d.ts'/>
 
 ///<reference path='ControllerTestVO.ts'/>
 ///<reference path='ControllerTestCommand2.ts'/>
 ///<reference path='ControllerTestCommand.ts'/>
 
-module puremvc
+module test
 {
 	"use strict";
-
-	import YUITest = module("YUITest");
 
 	/**
 	 * Test the PureMVC Controller class.
@@ -29,12 +21,12 @@ module puremvc
 		name:string = "PureMVC Controller class tests";
 
 		/**
-		 * Tests the Controller Singleton Factory Method
+		 * Tests the <code>Controller</code> singleton Factory Method
 		 */
 		testGetInstance():void
 		{
 			// Test Factory Method
-			var controller:IController = Controller.getInstance('ControllerTestKey1');
+			var controller:puremvc.IController = puremvc.Controller.getInstance('ControllerTestKey1');
 
 			// test assertions
 			YUITest.Assert.isNotNull
@@ -45,38 +37,34 @@ module puremvc
 
 			YUITest.Assert.isInstanceOf
 			(
-				Controller,
+				puremvc.Controller,
 				controller,
 				"Expecting instance extends Controller"
 			);
 
-			Controller.removeController('ControllerTestKey1');
+			puremvc.Controller.removeController('ControllerTestKey1');
 		}
 
 		/**
 		 * Tests Command registration and execution.
 		 *
 		 *
-		 * This test gets the Singleton Controller instance
-		 * and registers the ControllerTestCommand class
-		 * to handle 'ControllerTest' Notifications.
+		 * This test gets the singleton Controller instance and registers the ControllerTestCommand
+		 * class to handle 'ControllerTest' Notifications.
 		 *
-		 *
-		 * It then constructs such a Notification and tells the
-		 * Controller to execute the associated Command.
-		 * Success is determined by evaluating a property
-		 * on an object passed to the Command, which will
-		 * be modified when the Command executes.
+		 * It then constructs such a Notification and tells the Controller to execute the associated
+		 * Command. Success is determined by evaluating a property on an object passed to the
+		 * Command, which will be modified when the Command executes.
 		 */
 		testRegisterAndExecuteCommand():void
 		{
 			// Create the controller, register the ControllerTestCommand to handle 'ControllerTest' notes
-			var controller:IController = Controller.getInstance('ControllerTestKey2');
+			var controller:puremvc.IController = puremvc.Controller.getInstance('ControllerTestKey2');
 			controller.registerCommand( 'ControllerTest', ControllerTestCommand );
 
 			// Create a 'ControllerTest' note
 			var vo:ControllerTestVO = new ControllerTestVO(12);
-			var note:Notification = new Notification( 'ControllerTest', vo );
+			var note:puremvc.INotification = new puremvc.Notification( 'ControllerTest', vo );
 
 			// Tell the controller to execute the Command associated with the note
 			// the ControllerTestCommand invoked will multiply the vo.input value
@@ -91,24 +79,24 @@ module puremvc
 				"Expecting vo.result == 24"
 			);
 
-			Controller.removeController('ControllerTestKey2');
+			puremvc.Controller.removeController('ControllerTestKey2');
 		}
 
 		/**
 		 * Tests Command registration and removal.
 		 *
-		 * Tests that once a Command is registered and verified
-		 * working, it can be removed from the Controller.
+		 * Tests that once a Command is registered and verified working, it can be removed from the
+		 * Controller.
 		 */
 		testRegisterAndRemoveCommand():void
 		{
 			// Create the controller, register the ControllerTestCommand to handle 'ControllerTest' notes
-			var controller:IController = Controller.getInstance('ControllerTestKey3');
+			var controller:puremvc.IController = puremvc.Controller.getInstance('ControllerTestKey3');
 			controller.registerCommand( 'ControllerRemoveTest', ControllerTestCommand );
 
 			// Create a 'ControllerTest' note
 			var vo:ControllerTestVO = new ControllerTestVO(12) ;
-			var note:Notification = new Notification( 'ControllerRemoveTest', vo );
+			var note:puremvc.INotification = new puremvc.Notification( 'ControllerRemoveTest', vo );
 
 			// Tell the controller to execute the Command associated with the note
 			// the ControllerTestCommand invoked will multiply the vo.input value
@@ -142,7 +130,7 @@ module puremvc
 				"Expecting vo.result == 0"
 			);
 
-			Controller.removeController('ControllerTestKey3');
+			puremvc.Controller.removeController('ControllerTestKey3');
 		}
 
 		/**
@@ -151,7 +139,7 @@ module puremvc
 		testHasCommand():void
 		{
 			// register the ControllerTestCommand to handle 'hasCommandTest' notes
-			var controller:IController = Controller.getInstance('ControllerTestKey4');
+			var controller:puremvc.IController = puremvc.Controller.getInstance('ControllerTestKey4');
 			controller.registerCommand( 'hasCommandTest', ControllerTestCommand );
 
 			// test that hasCommand returns true for hasCommandTest notifications
@@ -171,21 +159,21 @@ module puremvc
 				"Expecting controller.hasCommand('hasCommandTest') === false"
 			);
 
-			Controller.removeController('ControllerTestKey4');
+			puremvc.Controller.removeController('ControllerTestKey4');
 		}
 
 		/**
 		 * Tests Removing and Reregistering a Command
 		 *
-		 * Tests that when a Command is re-registered that it isn't fired twice. This involves,
-		 * minimally, registration with the controller but notification via the View, rather than
-		 * direct execution of the Controller's executeCommand method as is done above in
-		 * testRegisterAndRemove.
+		 * Tests that when a command is re-registered that it isn't fired twice. This involves,
+		 * minimally, registration with the controller but notification via the <code>View</code>,
+		 * rather than direct execution of the <code>Controller</code>'s executeCommand method as is
+		 * done above in <code>testRegisterAndRemove</code>.
 		 */
 		testReregisterAndExecuteCommand():void
 		{
 			// Fetch the controller, register the ControllerTestCommand2 to handle 'ControllerTest2' notes
-			var controller:IController = Controller.getInstance('ControllerTestKey5');
+			var controller:puremvc.IController = puremvc.Controller.getInstance('ControllerTestKey5');
 			controller.registerCommand( 'ControllerTest2', ControllerTestCommand2 );
 
 			// Remove the Command from the Controller
@@ -196,10 +184,10 @@ module puremvc
 
 			// Create a 'ControllerTest2' note
 			var vo:ControllerTestVO = new ControllerTestVO( 12 );
-			var note:Notification = new Notification( 'ControllerTest2', vo );
+			var note:puremvc.INotification = new puremvc.Notification( 'ControllerTest2', vo );
 
 			// retrieve a reference to the View.
-			var view:IView = View.getInstance('ControllerTestKey5');
+			var view:puremvc.IView = puremvc.View.getInstance('ControllerTestKey5');
 
 			// send the Notification
 			view.notifyObservers(note);
@@ -224,7 +212,7 @@ module puremvc
 				"Expecting vo.result == 48"
 			);
 
-			Controller.removeController('ControllerTestKey5');
+			puremvc.Controller.removeController('ControllerTestKey5');
 		}
 	}
 }

@@ -30,12 +30,12 @@
 		Recursively read a source directory for TypeScript files, generate a compile list in the
 		format needed by the TypeScript compiler adding every parameters it take.
 	-->
-	<macrodef name="TypeScriptCompileDir">
+	<macrodef name="TypeScriptRecurse">
 
-		<!-- required attribute -->
+		<!-- required parameter -->
 		<attribute name="src" />
 
-		<!-- optional attributes -->
+		<!-- optional parameters -->
 		<attribute name="out" default="" />
 		<attribute name="module" default="" />
 		<attribute name="comments" default="" />
@@ -118,6 +118,39 @@
 
 	</macrodef>
 
+	<!--
+		When using multiple files TypeScript compiler is unable to add the correct module definition
+		when targeting a the single generated JavaScript file. We have to add «manually» the
+		standard AMD define wrapper around the generated JavaScript module.
+	-->
+	<macrodef name="DefineAmdModule">
+
+		<!-- required parameters -->
+		<attribute name="in" />
+		<attribute name="out" />
+		<attribute name="module" />
+
+		<attribute name="paths" default=""/>
+		<attribute name="params" default=""/>
+
+		<sequential>
+
+			<local name="file.content"/>
+
+			<replaceregexp file="@{in}"
+				match="^"
+				replace="        "
+				byline="true"
+			/>
+
+			<loadfile property="file.content" srcFile="@{in}"/>
+			<echo file="@{in}">if( typeof define === "function" )${line.separator}{${line.separator}	define( "@{module}", [@{paths}], function(@{params})${line.separator}	{${line.separator}${file.content}${line.separator}		return @{module};${line.separator}	});${line.separator}}</echo>
+
+		</sequential>
+
+	</macrodef>
+
+
 
 	<!-- /////////////////////////////////////////////////////////////////////////////////////// -->
 	<!-- /////////////////////////////////////// COMPILE /////////////////////////////////////// -->
@@ -126,12 +159,19 @@
 	<target name="compile.src" description="Compile sources files from TypeScript to JavaScript">
 
 		<!-- Compile a single JavaScript file in the bin dir for release -->
-		<TypeScriptCompileDir
+		<!-- declarations="${declarations-file-path}" -->
+		<TypeScriptRecurse
 			src="${src.dir}"
 			out="${release-file-path}"
-			module="amd"
 			target="ES5"
-			declarations="${declarations-file-path}"
+			module="amd"
+		/>
+		
+		<!-- Add the AMD module define wrapper to the generated module file -->
+		<DefineAmdModule
+			in="${release-file-path}"
+			out="${release-file-path}"
+			module="puremvc"
 		/>
 
 	</target>
@@ -139,11 +179,20 @@
 	<target name="compile.test" description="Compile unit tests sources files from TypeScript to JavaScript">
 
 		<!-- Compile a single JavaScript file in the test bin dir ready to run unit tests -->
-		<TypeScriptCompileDir
+		<TypeScriptRecurse
 			src="${test.src.dir}"
 			out="${unit-test-file-path}"
-			module="amd"
 			target="ES5"
+			module="amd"
+		/>
+
+		<!-- Add the AMD module define wrapper to the generated module file -->
+		<DefineAmdModule
+			in="${unit-test-file-path}"
+			out="${unit-test-file-path}"
+			module="test"
+			paths="'YUITest','puremvc'"
+			params="YUITest,puremvc"
 		/>
 
 	</target>

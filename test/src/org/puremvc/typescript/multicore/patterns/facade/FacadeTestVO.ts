@@ -1,6 +1,4 @@
-///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
-
-module puremvc
+module test
 {
 	"use strict";
 

@@ -2,7 +2,7 @@
  * Minimalist TypeScript description file for YUITest including only Asserts to give the compiler
  * near the exact necessary to bea able to compile the PureMVC framework Unit Tests.
  */
-declare module "YUITest"
+declare module YUITest
 {
 	export class Assert
 	{

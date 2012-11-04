@@ -1,18 +1,11 @@
 ///<reference path='../../../../../../../test/lib/YUITest.d.ts'/>
-
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/IModel.ts'/>
-
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/core/Model.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notification.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/proxy/Proxy.ts'/>
+///<reference path='../../../../../../../test/lib/puremvc-typescript-multicore-1.0.d.ts'/>
 
 ///<reference path='ModelTestProxy.ts'/>
 
-module puremvc
+module test
 {
 	"use strict";
-
-	import YUITest = module("YUITest");
 
 	/**
 	 * Test the PureMVC Model class.
@@ -26,12 +19,12 @@ module puremvc
 		name:string = "PureMVC Model class tests";
 
 		/**
-		 * Tests the Model Singleton Factory Method.
+		 * Tests the Model singleton Factory Method.
 		 */
 		testGetInstance():void
 		{
 			// Test Factory Method
-			var model:IModel = Model.getInstance('ModelTestKey1')
+			var model:puremvc.IModel = puremvc.Model.getInstance('ModelTestKey1')
 
 			// test assertions
 			YUITest.Assert.isNotNull
@@ -42,12 +35,12 @@ module puremvc
 
 			YUITest.Assert.isInstanceOf
 			(
-				Model,
+				puremvc.Model,
 				model,
 				"Expecting instance extends Model"
 			);
 
-			Model.removeModel('ModelTestKey1');
+			puremvc.Model.removeModel('ModelTestKey1');
 		}
 
 		/**
@@ -61,11 +54,11 @@ module puremvc
 		testRegisterAndRetrieveProxy():void
 		{
 			// register a proxy and retrieve it.
-			var model:IModel = Model.getInstance('ModelTestKey2');
-			model.registerProxy( new Proxy( 'colors', ['red', 'green', 'blue'] ) );
+			var model:puremvc.IModel = puremvc.Model.getInstance('ModelTestKey2');
+			model.registerProxy( new puremvc.Proxy( 'colors', ['red', 'green', 'blue'] ) );
 
-			var proxy:IProxy = model.retrieveProxy('colors');
-			var data:string[] = <string[]> proxy.getData();
+			var proxy:puremvc.IProxy = model.retrieveProxy('colors');
+			var data:string[] = <string[]> /*</>*/ proxy.getData();
 
 			// test assertions
 			YUITest.Assert.isNotNull
@@ -108,7 +101,7 @@ module puremvc
 				"Expecting data[2] == 'blue'"
 			);
 
-			Model.removeModel('ModelTestKey2');
+			puremvc.Model.removeModel('ModelTestKey2');
 		}
 
 		/**
@@ -117,12 +110,12 @@ module puremvc
 		testRegisterAndRemoveProxy():void
 		{
 			// register a proxy, remove it, then try to retrieve it
-			var model:IModel = Model.getInstance('ModelTestKey3');
-			var proxy:IProxy = new Proxy( 'sizes', ['7', '13', '21'] );
+			var model:puremvc.IModel = puremvc.Model.getInstance('ModelTestKey3');
+			var proxy:puremvc.IProxy = new puremvc.Proxy( 'sizes', ['7', '13', '21'] );
 			model.registerProxy( proxy );
 
 			// remove the proxy
-			var removedProxy:IProxy = model.removeProxy( 'sizes' );
+			var removedProxy:puremvc.IProxy = model.removeProxy( 'sizes' );
 
 			// assert that we removed the appropriate proxy
 			YUITest.Assert.areEqual
@@ -142,7 +135,7 @@ module puremvc
 				"Expecting proxy === null"
 			);
 
-			Model.removeModel('ModelTestKey3');
+			puremvc.Model.removeModel('ModelTestKey3');
 		}
 
 		/**
@@ -151,8 +144,8 @@ module puremvc
 		testHasProxy():void
 		{
 			// register a proxy
-			var model:IModel = Model.getInstance('ModelTestKey4');
-			var proxy:IProxy = new Proxy( 'aces', [ 'clubs', 'spades', 'hearts', 'diamonds' ] );
+			var model:puremvc.IModel = puremvc.Model.getInstance('ModelTestKey4');
+			var proxy:puremvc.IProxy = new puremvc.Proxy( 'aces', [ 'clubs', 'spades', 'hearts', 'diamonds' ] );
 			model.registerProxy( proxy );
 
 			// assert that the model.hasProxy method returns true
@@ -174,7 +167,7 @@ module puremvc
 				"Expecting model.hasProxy('aces') === false"
 			);
 
-			Model.removeModel('ModelTestKey4');
+			puremvc.Model.removeModel('ModelTestKey4');
 		}
 
 		/**
@@ -182,11 +175,11 @@ module puremvc
 		 */
 		testOnRegisterAndOnRemove():void
 		{
-			// Get the Singleton View instance
-			var model:IModel = Model.getInstance('ModelTestKey5');
+			// Get the singleton View instance
+			var model:puremvc.IModel = puremvc.Model.getInstance('ModelTestKey5');
 
 			// Create and register the test mediator
-			var proxy:IProxy = new ModelTestProxy();
+			var proxy:puremvc.IProxy = new ModelTestProxy();
 			model.registerProxy( proxy );
 
 			// assert that onRegister was called, and the proxy responded by setting its data accordingly
@@ -208,7 +201,7 @@ module puremvc
 				"Expecting proxy.getData() == ModelTestProxy.ON_REMOVE_CALLED"
 			);
 
-			Model.removeModel('ModelTestKey5');
+			puremvc.Model.removeModel('ModelTestKey5');
 		}
 	}
 }

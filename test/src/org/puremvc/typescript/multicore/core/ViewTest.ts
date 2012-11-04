@@ -1,13 +1,5 @@
 ///<reference path='../../../../../../../test/lib/YUITest.d.ts'/>
-
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/IView.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/IMediator.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/interfaces/IObserver.ts'/>
-
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/mediator/Mediator.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Observer.ts'/>
-///<reference path='../../../../../../../src/org/puremvc/typescript/multicore/patterns/observer/Notification.ts'/>
+///<reference path='../../../../../../../test/lib/puremvc-typescript-multicore-1.0.d.ts'/>
 
 ///<reference path='ViewTestMediator.ts'/>
 ///<reference path='ViewTestMediator2.ts'/>
@@ -17,11 +9,9 @@
 ///<reference path='ViewTestMediator6.ts'/>
 ///<reference path='ViewTestNote.ts'/>
 
-module puremvc
+module test
 {
 	"use strict";
-
-	import YUITest = module("YUITest");
 
 	/**
 	 * Test the PureMVC View class.
@@ -60,12 +50,12 @@ module puremvc
 		viewTestVar:number = 0;
 
 		/**
-		 * Tests the View Singleton Factory Method
+		 * Tests the View singleton Factory Method
 		 */
 		testGetInstance():void
 		{
 			// Test Factory Method
-			var view:IView = View.getInstance('ViewTestKey1');
+			var view:puremvc.IView = puremvc.View.getInstance('ViewTestKey1');
 
 			// test assertions
 			YUITest.Assert.isNotNull
@@ -76,12 +66,12 @@ module puremvc
 
 			YUITest.Assert.isInstanceOf
 			(
-				View,
+				puremvc.View,
 				view,
 				"Expecting instance implements View"
 			);
 
-			View.removeView('ViewTestKey1');
+			puremvc.View.removeView('ViewTestKey1');
 		}
 
 		/**
@@ -105,11 +95,11 @@ module puremvc
 		 */
 		testRegisterAndNotifyObserver():void
 		{
-			// Get the Singleton View instance
-			var view:IView = View.getInstance('ViewTestKey2');
+			// Get the singleton View instance
+			var view:puremvc.IView = puremvc.View.getInstance('ViewTestKey2');
 
 			// Create observer, passing in notification method and context
-			var observer:IObserver = new Observer( this.viewTestMethod, this );
+			var observer:puremvc.IObserver = new puremvc.Observer( this.viewTestMethod, this );
 
 			// Register Observer's interest in a particular Notification with the View
 			view.registerObserver(ViewTestNote.NAME, observer);
@@ -121,7 +111,7 @@ module puremvc
 			// successful notification will result in our local
 			// viewTestVar being set to the value we pass in
 			// on the note body.
-			var note:INotification = ViewTestNote.create(10);
+			var note:puremvc.INotification = ViewTestNote.create(10);
 			view.notifyObservers(note);
 
 			// test assertions
@@ -132,7 +122,7 @@ module puremvc
 				"Expecting viewTestVar = 10"
 			);
 
-			View.removeView('ViewTestKey2');
+			puremvc.View.removeView('ViewTestKey2');
 		}
 
 		/**
@@ -141,7 +131,7 @@ module puremvc
 		 * @param notification
 		 *		The note to test.
 		 */
-		viewTestMethod( notification:Notification )
+		viewTestMethod( notification:puremvc.INotification )
 		{
 			// set the local viewTestVar to the number on the event payload
 			this.viewTestVar = notification.getBody();
@@ -153,15 +143,15 @@ module puremvc
 		 */
 		testRegisterAndRetrieveMediator():void
 		{
-			// Get the Singleton View instance
-			var view:IView = View.getInstance('ViewTestKey3');
+			// Get the singleton View instance
+			var view:puremvc.IView = puremvc.View.getInstance('ViewTestKey3');
 
 			// Create and register the test mediator
-			var viewTestMediator:IMediator = new ViewTestMediator( this );
+			var viewTestMediator:puremvc.IMediator = new ViewTestMediator( this );
 			view.registerMediator( viewTestMediator );
 
 			// Retrieve the component
-			var mediator:IMediator = view.retrieveMediator( ViewTestMediator.NAME );
+			var mediator:puremvc.IMediator = view.retrieveMediator( ViewTestMediator.NAME );
 
 			// test assertions
 			YUITest.Assert.isInstanceOf
@@ -171,7 +161,7 @@ module puremvc
 				"Expecting comp is ViewTestMediator"
 			);
 
-			View.removeView('ViewTestKey3');
+			puremvc.View.removeView('ViewTestKey3');
 		}
 
 		/**
@@ -180,10 +170,10 @@ module puremvc
 		testHasMediator():void
 		{
 			// register a Mediator
-			var view:IView = View.getInstance('ViewTestKey4');
+			var view:puremvc.IView = puremvc.View.getInstance('ViewTestKey4');
 
 			// Create and register the test mediator
-			var mediator:IMediator = new Mediator( 'hasMediatorTest', this );
+			var mediator:puremvc.IMediator = new puremvc.Mediator( 'hasMediatorTest', this );
 			view.registerMediator( mediator );
 
 			// assert that the view.hasMediator method returns true
@@ -204,7 +194,7 @@ module puremvc
 				"Expecting view.hasMediator('hasMediatorTest') === false"
 			);
 
-			View.removeView('ViewTestKey4');
+			puremvc.View.removeView('ViewTestKey4');
 		}
 
 		/**
@@ -212,15 +202,15 @@ module puremvc
 		 */
 		testRegisterAndRemoveMediator():void
 		{
-			// Get the Singleton View instance
-			var view:IView = View.getInstance('ViewTestKey5');
+			// Get the singleton View instance
+			var view:puremvc.IView = puremvc.View.getInstance('ViewTestKey5');
 
 			// Create and register the test mediator
-			var mediator:IMediator = new Mediator( 'testing', this );
+			var mediator:puremvc.IMediator = new puremvc.Mediator( 'testing', this );
 			view.registerMediator( mediator );
 
 			// Remove the component
-			var removedMediator:IMediator = view.removeMediator( 'testing' );
+			var removedMediator:puremvc.IMediator = view.removeMediator( 'testing' );
 
 			// assert that we have removed the appropriate mediator
 			YUITest.Assert.areEqual
@@ -230,7 +220,7 @@ module puremvc
 				"Expecting removedMediator.getMediatorName() == 'testing'"
 			);
 
-			var retrievedMediator:IMediator = view.retrieveMediator( 'testing' )
+			var retrievedMediator:puremvc.IMediator = view.retrieveMediator( 'testing' )
 
 			// assert that the mediator is no longer retrievable
 			YUITest.Assert.isNull
@@ -239,7 +229,7 @@ module puremvc
 				"Expecting view.retrieveMediator( 'testing' ) === null )"
 			);
 
-			View.removeView('ViewTestKey5');
+			puremvc.View.removeView('ViewTestKey5');
 		}
 
 		/**
@@ -247,11 +237,11 @@ module puremvc
 		 */
 		testOnRegisterAndOnRemove():void
 		{
-			// Get the Singleton View instance
-			var view:IView = View.getInstance('ViewTestKey6');
+			// Get the singleton View instance
+			var view:puremvc.IView = puremvc.View.getInstance('ViewTestKey6');
 
 			// Create and register the test mediator
-			var mediator:IMediator = new ViewTestMediator4( this );
+			var mediator:puremvc.IMediator = new ViewTestMediator4( this );
 			view.registerMediator( mediator );
 
 			// assert that onRegsiter was called, and the mediator responded by setting our boolean
@@ -271,7 +261,7 @@ module puremvc
 				"Expecting onRemoveCalled === true"
 			);
 
-			View.removeView('ViewTestKey6');
+			puremvc.View.removeView('ViewTestKey6');
 		}
 
 		/**
@@ -279,8 +269,8 @@ module puremvc
 		 */
 		testSuccessiveRegisterAndRemoveMediator():void
 		{
-			// Get the Singleton View instance
-			var view:IView = View.getInstance('ViewTestKey7');
+			// Get the singleton View instance
+			var view:puremvc.IView = puremvc.View.getInstance('ViewTestKey7');
 
 			// Create and register the test mediator,
 			// but not so we have a reference to it
@@ -331,7 +321,7 @@ module puremvc
 				"Expecting view.retrieveMediator( ViewTestMediator.NAME ) === null"
 			);
 
-			View.removeView('ViewTestKey7');
+			puremvc.View.removeView('ViewTestKey7');
 		}
 
 		/**
@@ -341,14 +331,14 @@ module puremvc
 		 */
 		testRemoveMediatorAndSubsequentNotify():void
 		{
-			// Get the Singleton View instance
-			var view:IView = View.getInstance('ViewTestKey8');
+			// Get the singleton View instance
+			var view:puremvc.IView = puremvc.View.getInstance('ViewTestKey8');
 
 			// Create and register the test mediator to be removed.
 			view.registerMediator( new ViewTestMediator2( this ) );
 
 			// test that notifications work
-			view.notifyObservers( new Notification(ViewTest.NOTE1) );
+			view.notifyObservers( new puremvc.Notification(ViewTest.NOTE1) );
 			YUITest.Assert.areEqual
 			(
 				ViewTest.NOTE1,
@@ -356,7 +346,7 @@ module puremvc
 				"Expecting lastNotification == NOTE1"
 			);
 
-			view.notifyObservers( new Notification(ViewTest.NOTE2) );
+			view.notifyObservers( new puremvc.Notification(ViewTest.NOTE2) );
 			YUITest.Assert.areEqual
 			(
 				ViewTest.NOTE2,
@@ -379,7 +369,7 @@ module puremvc
 			// on this component, and ViewTestMediator)
 			this.lastNotification = null;
 
-			view.notifyObservers( new Notification(ViewTest.NOTE1) );
+			view.notifyObservers( new puremvc.Notification(ViewTest.NOTE1) );
 			YUITest.Assert.areNotEqual
 			(
 				ViewTest.NOTE1,
@@ -387,7 +377,7 @@ module puremvc
 				"Expecting lastNotification != NOTE1"
 			);
 
-			view.notifyObservers( new Notification(ViewTest.NOTE2) );
+			view.notifyObservers( new puremvc.Notification(ViewTest.NOTE2) );
 			YUITest.Assert.areNotEqual
 			(
 				ViewTest.NOTE2,
@@ -395,7 +385,7 @@ module puremvc
 				"Expecting lastNotification != NOTE2"
 			);
 
-			View.removeView('ViewTestKey8');
+			puremvc.View.removeView('ViewTestKey8');
 		}
 
 		/**
@@ -405,8 +395,8 @@ module puremvc
 		 */
 		testRemoveOneOfTwoMediatorsAndSubsequentNotify():void
 		{
-			// Get the Singleton View instance
-			var view:IView = View.getInstance('ViewTestKey9');
+			// Get the singleton View instance
+			var view:puremvc.IView = puremvc.View.getInstance('ViewTestKey9');
 
 			// Create and register that responds to notifications 1 and 2
 			view.registerMediator( new ViewTestMediator2( this ) );
@@ -415,7 +405,7 @@ module puremvc
 			view.registerMediator( new ViewTestMediator3( this ) );
 
 			// test that all notifications work
-			view.notifyObservers( new Notification(ViewTest.NOTE1) );
+			view.notifyObservers( new puremvc.Notification(ViewTest.NOTE1) );
 			YUITest.Assert.areEqual
 			(
 				ViewTest.NOTE1,
@@ -423,7 +413,7 @@ module puremvc
 				"Expecting lastNotification == NOTE1"
 			);
 
-			view.notifyObservers( new Notification(ViewTest.NOTE2) );
+			view.notifyObservers( new puremvc.Notification(ViewTest.NOTE2) );
 			YUITest.Assert.areEqual
 			(
 				ViewTest.NOTE2,
@@ -431,7 +421,7 @@ module puremvc
 				"Expecting lastNotification == NOTE2"
 			);
 
-			view.notifyObservers( new Notification(ViewTest.NOTE3) );
+			view.notifyObservers( new puremvc.Notification(ViewTest.NOTE3) );
 			YUITest.Assert.areEqual
 			(
 				ViewTest.NOTE3,
@@ -453,7 +443,7 @@ module puremvc
 			// for notifications 1 and 2, but still work for 3
 			this.lastNotification = null;
 
-			view.notifyObservers( new Notification(ViewTest.NOTE1) );
+			view.notifyObservers( new puremvc.Notification(ViewTest.NOTE1) );
 			YUITest.Assert.areNotEqual
 			(
 				ViewTest.NOTE1,
@@ -461,7 +451,7 @@ module puremvc
 				"Expecting lastNotification != NOTE1"
 			);
 
-			view.notifyObservers( new Notification(ViewTest.NOTE2) );
+			view.notifyObservers( new puremvc.Notification(ViewTest.NOTE2) );
 			YUITest.Assert.areNotEqual
 			(
 				ViewTest.NOTE2,
@@ -469,7 +459,7 @@ module puremvc
 				"Expecting lastNotification != NOTE2"
 			);
 
-			view.notifyObservers( new Notification(ViewTest.NOTE3) );
+			view.notifyObservers( new puremvc.Notification(ViewTest.NOTE3) );
 			YUITest.Assert.areEqual
 			(
 				ViewTest.NOTE3,
@@ -477,7 +467,7 @@ module puremvc
 				"Expecting lastNotification == NOTE3"
 			);
 
-			View.removeView('ViewTestKey9');
+			puremvc.View.removeView('ViewTestKey9');
 		}
 
 		/**
@@ -493,8 +483,8 @@ module puremvc
 		testMediatorReregistration():void
 		{
 
-			// Get the Singleton View instance
-			var view:IView = View.getInstance('ViewTestKey10');
+			// Get the singleton View instance
+			var view:puremvc.IView = puremvc.View.getInstance('ViewTestKey10');
 
 			// Create and register that responds to notification 5
 			view.registerMediator( new ViewTestMediator5( this ) );
@@ -504,7 +494,7 @@ module puremvc
 
 			// test that the counter is only incremented once (mediator 5's response)
 			this.counter=0;
-			view.notifyObservers( new Notification(ViewTest.NOTE5) );
+			view.notifyObservers( new puremvc.Notification(ViewTest.NOTE5) );
 			YUITest.Assert.areEqual
 			(
 				1,
@@ -524,7 +514,7 @@ module puremvc
 
 			// test that the counter is no longer incremented
 			this.counter=0;
-			view.notifyObservers( new Notification(ViewTest.NOTE5) );
+			view.notifyObservers( new puremvc.Notification(ViewTest.NOTE5) );
 			YUITest.Assert.areEqual
 			(
 				0,
@@ -532,7 +522,7 @@ module puremvc
 				"Expecting counter == 0"
 			);
 
-			View.removeView('ViewTestKey10');
+			puremvc.View.removeView('ViewTestKey10');
 		}
 
 		/**
@@ -547,8 +537,8 @@ module puremvc
 		 */
 		testModifyObserverListDuringNotification():void
 		{
-			// Get the Singleton View instance
-			var view:IView = View.getInstance('ViewTestKey11');
+			// Get the singleton View instance
+			var view:puremvc.IView = puremvc.View.getInstance('ViewTestKey11');
 
 			// Create and register several mediator instances that respond to notification 6
 			// by removing themselves, which will cause the observer list for that notification
@@ -568,7 +558,7 @@ module puremvc
 			// send the notification. each of the above mediators will respond by removing
 			// themselves and incrementing the counter by 1. This should leave us with a
 			// count of 8, since 8 mediators will respond.
-			view.notifyObservers( new Notification( ViewTest.NOTE6 ) );
+			view.notifyObservers( new puremvc.Notification( ViewTest.NOTE6 ) );
 
 			// verify the count is correct
 			YUITest.Assert.areEqual
@@ -580,7 +570,7 @@ module puremvc
 
 			// clear the counter
 			this.counter=0;
-			view.notifyObservers( new Notification( ViewTest.NOTE6 ) );
+			view.notifyObservers( new puremvc.Notification( ViewTest.NOTE6 ) );
 
 			// verify the count is 0
 			YUITest.Assert.areEqual
@@ -590,7 +580,7 @@ module puremvc
 				"Expecting counter == 0"
 			);
 
-			View.removeView('ViewTestKey11');
+			puremvc.View.removeView('ViewTestKey11');
 		}
 
 		/**
