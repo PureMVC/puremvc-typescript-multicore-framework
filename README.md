@@ -5,7 +5,7 @@ These are sources, unit tests and minified library for PureMVC Multicore Framewo
 ## Status
 Development - [Version 1.0](https://github.com/PureMVC/puremvc-typescript-multicore-framework/blob/master/VERSION)
 
-Best to consider it development while the TypeScript language specification is not finalized.
+Considered as «development» while the TypeScript language specification is not finalized.
 
 ## Platforms / Technologies
 * [TypeScript](http://www.typescriptlang.org/)
@@ -15,7 +15,7 @@ Best to consider it development while the TypeScript language specification is n
 
 ## Usage
 
-As this port depends on the TypeScript language you may want to start by reading TypeScript "getting started":http://www.typescriptlang.org/.
+As this port depends on the TypeScript language you may want to start by reading [TypeScript getting started guide](http://www.typescriptlang.org/).
 
 Unit Test can be run live in the browser using included HTML file [test.html](https://github.com/PureMVC/puremvc-typescript-multicore-framework/blob/master/test-minified.html)
 
