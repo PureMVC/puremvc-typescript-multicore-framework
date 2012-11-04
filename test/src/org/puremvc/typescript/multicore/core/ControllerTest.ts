@@ -1,5 +1,5 @@
 ///<reference path='../../../../../../../test/lib/YUITest.d.ts'/>
-///<reference path='../../../../../../../test/lib/puremvc-typescript-multicore-1.0.d.ts'/>
+///<reference path='../../../../../../../bin/puremvc-typescript-multicore-1.0.d.ts'/>
 
 ///<reference path='ControllerTestVO.ts'/>
 ///<reference path='ControllerTestCommand2.ts'/>
