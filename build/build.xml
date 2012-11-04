@@ -28,7 +28,8 @@
 
 	<!--
 		Recursively read a source directory for TypeScript files, generate a compile list in the
-		format needed by the TypeScript compiler adding every parameters it take.
+		format needed by the TypeScript compiler adding every parameters it takes and finally
+		compile it.
 	-->
 	<macrodef name="TypeScriptRecurse">
 
