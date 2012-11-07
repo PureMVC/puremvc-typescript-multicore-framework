@@ -24,7 +24,7 @@ Unit Test can be run live in the browser using included HTML file [test.html](ht
 To build the project you'll need to download and install :
 * [TypeScript compiler](http://www.typescriptlang.org/#Download)
 * [Ant](http://ant.apache.org/)
-* [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html/) (Ant specifically need a JDK not a simple JRE, don't forget to change environment var JAVA_HOME to the JDK path).
+* [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html/) (Ant need a JDK not a JRE, also don't forget to change environment var JAVA_HOME to the JDK path).
 
 1. Rename the file [user.properties.sample](https://github.com/PureMVC/puremvc-typescript-multicore-framework/blob/master/user.properties.sample) to **user.properties**
 2. Edit the file and replace **MY_TYPESCRIPT_COMPILER_PATH** by the real TypeScript compiler full
