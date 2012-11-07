@@ -1,15 +1,17 @@
 PureMVC Multicore Framework for TypeScript
 ----------------------------------------------------------------------------------------------------
-Release Date: 10/28/2012
+Release Date: 11/07/2012
 Platform: TypeScript
 Version: 1
 Revision: 0
 Author: Frederic Saunier <frederic.saunier@puremvc.org>
+Status: Development
 ----------------------------------------------------------------------------------------------------
 
-1.0 - First official PureMVC TypeScript Multicore port. Still marked as development while TypeScript
-language specification is not official.
+1.0 - First official PureMVC TypeScript Multicore port.
 
-This port, is inspired originally from PureMVC Multicore Framework for AS3 port by Cliff Hall but
-was converted both from PureMVC AS3 Multicore port and PureMVC JavaScript Multicore for Objs Unit
-Tests using the work made on the PureMVC TypeScript Standard.
+This port, is inspired originally from PureMVC Multicore Framework for AS3 port by Cliff Hall but was
+converted both from PureMVC AS3 Multicore port and PureMVC JavaScript Multicore for Objs Unit Tests.
+
+Will probably stay tagged as development while TypeScript language specification is not finalized, 
+but remember that any TypeScript PureMVC project will output ready for production JavaScript.
