@@ -110,9 +110,9 @@ module test
 			// and the notification method is viewTestMethod,
 			// successful notification will result in our local
 			// viewTestVar being set to the value we pass in
-			// on the note body.
-			var note:puremvc.INotification = ViewTestNote.create(10);
-			view.notifyObservers(note);
+			// on the notification body.
+			var notification:puremvc.INotification = ViewTestNote.create(10);
+			view.notifyObservers(notification);
 
 			// test assertions
 			YUITest.Assert.areEqual
@@ -129,7 +129,7 @@ module test
 		 * A utility method to test the notification of Observers by the view.
 		 *
 		 * @param notification
-		 *		The note to test.
+		 *		The notification to test.
 		 */
 		viewTestMethod( notification:puremvc.INotification )
 		{

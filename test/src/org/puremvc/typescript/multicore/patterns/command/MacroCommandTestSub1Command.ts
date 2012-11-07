@@ -16,12 +16,12 @@ module test
 		/**
 		 * Fabricate a result by multiplying the input by 2.
 		 *
-		 * @param note
+		 * @param notification
 		 * 		The <code>Notification</code> carrying the <code>MacroCommandTestVO</code>.
 		 */
-		execute( note:puremvc.INotification )
+		execute( notification:puremvc.INotification )
 		{
-			var vo:MacroCommandTestVO = note.getBody();
+			var vo:MacroCommandTestVO = notification.getBody();
 
 			// Fabricate a result
 			vo.result1 = 2 * vo.input;

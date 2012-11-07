@@ -17,7 +17,7 @@ module test
 		 * Fabricate a result by multiplying the input by 2.
 		 *
 		 * @param notification
-		 * 		The note carrying the ControllerTestVO
+		 * 		The notification carrying the ControllerTestVO
 		 */
 		execute( notification:puremvc.INotification )
 		{

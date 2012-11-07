@@ -58,18 +58,18 @@ module test
 		 */
 		testRegisterAndExecuteCommand():void
 		{
-			// Create the controller, register the ControllerTestCommand to handle 'ControllerTest' notes
+			// Create the controller, register the ControllerTestCommand to handle 'ControllerTest' notifications
 			var controller:puremvc.IController = puremvc.Controller.getInstance('ControllerTestKey2');
 			controller.registerCommand( 'ControllerTest', ControllerTestCommand );
 
-			// Create a 'ControllerTest' note
+			// Create a 'ControllerTest' notification
 			var vo:ControllerTestVO = new ControllerTestVO(12);
-			var note:puremvc.INotification = new puremvc.Notification( 'ControllerTest', vo );
+			var notification:puremvc.INotification = new puremvc.Notification( 'ControllerTest', vo );
 
-			// Tell the controller to execute the Command associated with the note
+			// Tell the controller to execute the Command associated with the notification
 			// the ControllerTestCommand invoked will multiply the vo.input value
 			// by 2 and set the result on vo.result
-			controller.executeCommand(note);
+			controller.executeCommand(notification);
 
 			// test assertions
 			YUITest.Assert.areEqual
@@ -90,18 +90,18 @@ module test
 		 */
 		testRegisterAndRemoveCommand():void
 		{
-			// Create the controller, register the ControllerTestCommand to handle 'ControllerTest' notes
+			// Create the controller, register the ControllerTestCommand to handle 'ControllerTest' notifications
 			var controller:puremvc.IController = puremvc.Controller.getInstance('ControllerTestKey3');
 			controller.registerCommand( 'ControllerRemoveTest', ControllerTestCommand );
 
-			// Create a 'ControllerTest' note
+			// Create a 'ControllerTest' notification
 			var vo:ControllerTestVO = new ControllerTestVO(12) ;
-			var note:puremvc.INotification = new puremvc.Notification( 'ControllerRemoveTest', vo );
+			var notification:puremvc.INotification = new puremvc.Notification( 'ControllerRemoveTest', vo );
 
-			// Tell the controller to execute the Command associated with the note
+			// Tell the controller to execute the Command associated with the notification
 			// the ControllerTestCommand invoked will multiply the vo.input value
 			// by 2 and set the result on vo.result
-			controller.executeCommand(note);
+			controller.executeCommand(notification);
 
 			// test assertions
 			YUITest.Assert.areEqual
@@ -118,9 +118,9 @@ module test
 			controller.removeCommand('ControllerRemoveTest');
 
 			// Tell the controller to execute the Command associated with the
-			// note. This time, it should not be registered, and our vo result
+			// notification. This time, it should not be registered, and our vo result
 			// will not change
-			controller.executeCommand(note);
+			controller.executeCommand(notification);
 
 			// test assertions
 			YUITest.Assert.areEqual
@@ -138,7 +138,7 @@ module test
 		 */
 		testHasCommand():void
 		{
-			// register the ControllerTestCommand to handle 'hasCommandTest' notes
+			// register the ControllerTestCommand to handle 'hasCommandTest' notifications
 			var controller:puremvc.IController = puremvc.Controller.getInstance('ControllerTestKey4');
 			controller.registerCommand( 'hasCommandTest', ControllerTestCommand );
 
@@ -172,7 +172,7 @@ module test
 		 */
 		testReregisterAndExecuteCommand():void
 		{
-			// Fetch the controller, register the ControllerTestCommand2 to handle 'ControllerTest2' notes
+			// Fetch the controller, register the ControllerTestCommand2 to handle 'ControllerTest2' notifications
 			var controller:puremvc.IController = puremvc.Controller.getInstance('ControllerTestKey5');
 			controller.registerCommand( 'ControllerTest2', ControllerTestCommand2 );
 
@@ -182,15 +182,15 @@ module test
 			// Re-register the Command with the Controller
 			controller.registerCommand( 'ControllerTest2', ControllerTestCommand2 );
 
-			// Create a 'ControllerTest2' note
+			// Create a 'ControllerTest2' notification
 			var vo:ControllerTestVO = new ControllerTestVO( 12 );
-			var note:puremvc.INotification = new puremvc.Notification( 'ControllerTest2', vo );
+			var notification:puremvc.INotification = new puremvc.Notification( 'ControllerTest2', vo );
 
 			// retrieve a reference to the View.
 			var view:puremvc.IView = puremvc.View.getInstance('ControllerTestKey5');
 
 			// send the Notification
-			view.notifyObservers(note);
+			view.notifyObservers(notification);
 
 			// test assertions
 			// if the command is executed once the value will be 24
@@ -202,7 +202,7 @@ module test
 			);
 
 			// Prove that accumulation works in the VO by sending the notification again
-			view.notifyObservers(note);
+			view.notifyObservers(notification);
 
 			// if the command is executed twice the value will be 48
 			YUITest.Assert.areEqual

@@ -74,8 +74,8 @@ if( typeof define === "function" )
                     var controller = puremvc.Controller.getInstance('ControllerTestKey2');
                     controller.registerCommand('ControllerTest', test.ControllerTestCommand);
                     var vo = new test.ControllerTestVO(12);
-                    var note = new puremvc.Notification('ControllerTest', vo);
-                    controller.executeCommand(note);
+                    var notification = new puremvc.Notification('ControllerTest', vo);
+                    controller.executeCommand(notification);
                     YUITest.Assert.areEqual(24, vo.result, "Expecting vo.result == 24");
                     puremvc.Controller.removeController('ControllerTestKey2');
                 };
@@ -83,12 +83,12 @@ if( typeof define === "function" )
                     var controller = puremvc.Controller.getInstance('ControllerTestKey3');
                     controller.registerCommand('ControllerRemoveTest', test.ControllerTestCommand);
                     var vo = new test.ControllerTestVO(12);
-                    var note = new puremvc.Notification('ControllerRemoveTest', vo);
-                    controller.executeCommand(note);
+                    var notification = new puremvc.Notification('ControllerRemoveTest', vo);
+                    controller.executeCommand(notification);
                     YUITest.Assert.areEqual(24, vo.result, "Expecting vo.result == 24");
                     vo.result = 0;
                     controller.removeCommand('ControllerRemoveTest');
-                    controller.executeCommand(note);
+                    controller.executeCommand(notification);
                     YUITest.Assert.areEqual(0, vo.result, "Expecting vo.result == 0");
                     puremvc.Controller.removeController('ControllerTestKey3');
                 };
@@ -106,11 +106,11 @@ if( typeof define === "function" )
                     controller.removeCommand('ControllerTest2');
                     controller.registerCommand('ControllerTest2', test.ControllerTestCommand2);
                     var vo = new test.ControllerTestVO(12);
-                    var note = new puremvc.Notification('ControllerTest2', vo);
+                    var notification = new puremvc.Notification('ControllerTest2', vo);
                     var view = puremvc.View.getInstance('ControllerTestKey5');
-                    view.notifyObservers(note);
+                    view.notifyObservers(notification);
                     YUITest.Assert.areEqual(24, vo.result, "Expecting vo.result == 24");
-                    view.notifyObservers(note);
+                    view.notifyObservers(notification);
                     YUITest.Assert.areEqual(48, vo.result, "Expecting vo.result == 48");
                     puremvc.Controller.removeController('ControllerTestKey5');
                 };
@@ -400,8 +400,8 @@ if( typeof define === "function" )
                     var view = puremvc.View.getInstance('ViewTestKey2');
                     var observer = new puremvc.Observer(this.viewTestMethod, this);
                     view.registerObserver(test.ViewTestNote.NAME, observer);
-                    var note = test.ViewTestNote.create(10);
-                    view.notifyObservers(note);
+                    var notification = test.ViewTestNote.create(10);
+                    view.notifyObservers(notification);
                     YUITest.Assert.areEqual(10, this.viewTestVar, "Expecting viewTestVar = 10");
                     puremvc.View.removeView('ViewTestKey2');
                 };
@@ -578,8 +578,8 @@ if( typeof define === "function" )
                     _super.apply(this, arguments);
         
                 }
-                MacroCommandTestSub1Command.prototype.execute = function (note) {
-                    var vo = note.getBody();
+                MacroCommandTestSub1Command.prototype.execute = function (notification) {
+                    var vo = notification.getBody();
                     vo.result1 = 2 * vo.input;
                 };
                 return MacroCommandTestSub1Command;
@@ -637,9 +637,9 @@ if( typeof define === "function" )
                 };
                 MacroCommandTest.prototype.testMacroCommandExecute = function () {
                     var vo = new test.MacroCommandTestVO(5);
-                    var note = new puremvc.Notification('MacroCommandTest', vo);
+                    var notification = new puremvc.Notification('MacroCommandTest', vo);
                     var command = new test.MacroCommandTestCommand();
-                    command.execute(note);
+                    command.execute(notification);
                     YUITest.Assert.areEqual(10, vo.result1, "Expecting vo.result1 == 10");
                     YUITest.Assert.areEqual(25, vo.result2, "Expecting vo.result2 == 25");
                 };
@@ -711,9 +711,9 @@ if( typeof define === "function" )
                 };
                 SimpleCommandTest.prototype.testSimpleCommandExecute = function () {
                     var vo = new test.SimpleCommandTestVO(5);
-                    var note = new puremvc.Notification('SimpleCommandTestNote', vo);
+                    var notification = new puremvc.Notification('SimpleCommandTestNote', vo);
                     var command = new test.SimpleCommandTestCommand();
-                    command.execute(note);
+                    command.execute(notification);
                     YUITest.Assert.areEqual(10, vo.result, "Expecting vo.result == 10");
                 };
                 return SimpleCommandTest;
@@ -904,28 +904,28 @@ if( typeof define === "function" )
                     this.name = "PureMVC Notification class tests";
                 }
                 NotificationTest.prototype.testNameAccessors = function () {
-                    var note = new puremvc.Notification('TestNote');
-                    YUITest.Assert.areEqual('TestNote', note.getName(), "Expecting note.getName() == 'TestNote'");
+                    var notification = new puremvc.Notification('TestNote');
+                    YUITest.Assert.areEqual('TestNote', notification.getName(), "Expecting notification.getName() == 'TestNote'");
                 };
                 NotificationTest.prototype.testBodyAccessors = function () {
-                    var note = new puremvc.Notification(null);
-                    note.setBody(5);
-                    YUITest.Assert.areSame(5, note.getBody(), "Expecting note.getBody() === 5");
+                    var notification = new puremvc.Notification(null);
+                    notification.setBody(5);
+                    YUITest.Assert.areSame(5, notification.getBody(), "Expecting notification.getBody() === 5");
                 };
                 NotificationTest.prototype.testConstructor = function () {
-                    var note = new puremvc.Notification('TestNote', 5, 'TestNoteType');
-                    YUITest.Assert.areEqual("TestNote", note.getName(), "Expecting note.getName() == 'TestNote'");
-                    YUITest.Assert.areSame(5, note.getBody(), "Expecting note.getBody() === 5");
-                    YUITest.Assert.areEqual("TestNoteType", note.getType(), "Expecting note.getType() == 'TestNoteType'");
+                    var notification = new puremvc.Notification('TestNote', 5, 'TestNoteType');
+                    YUITest.Assert.areEqual("TestNote", notification.getName(), "Expecting notification.getName() == 'TestNote'");
+                    YUITest.Assert.areSame(5, notification.getBody(), "Expecting notification.getBody() === 5");
+                    YUITest.Assert.areEqual("TestNoteType", notification.getType(), "Expecting notification.getType() == 'TestNoteType'");
                 };
                 NotificationTest.prototype.testToString = function () {
-                    var note = new puremvc.Notification('TestNote', [
+                    var notification = new puremvc.Notification('TestNote', [
                         1, 
                         3, 
                         5
                     ], 'TestType');
                     var ts = "Notification Name: TestNote\nBody:1,3,5\nType:TestType";
-                    YUITest.Assert.areEqual(ts, note.toString(), "Expecting note.testToString() == '" + ts + "'");
+                    YUITest.Assert.areEqual(ts, notification.toString(), "Expecting notification.testToString() == '" + ts + "'");
                 };
                 return NotificationTest;
             })();
@@ -1017,14 +1017,14 @@ if( typeof define === "function" )
                     var observer = new puremvc.Observer(null, null);
                     observer.setNotifyContext(this);
                     observer.setNotifyMethod(this.observerTestMethod);
-                    var note = new puremvc.Notification('ObserverTestNote', 10);
-                    observer.notifyObserver(note);
+                    var notification = new puremvc.Notification('ObserverTestNote', 10);
+                    observer.notifyObserver(notification);
                     YUITest.Assert.areSame(10, this.observerTestVar, "Expecting observerTestVar === 10");
                 };
                 ObserverTest.prototype.testObserverConstructor = function () {
                     var observer = new puremvc.Observer(this.observerTestMethod, this);
-                    var note = new puremvc.Notification('ObserverTestNote', 5);
-                    observer.notifyObserver(note);
+                    var notification = new puremvc.Notification('ObserverTestNote', 5);
+                    observer.notifyObserver(notification);
                     YUITest.Assert.areSame(5, this.observerTestVar, "Expecting observerTestVar === 5");
                 };
                 ObserverTest.prototype.testCompareNotifyContext = function () {

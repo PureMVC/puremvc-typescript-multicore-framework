@@ -67,14 +67,14 @@ module test
 			// Create the VO
 			var vo:MacroCommandTestVO = new MacroCommandTestVO(5);
 
-			// Create the Notification (note)
-			var note:puremvc.INotification = new puremvc.Notification( 'MacroCommandTest', vo );
+			// Create the Notification (notification)
+			var notification:puremvc.INotification = new puremvc.Notification( 'MacroCommandTest', vo );
 
 			// Create the MacroCommand
 			var command:puremvc.ICommand = new MacroCommandTestCommand();
 
 			// Execute the MacroCommand
-			command.execute(note);
+			command.execute(notification);
 
 			// test assertions
 			YUITest.Assert.areEqual

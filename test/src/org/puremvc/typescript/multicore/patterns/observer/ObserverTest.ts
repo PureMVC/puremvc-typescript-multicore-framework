@@ -45,10 +45,10 @@ module test
 			 * Create a test event, setting a payload value and notify the observer with it. since
 			 * the observer is this class and the notification method is observerTestMethod,
 			 * successful notification will result in our local observerTestVar being set to the
-			 * value we pass in on the note body.
+			 * value we pass in on the notification body.
 			 */
-			var note:puremvc.INotification = new puremvc.Notification( 'ObserverTestNote', 10 );
-			observer.notifyObserver(note);
+			var notification:puremvc.INotification = new puremvc.Notification( 'ObserverTestNote', 10 );
+			observer.notifyObserver(notification);
 
 			// test assertions
 			YUITest.Assert.areSame
@@ -68,13 +68,13 @@ module test
 			var observer:puremvc.IObserver = new puremvc.Observer( this.observerTestMethod, this );
 
 			/*
-			 * Create a test note, setting a body value and notify the observer with it. since the
+			 * Create a test notification, setting a body value and notify the observer with it. since the
 			 * observer is this class and the notification method is observerTestMethod, successful
 			 * notification will result in our local observerTestVar being set to the value we pass
-			 * in on the note body.
+			 * in on the notification body.
 			 */
-			var note:puremvc.INotification = new puremvc.Notification( 'ObserverTestNote', 5 );
-			observer.notifyObserver(note);
+			var notification:puremvc.INotification = new puremvc.Notification( 'ObserverTestNote', 5 );
+			observer.notifyObserver(notification);
 
 			// test assertions
 			YUITest.Assert.areSame

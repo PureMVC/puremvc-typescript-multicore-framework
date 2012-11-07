@@ -44,7 +44,7 @@ module test
 		 * This test creates a new <code>Notification</code>, adding a
 		 * <code>SimpleCommandTestVO</code> as the body. It then creates a
 		 * <code>SimpleCommandTestCommand</code> and invokes its <code>execute</code> method,
-		 * passing in the note.
+		 * passing in the notification.
 		 *
 		 * Success is determined by evaluating a property on the object that was passed on the
 		 * <code>Notification</code> body, which will be modified by the SimpleCommand.
@@ -54,14 +54,14 @@ module test
 			// Create the VO
 			var vo:SimpleCommandTestVO = new SimpleCommandTestVO(5);
 
-			// Create the Notification (note)
-			var note:puremvc.INotification = new puremvc.Notification( 'SimpleCommandTestNote', vo );
+			// Create the Notification (notification)
+			var notification:puremvc.INotification = new puremvc.Notification( 'SimpleCommandTestNote', vo );
 
 			// Create the SimpleCommand
 			var command:puremvc.ICommand = new SimpleCommandTestCommand();
 
 			// Execute the SimpleCommand
-			command.execute(note);
+			command.execute(notification);
 
 			// test assertions
 			YUITest.Assert.areEqual

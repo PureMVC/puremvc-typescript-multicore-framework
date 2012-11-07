@@ -292,7 +292,7 @@ module test
 		 */
 		testHasCommand():void
 		{
-			// register the ControllerTestCommand to handle 'hasCommandTest' notes
+			// register the ControllerTestCommand to handle 'hasCommandTest' notifications
 			var facade:puremvc.IFacade = puremvc.Facade.getInstance('FacadeTestKey10');
 			facade.registerCommand( 'facadeHasCommandTest', FacadeTestCommand );
 

@@ -20,7 +20,7 @@ module test
 		 * once.
 		 *
 		 * @param notification
-		 * 		The note carrying the ControllerTestVO.
+		 * 		The notification carrying the ControllerTestVO.
 		 */
 		execute( notification:puremvc.INotification )
 		{
