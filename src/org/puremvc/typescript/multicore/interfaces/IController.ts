@@ -49,9 +49,8 @@ module puremvc
 		 * 		The name of the <code>INotification</code>.
 		 *
 		 * @param commandClassRef
-		 * 		The constructor of the <code>ICommand</code>.
+		 * 		The constructor of the <code>ICommand</code> implementor classes.
 		 */
-		//FIXME There is probably a special syntax to pass class / constructor reference or we may use at least callback: () => void if best
 		registerCommand( notificationName:string, commandClassRef:Function ):void;
 		
 		/**
