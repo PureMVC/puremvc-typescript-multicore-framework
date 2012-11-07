@@ -104,9 +104,13 @@ module puremvc
 			var	len:number = this.subCommands.length;
 			for( var i:number=0; i<len; i++ )
 			{
-				//TODO Identify if here *any* is the right choice instead of Function ( won't compile if set to Function because it is not newable on new commandClassRef )
+				/*
+				 * Typed any here instead of <code>Function</code> ( won't compile if set to Function
+				 * because today the compiler consider that <code>Function</code> is not newable and
+				 * doesn't have a <code>Class</code> type)
+				 */
 				var commandClassRef:any = subCommands[i];
-				var commandInstance:ICommand = new commandClassRef();
+				var commandInstance:ICommand = <ICommand> /*</>*/ new commandClassRef();
 				commandInstance.execute( notification );
 			}
 			
