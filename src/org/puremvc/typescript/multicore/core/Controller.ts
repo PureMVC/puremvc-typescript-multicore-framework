@@ -115,11 +115,15 @@ module puremvc
 		 */
 		executeCommand( notification:INotification ):void
 		{
-			//TODO Identify if here *any* is the right choice instead of Function ( won't compile if set to Function because it is not newable on new commandClassRef )
+			/*
+			 * Typed any here instead of <code>Function</code> ( won't compile if set to Function
+			 * because today the compiler consider that <code>Function</code> is not newable and
+			 * doesn't have a <code>Class</code> type)
+			 */
 			var commandClassRef:any = this.commandMap[ notification.getName() ];
 			if( commandClassRef )
 			{
-				var command:ICommand = new commandClassRef();
+				var command:ICommand = <ICommand> /*</>*/ new commandClassRef();
 				command.initializeNotifier( this.multitonKey );
 				command.execute( notification );
 			}
