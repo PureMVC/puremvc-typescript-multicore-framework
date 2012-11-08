@@ -13,6 +13,7 @@ but remember that any TypeScript PureMVC project will output ready for productio
 * [require.js](http://jqueryui.com/)
 * [YUI Test](https://github.com/yui/yuitest)
 * [YUI Compressor](http://developer.yahoo.com/yui/compressor/)
+* [YUIAnt](http://www.ubik-ingenierie.com/miscellanous/YUIAnt/)
 * [Ant](http://ant.apache.org/)
 
 ## Usage
