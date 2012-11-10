@@ -1,12 +1,9 @@
 ## [PureMVC](http://puremvc.github.com/) Multicore Framework for [TypeScript](https://github.com/PureMVC/puremvc-typescript-multicore-framework/wiki)
-
-These are sources, unit tests and minified library for PureMVC Multicore Framework for TypeScript.
+PureMVC is a lightweight framework for creating applications based upon the classic [Model-View-Controller](http://en.wikipedia.org/wiki/Model-view-controller) design meta-pattern. This is a TypeScript port of the [AS3 reference implementation of the MultiCore Version](https://github.com/PureMVC/puremvc-as3-multicore-framework/wiki). It supports [modular programming](http://en.wikipedia.org/wiki/Modular_programming) through the use of [Multiton](http://en.wikipedia.org/wiki/Multiton) Core actors instead of the [Singleton](http://en.wikipedia.org/wiki/Singleton_pattern)s used in the [Standard Version](https://github.com/PureMVC/puremvc-typescript-standard-framework/wiki).
 
 ## Status
 Development - [Version 1.0](https://github.com/PureMVC/puremvc-typescript-multicore-framework/blob/master/VERSION)
-
-Will probably stay tagged as development while TypeScript language specification is not finalized,
-but remember that any TypeScript PureMVC project will output ready for production JavaScript.
+* Fully unit-tested and demoed, but in 'Development' status since the TypeScript language specification is not finalized. 
 
 ## Platforms / Technologies
 * [TypeScript](http://www.typescriptlang.org/)
