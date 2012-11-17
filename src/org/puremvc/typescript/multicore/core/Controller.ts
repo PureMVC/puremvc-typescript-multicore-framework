@@ -92,7 +92,7 @@ module puremvc
 		 * <code>initializeController</code> method in the following way:
 		 * 
 		 * <pre>
-		 *		// ensure that the Controller is talking to my IView implementation
+		 *		// Ensure that the Controller is talking to my <code>IView</code> implementation.
 		 *		initializeController():void
 		 *		{
 		 *			this.view = MyView.getInstance( this.multitonKey );
@@ -137,8 +137,8 @@ module puremvc
 		 * <code>INotification</code>s with this name, it is no longer used, the new
 		 * <code>ICommand</code> is used instead.
 		 * 
-		 * The <code>Observer</code> for the new <code>ICommand</code> is only created if this the
-		 * first time an <code>ICommand</code> has been registered for this
+		 * The <code>Observer</code> for the new <code>ICommand</code> is only created if this is
+		 * the first time an <code>ICommand</code> has been registered for this
 		 * <code>Notification</code> name.
 		 * 
 		 * @param notificationName
@@ -154,7 +154,7 @@ module puremvc
 
 			this.commandMap[ notificationName ] = commandClassRef;
 		}
-		
+
 		/**
 		 * Check if an <code>ICommand</code> is registered for a given <code>Notification</code>.
 		 * 
@@ -189,12 +189,6 @@ module puremvc
 			}
 		}
 
-		/**
-		 * <code>Controller</code> singleton instance map.
-		 *
-		 * @protected
-		 */
-		static instanceMap:Object = {};
 
 		/**
 		 * Error message used to indicate that a <code>Controller</code> singleton instance is
@@ -204,7 +198,14 @@ module puremvc
 		 * @constant
 		 */
 		static MULTITON_MSG:string = "Controller instance for this multiton key already constructed!";
-		
+
+		/**
+		 * <code>Controller</code> singleton instance map.
+		 *
+		 * @protected
+		 */
+		static instanceMap:Object = {};
+
 		/**
 		 * <code>Controller</code> multiton factory method.
 		 *

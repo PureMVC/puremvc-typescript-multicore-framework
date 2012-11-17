@@ -4,7 +4,7 @@
 module puremvc
 {
 	"use strict";
-	
+
 	/**
 	 * The <code>Model</code> class for PureMVC.
 	 *
@@ -20,7 +20,7 @@ module puremvc
 	 *
 	 * Your application must register <code>IProxy</code> instances with the <code>Model</code>.
 	 * Typically, you use an <code>ICommand</code> to create and register <code>Proxy</code> instances
-	 * once the <code>Facade</code> has initialized the Core actors.
+	 * once the <code>Facade</code> has initialized the core actors.
 	 */
 	export class Model
 		implements IModel
@@ -33,7 +33,7 @@ module puremvc
 		proxyMap:Object = null;
 
 		/**
-		 * The multiton Key for this Core.
+		 * The multiton key for this core.
 		 *
 		 * @protected
 		 */
@@ -65,7 +65,7 @@ module puremvc
 		/**
 		 * Initialize the multiton <code>Model</code> instance.
 		 *
-		 * Called automatically by the constructor, this is the opportunity to initialize the
+		 * Called automatically by the constructor. This is the opportunity to initialize the
 		 * multiton instance in a subclass without overriding the constructor.
 		 *
 		 * @protected
@@ -127,7 +127,7 @@ module puremvc
 		}
 
 		/**
-		 * Check if a Proxy is registered
+		 * Check if an <code>IProxy</code> is registered.
 		 * 
 		 * @param proxyName
 		 *		The name of the <code>IProxy</code> to verify the existence of its registration.

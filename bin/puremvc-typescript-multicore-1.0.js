@@ -129,9 +129,9 @@ if( typeof define === "function" )
                 View.prototype.hasMediator = function (mediatorName) {
                     return this.mediatorMap[mediatorName] != null;
                 };
+                View.MULTITON_MSG = "View instance for this multiton key already constructed!";
                 View.instanceMap = {
                 };
-                View.MULTITON_MSG = "View instance for this multiton key already constructed!";
                 View.getInstance = function getInstance(key) {
                     if(!View.instanceMap[key]) {
                         View.instanceMap[key] = new View(key);
@@ -189,9 +189,9 @@ if( typeof define === "function" )
                         delete this.commandMap[notificationName];
                     }
                 };
+                Controller.MULTITON_MSG = "Controller instance for this multiton key already constructed!";
                 Controller.instanceMap = {
                 };
-                Controller.MULTITON_MSG = "Controller instance for this multiton key already constructed!";
                 Controller.getInstance = function getInstance(key) {
                     if(!Controller.instanceMap[key]) {
                         Controller.instanceMap[key] = new Controller(key);
@@ -474,6 +474,7 @@ if( typeof define === "function" )
                     for(var i = 0; i < len; i++) {
                         var commandClassRef = subCommands[i];
                         var commandInstance = new commandClassRef();
+                        commandInstance.initializeNotifier(this.multitonKey);
                         commandInstance.execute(notification);
                     }
                     this.subCommands.splice(0);

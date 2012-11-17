@@ -25,12 +25,12 @@ module puremvc
 	 * <LI>Providing all the methods defined by the <code>IModel</code>, <code>IView</code>, &
 	 * <code>IController</code> interfaces.
 	 * <LI>Providing the ability to override the specific <code>Model</code>, <code>View</code> and
-	 * <code>Controller</code> singletons created.
+	 * <code>Controller</code> multitons created.
 	 * <LI>Providing a single point of contact to the application for registering
-	 * <code>Commands</code> and notifying <code>Observer</code>s.
+	 * <code>ICommand</code>s and notifying <code>IObserver</code>s.
 	 *
-	 * This <code>Facade</code> implementation is a singleton and cannot be instantiated directly,
-	 * but instead calls the static singleton factory method <code>Facade.getInstance()</code>.
+	 * This <code>Facade</code> implementation is a multiton instance and cannot be instantiated directly,
+	 * but instead calls the static multiton factory method <code>Facade.getInstance( key )</code>.
 	 */
 	export class Facade
 		implements IFacade
@@ -48,7 +48,7 @@ module puremvc
 		 * @protected
 		 */
 		view:IView = null;
-			 
+
 		/**
 		 * Local reference to the <code>Controller</code> multiton.
 		 *
@@ -291,7 +291,7 @@ module puremvc
 		 * Register a <code>IMediator</code> with the <code>IView</code>.
 		 *
 		 * @param mediator
-		 		A reference to the <code>IMediator</code>.
+		 *		A reference to the <code>IMediator</code>.
 		 */
 		registerMediator( mediator:IMediator ):void
 		{
@@ -348,7 +348,7 @@ module puremvc
 		}
 
 		/**
-		 * Notify the <code>IObservers</code> for a particular <code>INotification</code>.
+		 * Notify the <code>IObserver</code>s for a particular <code>INotification</code>.
 		 *
 		 * This method is left public mostly for backward compatibility, and to allow you to
 		 * send custom notification classes using the <code>Facade</code>.
