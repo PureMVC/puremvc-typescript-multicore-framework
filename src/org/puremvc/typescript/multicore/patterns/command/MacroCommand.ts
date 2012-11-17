@@ -53,7 +53,7 @@ module puremvc
 		 * Initialize the <code>MacroCommand</code>.
 		 * 
 		 * In your subclass, override this method to  initialize the <code>MacroCommand</code>'s
-		 * <i>SubCommand</i> list with <code>ICommand</code> class references like this:
+		 * <i>subCommand</i> list with <code>ICommand</code> class references like this:
 		 * 
 		 * <pre>
 		 *		// Initialize MyMacroCommand
@@ -111,6 +111,7 @@ module puremvc
 				 */
 				var commandClassRef:any = subCommands[i];
 				var commandInstance:ICommand = <ICommand> /*</>*/ new commandClassRef();
+				commandInstance.initializeNotifier( this.multitonKey );
 				commandInstance.execute( notification );
 			}
 			
