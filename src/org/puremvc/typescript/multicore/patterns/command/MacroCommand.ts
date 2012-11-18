@@ -67,6 +67,8 @@ module puremvc
 		 * 
 		 * Note that <i>subCommand</i>s may be any <code>ICommand</code> implementor so
 		 * <code>MacroCommand</code>s or <code>SimpleCommand</code>s are both acceptable.
+		 *
+		 * @protected
 		 */
 		initializeMacroCommand():void
 		{
@@ -80,6 +82,8 @@ module puremvc
 		 * 
 		 * @param commandClassRef
 		 *		A reference to the constructor of the <code>ICommand</code>.
+		 *
+		 * @protected
 		 */
 		addSubCommand( commandClassRef:Function ):void
 		{
