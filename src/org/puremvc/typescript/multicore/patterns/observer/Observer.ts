@@ -34,15 +34,13 @@ module puremvc
 	{
 		/**
 		 * The notification method of the interested object.
-		 * @protected
 		 */
-		notify:Function = null;
+		private notify:Function = null;
 
 		/**
 		 * The notification context of the interested object.
-		 * @protected
 		 */
-		context:any = null;
+		private context:any = null;
 
 		/**
 		 * Constructs an <code>Observer</code> instance.
