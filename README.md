@@ -1,12 +1,12 @@
-## [PureMVC](http://puremvc.github.com/) Multicore Framework for [TypeScript](https://github.com/PureMVC/puremvc-typescript-multicore-framework/wiki)
+## [PureMVC](http://puremvc.github.com/) TypeScript MultiCore Framework
+PureMVC is a lightweight framework for creating applications based upon the classic [Model-View-Controller](http://en.wikipedia.org/wiki/Model-view-controller) design meta-pattern. This is a TypeScript port of the [AS3 reference implementation of the MultiCore Version](https://github.com/PureMVC/puremvc-as3-multicore-framework/wiki). It supports [modular programming](http://en.wikipedia.org/wiki/Modular_programming) through the use of [Multiton](http://en.wikipedia.org/wiki/Multiton) Core actors instead of the [Singleton](http://en.wikipedia.org/wiki/Singleton_pattern)s used in the [Standard Version](https://github.com/PureMVC/puremvc-typescript-standard-framework/wiki).
 
-These are sources, unit tests and minified library for PureMVC Multicore Framework for TypeScript.
+* [Discussion](http://forums.puremvc.org/index.php?board=113.0)
+* [Live Unit Test Runner](http://darkstar.puremvc.org/content_header.html?url=http://puremvc.org/pages/demos/TS/PureMVC_TS_MultiCore_UnitTests/&desc=PureMVC%20TypeScript%20MultiCore%20Unit%20Tests)
 
 ## Status
-Production - [Version 1.1](https://github.com/PureMVC/puremvc-typescript-multicore-framework/blob/master/VERSION)
-
-Will probably stay tagged as development while TypeScript language specification is not finalized,
-but remember that any TypeScript PureMVC project will output ready for production JavaScript.
+Development - [Version 1.0](https://github.com/PureMVC/puremvc-typescript-multicore-framework/blob/master/VERSION)
+* Fully unit-tested and demoed, but in 'Development' status since the TypeScript language specification is not finalized. 
 
 ## Platforms / Technologies
 * [TypeScript](http://www.typescriptlang.org/)
@@ -35,8 +35,8 @@ system path. e.g. on windows: <code>typescript.compiler.path = C:/Documents and 
 3. Use your favorite editor to run Ant or simply type <code>ant puremvc-typescript-multicore-framework/build
 
 ## License
-* PureMVC TypeScript Multicore Framework - Copyright © 2014 Frederic Saunier
-* PureMVC - Copyright © 2006-2014 Futurescale, Inc.
+* PureMVC TypeScript Multicore Framework - Copyright © 2012 Frederic Saunier
+* PureMVC - Copyright © 2006-2012 Futurescale, Inc.
 * All rights reserved.
 
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
