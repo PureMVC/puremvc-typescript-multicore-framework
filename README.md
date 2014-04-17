@@ -3,7 +3,7 @@
 These are sources, unit tests and minified library for PureMVC Multicore Framework for TypeScript.
 
 ## Status
-Development - [Version 1.0](https://github.com/PureMVC/puremvc-typescript-multicore-framework/blob/master/VERSION)
+Production - [Version 1.1](https://github.com/PureMVC/puremvc-typescript-multicore-framework/blob/master/VERSION)
 
 Will probably stay tagged as development while TypeScript language specification is not finalized,
 but remember that any TypeScript PureMVC project will output ready for production JavaScript.
@@ -35,8 +35,8 @@ system path. e.g. on windows: <code>typescript.compiler.path = C:/Documents and 
 3. Use your favorite editor to run Ant or simply type <code>ant puremvc-typescript-multicore-framework/build
 
 ## License
-* PureMVC TypeScript Multicore Framework - Copyright © 2012 Frederic Saunier
-* PureMVC - Copyright © 2006-2012 Futurescale, Inc.
+* PureMVC TypeScript Multicore Framework - Copyright © 2014 Frederic Saunier
+* PureMVC - Copyright © 2006-2014 Futurescale, Inc.
 * All rights reserved.
 
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
