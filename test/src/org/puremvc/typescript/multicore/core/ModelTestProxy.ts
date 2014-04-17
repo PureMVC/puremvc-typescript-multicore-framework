@@ -1,4 +1,4 @@
-///<reference path='../../../../../../../bin/puremvc-typescript-multicore-1.0.d.ts'/>
+///<reference path='../../../../../../../bin/puremvc-typescript-multicore-1.1.d.ts'/>
 
 module test
 {

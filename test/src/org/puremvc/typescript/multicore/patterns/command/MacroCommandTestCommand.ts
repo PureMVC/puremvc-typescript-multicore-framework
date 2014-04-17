@@ -1,4 +1,4 @@
-///<reference path='../../../../../../../../bin/puremvc-typescript-multicore-1.0.d.ts'/>
+///<reference path='../../../../../../../../bin/puremvc-typescript-multicore-1.1.d.ts'/>
 
 ///<reference path='MacroCommandTestSub1Command.ts'/>
 ///<reference path='MacroCommandTestSub2Command.ts'/>

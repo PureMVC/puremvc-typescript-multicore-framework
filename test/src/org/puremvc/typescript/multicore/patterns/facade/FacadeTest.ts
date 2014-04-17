@@ -1,5 +1,5 @@
 ///<reference path='../../../../../../../../test/lib/YUITest.d.ts'/>
-///<reference path='../../../../../../../../bin/puremvc-typescript-multicore-1.0.d.ts'/>
+///<reference path='../../../../../../../../bin/puremvc-typescript-multicore-1.1.d.ts'/>
 
 ///<reference path='FacadeTestCommand.ts'/>
 ///<reference path='FacadeTestVO.ts'/>
