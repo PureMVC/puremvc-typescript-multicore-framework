@@ -19,7 +19,7 @@ module test
 		 *		<code>Facade</code> instance of the object has well been declared during its
 		 *		construction.
 		 */
-		hasFacade():bool
+		hasFacade():boolean
 		{
 			return this.facade() instanceof puremvc.Facade;
 		}

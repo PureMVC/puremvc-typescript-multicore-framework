@@ -132,7 +132,7 @@ module test
 			);
 
 			// retrieve data from proxy
-			var data:Array = proxy.getData();
+			var data:Array<any> = proxy.getData();
 
 			// test assertions
 			YUITest.Assert.isNotUndefined

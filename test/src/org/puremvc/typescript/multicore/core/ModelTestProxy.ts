@@ -39,16 +39,16 @@ module test
 		/**
 		 * @constant
 		 */
-		private static NAME:string = 'ModelTestProxy';
+		public static NAME:string = 'ModelTestProxy';
 
 		/**
 		 * @constant
 		 */
-		private static ON_REGISTER_CALLED:string = 'onRegister Called';
+		public static ON_REGISTER_CALLED:string = 'onRegister Called';
 
 		/**
 		 * @constant
 		 */
-		private static ON_REMOVE_CALLED:string = 'onRemove Called';
+		public static ON_REMOVE_CALLED:string = 'onRemove Called';
 	}
 }
