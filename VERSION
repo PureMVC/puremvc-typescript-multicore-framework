@@ -1,6 +1,6 @@
 PureMVC Multicore Framework for TypeScript
 ----------------------------------------------------------------------------------------------------
-Release Date: 11/07/2012
+Release Date: 04/17/2014
 Platform: TypeScript
 Version: 1
 Revision: 1
@@ -8,9 +8,9 @@ Author: Frederic Saunier <frederic.saunier@puremvc.org>
 Status: Production
 ----------------------------------------------------------------------------------------------------
 
-1.1 - Port updated to reflect TypeScript 1.0 changes
+1.1 - Port updated to reflect official release of TypeScript 1.0 (http://blogs.msdn.com/b/typescript/archive/2014/04/02/announcing-typescript-1-0.aspx)
 
-This port was upgraded to its final state with the help of systemsymbiosis (https://github.com/systemsymbiosis/)
+This port was upgraded with the help of systemsymbiosis (https://github.com/systemsymbiosis/)
 thanks to him.
 
 1.0 - First official PureMVC TypeScript Multicore port.
