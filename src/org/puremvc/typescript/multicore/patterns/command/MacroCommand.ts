@@ -45,7 +45,7 @@ module puremvc
 		{
 			super();
 
-			this.subCommands = new Function[]();
+			this.subCommands = new Array<Function>();
 			this.initializeMacroCommand();
 		}
 

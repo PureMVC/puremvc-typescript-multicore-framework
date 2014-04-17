@@ -135,7 +135,7 @@ module puremvc
 		 * @return
 		 *		A Proxy is currently registered with the given <code>proxyName</code>.
 		 */
-		hasProxy( proxyName:string ):bool
+		hasProxy( proxyName:string ):boolean
 		{
 			return this.proxyMap[ proxyName ] != null;
 		}
