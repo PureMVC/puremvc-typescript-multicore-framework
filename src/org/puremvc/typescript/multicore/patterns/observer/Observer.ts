@@ -34,15 +34,13 @@ module puremvc
 	{
 		/**
 		 * The notification method of the interested object.
-		 * @protected
 		 */
-		notify:Function = null;
+		private notify:Function = null;
 
 		/**
 		 * The notification context of the interested object.
-		 * @protected
 		 */
-		context:any = null;
+		private context:any = null;
 
 		/**
 		 * Constructs an <code>Observer</code> instance.
@@ -126,7 +124,7 @@ module puremvc
 		 * @return
 		 * 		The object and the notification context are the same.
 		 */
-		 compareNotifyContext( object:any ):bool
+		 compareNotifyContext( object:any ):boolean
 		 {
 		 	return object === this.context;
 		 }		

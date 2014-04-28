@@ -1,4 +1,4 @@
-///<reference path='../../../../../../../../bin/puremvc-typescript-multicore-1.0.d.ts'/>
+///<reference path='../../../../../../../../bin/puremvc-typescript-multicore-1.1.d.ts'/>
 
 module test
 {
@@ -19,7 +19,7 @@ module test
 		 *		<code>Facade</code> instance of the object has well been declared during its
 		 *		construction.
 		 */
-		hasFacade():bool
+		hasFacade():boolean
 		{
 			return this.facade() instanceof puremvc.Facade;
 		}

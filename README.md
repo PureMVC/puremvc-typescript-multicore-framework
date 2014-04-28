@@ -5,8 +5,7 @@ PureMVC is a lightweight framework for creating applications based upon the clas
 * [Live Unit Test Runner](http://darkstar.puremvc.org/content_header.html?url=http://puremvc.org/pages/demos/TS/PureMVC_TS_MultiCore_UnitTests/&desc=PureMVC%20TypeScript%20MultiCore%20Unit%20Tests)
 
 ## Status
-Development - [Version 1.0](https://github.com/PureMVC/puremvc-typescript-multicore-framework/blob/master/VERSION)
-* Fully unit-tested and demoed, but in 'Development' status since the TypeScript language specification is not finalized. 
+Production - [Version 1.1](https://github.com/PureMVC/puremvc-typescript-multicore-framework/blob/master/VERSION)
 
 ## Platforms / Technologies
 * [TypeScript](http://www.typescriptlang.org/)
@@ -35,8 +34,8 @@ system path. e.g. on windows: <code>typescript.compiler.path = C:/Documents and 
 3. Use your favorite editor to run Ant or simply type <code>ant puremvc-typescript-multicore-framework/build
 
 ## License
-* PureMVC TypeScript Multicore Framework - Copyright © 2012 Frederic Saunier
-* PureMVC - Copyright © 2006-2012 Futurescale, Inc.
+* PureMVC TypeScript Multicore Framework - Copyright © 2014 Frederic Saunier
+* PureMVC - Copyright © 2006-2014 Futurescale, Inc.
 * All rights reserved.
 
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:

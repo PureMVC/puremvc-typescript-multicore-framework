@@ -58,7 +58,7 @@ module puremvc
 		 *		Multiton key for this instance of <code>View</code>.
 		 *
 		 * @throws Error
-		 *		Throws an error if an instance for this multiton has already been constructed.
+		 *		Throws an error if an instance for this multiton key has already been constructed.
 		 */
 		constructor( key:string )
 		{
@@ -70,10 +70,10 @@ module puremvc
 			this.multitonKey = key;
 			this.mediatorMap = {};
 			this.observerMap = {};
-			
+
 			this.initializeView();
 		}
-		
+
 		/**
 		 * Initialize the multiton <code>View</code> instance.
 		 * 
@@ -106,8 +106,8 @@ module puremvc
 		}
 
 		/**
-		 * Remove a list of <code>Observer</code>s for a given <code>notifyContext</code> from an
-		 * <code>Observer</code> list for a given <code>INotification</code> name.
+		 * Remove a list of <code>IObserver</code>s for a given <code>notifyContext</code> from an
+		 * <code>IObserver</code> list for a given <code>INotification</code> name.
 		 *
 		 * @param notificationName
 		 * 		Which <code>IObserver</code> list to remove from.
@@ -271,19 +271,13 @@ module puremvc
 		 * 		The <code>IMediator</code> name to check whether it is registered.
 		 *
 		 * @return
-		 *		A <code>Mediator</code> is registered with the given <code>mediatorName</code>.
+		 *		An <code>IMediator</code> is registered with the given <code>mediatorName</code>.
 		 */
-		hasMediator( mediatorName:string ):bool
+		hasMediator( mediatorName:string ):boolean
 		{
 			return this.mediatorMap[ mediatorName ] != null;
 		}
 
-		/**
-		 * <code>View</code> singleton instance map.
-		 *
-		 * @protected
-		 */
-		 static instanceMap:Object = {};
 
 		/**
 		 * Error message used to indicate that a <code>View</code> singleton instance is
@@ -293,6 +287,13 @@ module puremvc
 		 * @protected
 		 */
 		static MULTITON_MSG:string = "View instance for this multiton key already constructed!";
+
+		/**
+		 * <code>View</code> singleton instance map.
+		 *
+		 * @protected
+		 */
+		 static instanceMap:Object = {};
 
 		/**
 		 * <code>View</code> multiton factory method.

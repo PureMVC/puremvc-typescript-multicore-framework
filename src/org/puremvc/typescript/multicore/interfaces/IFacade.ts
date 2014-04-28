@@ -53,7 +53,7 @@ module puremvc
 		 * 		A <code>Command</code> is currently registered for the given
 		 *		<code>notificationName</code>.
 		 */
-		hasCommand( notificationName:string ):bool;
+		hasCommand( notificationName:string ):boolean;
 
 		/**
 		 * Register an <code>IProxy</code> with the <code>Model</code> by name.
@@ -95,7 +95,7 @@ module puremvc
 		 * @return
 		 * 		A <code>Proxy</code> is currently registered with the given	<code>proxyName</code>.
 		 */
-		hasProxy( proxyName:string ):bool;
+		hasProxy( proxyName:string ):boolean;
 
 		/**
 		 * Register a <code>IMediator</code> with the <code>IView</code>.
@@ -138,7 +138,7 @@ module puremvc
 		 * @return
 		 * 		An <code>IMediator</code> is registered with the given <code>mediatorName</code>.
 		 */
-		hasMediator( mediatorName:string ):bool;
+		hasMediator( mediatorName:string ):boolean;
 
 		/**
 		 * Notify the <code>IObservers</code> for a particular <code>INotification</code>.

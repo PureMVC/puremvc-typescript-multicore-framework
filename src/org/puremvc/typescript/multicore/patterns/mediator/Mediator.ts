@@ -100,7 +100,7 @@ module puremvc
 		 */
 		listNotificationInterests():string[]
 		{
-			return new string[];
+			return new Array<string>();
 		}
 
 		/**

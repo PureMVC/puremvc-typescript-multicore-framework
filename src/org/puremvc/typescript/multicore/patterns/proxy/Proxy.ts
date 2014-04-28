@@ -12,14 +12,14 @@ module puremvc
 	 *
 	 * In PureMVC, <code>IProxy</code> implementors assume these responsibilities:
 	 * <UL>
-	 * <LI>Implement a common method which returns the name of the Proxy.
+	 * <LI>Implement a common method which returns the name of the <code>Proxy</code>.
 	 * <LI>Provide methods for setting and getting the data object.
 	 *
-	 * Additionally, <code>IProxy</code>s typically:
+	 * Additionally, <code>IProxy</code> typically:
 	 * <UL>
 	 * <LI>Maintain references to one or more pieces of model data.
 	 * <LI>Provide methods for manipulating that data.
-	 * <LI>Generate <code>INotifications</code> when their model data changes.
+	 * <LI>Generate <code>INotification</code>s when their model data changes.
 	 * <LI>Expose their name as a <code>constant</code> called <code>NAME</code>, if they are not
 	 * instantiated multiple times.
 	 * <LI>Encapsulate interaction with local or remote services used to fetch and persist model
@@ -30,14 +30,14 @@ module puremvc
 		implements IProxy, INotifier
 	{
 		/**
-		 * The data object controlled by the <code>Proxy</code>.
+		 * The name of the <code>Proxy</code>.
 		 *
 		 * @protected
 		 */
 		proxyName:string = null;
 
 		/**
-		 * The name of the <code>Proxy</code>.
+		 * The data object controlled by the <code>Proxy</code>.
 		 *
 		 * @protected
 		 */

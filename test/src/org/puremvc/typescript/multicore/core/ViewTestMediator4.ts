@@ -1,4 +1,4 @@
-///<reference path='../../../../../../../bin/puremvc-typescript-multicore-1.0.d.ts'/>
+///<reference path='../../../../../../../bin/puremvc-typescript-multicore-1.1.d.ts'/>
 
 ///<reference path='ViewTest.ts'/>
 
@@ -56,6 +56,6 @@ module test
 		 *
 		 * @constant
 		 */
-		private static NAME:string = 'ViewTestMediator4';
+		public static NAME:string = 'ViewTestMediator4';
 	}
 }

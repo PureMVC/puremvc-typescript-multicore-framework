@@ -22,6 +22,15 @@ module puremvc
 	 * the convenience method <code>sendNotification</code>	for sending <code>Notifications</code>,
 	 * but it also eases implementation as these classes have frequent <code>Facade</code>
 	 * interactions and usually require access to the facade anyway.
+	 *
+	 * NOTE: In the MultiCore version of the framework, there is one caveat to notifiers, they
+	 * cannot send notifications or reach the facade until they have a valid multitonKey. 
+	 * 
+	 * The multitonKey is set:
+	 * <UL>
+	 * <LI>On a <code>ICommand</code> when it is executed by the <code>Controller</code>.
+	 * <LI>On a <code>IMediator</code> is registered with the <code>View</code>.
+	 * <LI>On a <code>IProxy</code> is registered with the <code>Model</code>.
 	 */
 	export class Notifier
 		implements INotifier
@@ -40,7 +49,7 @@ module puremvc
 		 * <code>sendNotification <code> or to access the facade will fail until after this method
 		 * has been called.
 		 * 
-		 * <code>Mediator</code>s, <code>Command</code>s or <code>Proxie</code>s may override
+		 * <code>Mediator</code>s, <code>Command</code>s or <code>Proxies</code> may override
 		 * this method in order to send notifications or access the multiton Facade instance as
 		 * soon as possible. They CANNOT access the facade in their constructors, since this
 		 * method will not yet have been called.
