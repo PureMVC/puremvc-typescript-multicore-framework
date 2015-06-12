@@ -162,8 +162,8 @@ declare module puremvc
         public hasProxy(proxyName: string): boolean;
         static MULTITON_MSG: string;
         static instanceMap: Object;
-        static getInstance(key): IModel;
-        static removeModel(key): void;
+        static getInstance(key:string): IModel;
+        static removeModel(key:string): void;
     }
 
     export class Notification
@@ -188,7 +188,7 @@ declare module puremvc
         public view: IView;
         public controller: IController;
         public multitonKey: string;
-        constructor (key);
+        constructor (key:string);
         public initializeFacade(): void;
         public initializeModel(): void;
         public initializeController(): void;
@@ -218,7 +218,7 @@ declare module puremvc
 		implements INotifier
 	{
         public multitonKey: string;
-        public initializeNotifier(key): void;
+        public initializeNotifier(key:string): void;
         public sendNotification(name: string, body?: any, type?: string): void;
         public facade(): IFacade;
         static MULTITON_MSG: string;
