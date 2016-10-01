@@ -1,4 +1,6 @@
 ## [PureMVC](http://puremvc.github.com/) TypeScript MultiCore Framework
+
+[![Join the chat at https://gitter.im/PureMVC/puremvc-typescript-multicore-framework](https://badges.gitter.im/PureMVC/puremvc-typescript-multicore-framework.svg)](https://gitter.im/PureMVC/puremvc-typescript-multicore-framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 PureMVC is a lightweight framework for creating applications based upon the classic [Model-View-Controller](http://en.wikipedia.org/wiki/Model-view-controller) design meta-pattern. This is a TypeScript port of the [AS3 reference implementation of the MultiCore Version](https://github.com/PureMVC/puremvc-as3-multicore-framework/wiki). It supports [modular programming](http://en.wikipedia.org/wiki/Modular_programming) through the use of [Multiton](http://en.wikipedia.org/wiki/Multiton) Core actors instead of the [Singleton](http://en.wikipedia.org/wiki/Singleton_pattern)s used in the [Standard Version](https://github.com/PureMVC/puremvc-typescript-standard-framework/wiki).
 
 * [Discussion](http://forums.puremvc.org/index.php?board=113.0)
