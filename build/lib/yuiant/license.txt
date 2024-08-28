@@ -1,3 +1,0 @@
-ANT Task used to compress a set of files to a target folder.
-author <a href="mailto:p.mouawad@ubik-ingenierie.com">Philippe Mouawad</a>
-www.ubik-ingenierie.com

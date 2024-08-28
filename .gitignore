@@ -1,4 +1,3 @@
-/.idea
-/*.sublime-project
-/*.sublime-workspace
-/build/user.properties
+.idea
+node_modules
+.DS_Store
