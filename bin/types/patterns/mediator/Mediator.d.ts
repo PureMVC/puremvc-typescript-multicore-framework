@@ -27,13 +27,13 @@ export declare class Mediator extends Notifier implements IMediator {
      */
     constructor(name?: string, viewComponent?: any);
     /**
-     * Called by the View when the Mediator is registered     *
+     * Called by the View when the Mediator is registered
      *
      * @returns {void}
      */
     onRegister(): void;
     /**
-     * Called by the View when the Mediator is removed     *
+     * Called by the View when the Mediator is removed
      *
      * @returns {void}
      */

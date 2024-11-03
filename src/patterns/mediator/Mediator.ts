@@ -45,7 +45,7 @@ export class Mediator extends Notifier implements IMediator {
     }
 
     /**
-     * Called by the View when the Mediator is registered     *
+     * Called by the View when the Mediator is registered
      *
      * @returns {void}
      */
@@ -54,7 +54,7 @@ export class Mediator extends Notifier implements IMediator {
     }
 
     /**
-     * Called by the View when the Mediator is removed     *
+     * Called by the View when the Mediator is removed
      *
      * @returns {void}
      */

@@ -1,6 +1,6 @@
 {
   "name": "@puremvc/puremvc-typescript-multicore-framework",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "PureMVC MultiCore Framework for TypeScript",
   "main": "bin/cjs/index.js",
   "module": "bin/esm/index.js",
@@ -59,6 +59,6 @@
     "jest": "^29.7.0",
     "ts-jest": "^29.1.1",
     "typedoc": "^0.26.6",
-    "typescript": "^5.3.2"
+    "typescript": "^5.6.3"
   }
 }

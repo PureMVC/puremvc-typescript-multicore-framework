@@ -14,8 +14,8 @@ export type {IFacade} from "./interfaces/IFacade";
 export type {IMediator} from "./interfaces/IMediator";
 export type {INotification} from "./interfaces/INotification";
 export type {INotifier} from "./interfaces/INotifier";
-export type {IObserver} from "./interfaces/IObserver"
-export type {IProxy} from "./interfaces/IProxy"
+export type {IObserver} from "./interfaces/IObserver";
+export type {IProxy} from "./interfaces/IProxy";
 
 export {Controller} from "./core/Controller";
 export {Model} from "./core/Model";

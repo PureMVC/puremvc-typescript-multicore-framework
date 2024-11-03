@@ -109,8 +109,8 @@ export class MacroCommand extends SimpleCommand {
             const factory: (() => ICommand) | undefined = this.subCommands.shift();
             const command: ICommand | undefined = factory?.();
             if (command) {
-              command.initializeNotifier(this.multitonKey);
-              command.execute(notification);
+                command.initializeNotifier(this.multitonKey);
+                command.execute(notification);
             }
         }
     }
