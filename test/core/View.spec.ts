@@ -6,7 +6,7 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {IView, View, IMediator, Mediator, INotification, Notification, IObserver, Observer} from "../../src"
+import {IView, View, IMediator, Mediator, INotification, Notification, IObserver, Observer} from "../../src";
 import {ViewTestNote} from "./ViewTestNote";
 import {ViewTestMediator} from "./ViewTestMediator";
 import {ViewTestMediator2} from "./ViewTestMediator2";
@@ -34,32 +34,32 @@ describe("ViewTest", () => {
     /**
      * Tests registration and notification of Observers.
      *
-     * <P>An Observer is created to callback the viewTestMethod of
+     * An Observer is created to callback the viewTestMethod of
      * this ViewTest instance. This Observer is registered with
      * the View to be notified of 'ViewTestEvent' events. Such
      * an event is created, and a value set on its payload. Then
      * the View is told to notify interested observers of this
-     * Event.</P>
+     * Event.
      *
-     * <P>The View calls the Observer's notifyObserver method
+     * The View calls the Observer's notifyObserver method
      * which calls the viewTestMethod on this instance
      * of the ViewTest class. The viewTestMethod method will set
      * an instance variable to the value passed in on the Event
      * payload. We evaluate the instance variable to be sure
      * it is the same as that passed out as the payload of the
-     * original 'ViewTestEvent'.</P>
+     * original 'ViewTestEvent'.
      */
     test("testRegisterAndNotifyObserver", () => {
         // Get the Multiton View instance
         const view: IView = View.getInstance("ViewTestKey2", (key: string) => new View(key));
 
         let viewTestVar: number = 0;
-        let handleNotification = (notification: INotification) => {
+        const handleNotification = (notification: INotification) => {
             viewTestVar = notification.body;
         };
 
         // Create observer, passing in notification method and context
-        let observer: IObserver = new Observer(handleNotification, this);
+        const observer: IObserver = new Observer(handleNotification, this);
 
         // Register Observer's interest in a particular Notification with the View
         view.registerObserver(ViewTestNote.NAME, observer);
@@ -71,7 +71,7 @@ describe("ViewTest", () => {
         // successful notification will result in our local
         // viewTestVar being set to the value we pass in
         // on the note body.
-        let note: Notification = ViewTestNote.create(10);
+        const note: Notification = ViewTestNote.create(10);
         view.notifyObservers(note);
 
         // test assertions
@@ -87,11 +87,11 @@ describe("ViewTest", () => {
         const view: IView = View.getInstance("ViewTestKey3", (key: string) => new View(key));
 
         // Create and register the test mediator
-        let viewTestMediator = new ViewTestMediator(this);
+        const viewTestMediator = new ViewTestMediator(this);
         view.registerMediator(viewTestMediator);
 
         // Retrieve the component
-        let mediator : IMediator | null = view.retrieveMediator(ViewTestMediator.NAME);
+        const mediator : IMediator | null = view.retrieveMediator(ViewTestMediator.NAME);
 
         // test assertions
         expect(mediator).toBe(viewTestMediator);
@@ -105,7 +105,7 @@ describe("ViewTest", () => {
         const view: IView = View.getInstance("ViewTestKey4", (key: string) => new View(key));
 
         // Create and register the test mediator
-        let mediator = new Mediator("hasMediatorTest", this);
+        const mediator = new Mediator("hasMediatorTest", this);
         view.registerMediator(mediator);
 
         // assert that the view.hasMediator method returns true
@@ -127,11 +127,11 @@ describe("ViewTest", () => {
         const view = View.getInstance("ViewTestKey5", (key: string) => new View(key));
 
         // Create and register the test mediator
-        let mediator: IMediator = new Mediator("testing", this);
+        const mediator: IMediator = new Mediator("testing", this);
         view.registerMediator(mediator);
 
         // Remove the component
-        let removedMediator = view.removeMediator("testing");
+        const removedMediator = view.removeMediator("testing");
 
         // assert that we have removed the appropriate mediator
         expect(removedMediator?.name).toBe("testing");
@@ -148,8 +148,8 @@ describe("ViewTest", () => {
         const view = View.getInstance("ViewTestKey6", (key: string) => new View(key));
 
         // Create and register the test mediator
-        let obj = {onRegisterCalled: false, onRemoveCalled: false};
-        let mediator = new ViewTestMediator4(obj);
+        const obj = {onRegisterCalled: false, onRemoveCalled: false};
+        const mediator = new ViewTestMediator4(obj);
         view.registerMediator(mediator);
 
         // assert that onRegister was called, and the mediator responded by setting our boolean
@@ -206,7 +206,7 @@ describe("ViewTest", () => {
         // Get the Multiton View instance
         const view = View.getInstance("ViewTestKey8", (key: string) => new View(key));
 
-        let obj = {lastNotification: ""};
+        const obj = {lastNotification: ""};
 
         // Create and register the test mediator to be removed.
         view.registerMediator(new ViewTestMediator2(obj));
@@ -240,7 +240,7 @@ describe("ViewTest", () => {
         // Get the Multiton View instance
         const view = View.getInstance("ViewTestKey9", (key: string) => new View(key));
 
-        let obj = {lastNotification: ""};
+        const obj = {lastNotification: ""};
 
         // Create and register that responds to notifications 1 and 2
         view.registerMediator(new ViewTestMediator2(obj));
@@ -289,7 +289,7 @@ describe("ViewTest", () => {
     test("testMediatorReregistration", () => {
         // Get the Multiton View instance
         const view = View.getInstance("ViewTestKey10", (key: string) => new View(key));
-        let obj = {counter: 0};
+        const obj = {counter: 0};
 
         // Create and register that responds to notification 5
         view.registerMediator(new ViewTestMediator5(obj));
@@ -323,7 +323,7 @@ describe("ViewTest", () => {
      */
     test("testModifyObserverListDuringNotification", () => {
         const view = View.getInstance("ViewTestKey11", (key: string) => new View(key));
-        let obj = {counter: 0};
+        const obj = {counter: 0};
 
         // Create and register several mediator instances that respond to notification 6
         // by removing themselves, which will cause the observer list for that notification

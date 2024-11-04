@@ -6,9 +6,9 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {Facade, Notifier} from "../../../src"
-import {FacadeTestVO} from "../facade/FacadeTestVO"
-import {FacadeTestCommand} from "../facade/FacadeTestCommand"
+import {Facade, Notifier} from "../../../src";
+import {FacadeTestVO} from "../facade/FacadeTestVO";
+import {FacadeTestCommand} from "../facade/FacadeTestCommand";
 
 /**
  * Test the PureMVC Notifier class.
@@ -22,10 +22,10 @@ describe("NotifierTest", () => {
 
         expect(Facade.hasCore("notifierTest")).toBeTruthy();
 
-        let vo = new FacadeTestVO(5);
+        const vo = new FacadeTestVO(5);
         facade.registerCommand("testCommand", () => new FacadeTestCommand());
 
-        let notifier = new Notifier();
+        const notifier = new Notifier();
         notifier.initializeNotifier("notifierTest");
         notifier.sendNotification("testCommand", vo);
 

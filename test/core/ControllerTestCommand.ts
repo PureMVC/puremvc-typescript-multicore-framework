@@ -6,7 +6,7 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {SimpleCommand, INotification} from "../../src"
+import {SimpleCommand, INotification} from "../../src";
 import {ControllerTestVO} from "./ControllerTestVO";
 
 /**
@@ -26,7 +26,7 @@ export class ControllerTestCommand extends SimpleCommand {
      * @param notification the note carrying the ControllerTestVO
      */
     public override execute(notification: INotification) {
-        let vo = notification.body as ControllerTestVO;
+        const vo = notification.body as ControllerTestVO;
 
         // Fabricate a result
         vo.result = 2 * vo.input;

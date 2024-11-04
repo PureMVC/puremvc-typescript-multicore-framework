@@ -6,7 +6,7 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {INotification, Notification} from "../../../src"
+import {INotification, Notification} from "../../../src";
 
 /**
  * Test the PureMVC Notification class.

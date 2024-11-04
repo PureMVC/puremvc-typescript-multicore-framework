@@ -6,7 +6,7 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {SimpleCommand, INotification} from "../../../src"
+import {SimpleCommand, INotification} from "../../../src";
 import {MacroCommandTestVO} from "./MacroCommandTestVO";
 
 /**
@@ -27,7 +27,7 @@ export class MacroCommandTestSub1Command extends SimpleCommand {
      * @param {Notification} notification event the `IEvent` carrying the `MacroCommandTestVO`
      */
     public override execute(notification: INotification) {
-        let vo = notification.body as MacroCommandTestVO;
+        const vo = notification.body as MacroCommandTestVO;
 
         // Fabricate a result
         vo.result1 = 2 * vo.input;

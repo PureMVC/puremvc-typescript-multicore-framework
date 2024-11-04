@@ -6,7 +6,7 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {MacroCommand} from "../../../src"
+import {MacroCommand} from "../../../src";
 import {MacroCommandTestSub1Command} from "./MacroCommandTestSub1Command";
 import {MacroCommandTestSub2Command} from "./MacroCommandTestSub2Command";
 

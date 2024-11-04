@@ -6,7 +6,7 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {IModel, Model, IProxy, Proxy} from "../../src"
+import {IModel, Model, IProxy, Proxy} from "../../src";
 import {ModelTestProxy} from "./ModelTestProxy";
 
 /**
@@ -28,19 +28,19 @@ describe("ModelTest", () => {
     /**
      * Tests the proxy registration and retrieval methods.
      *
-     * <P>
+     * 
      * Tests `registerProxy` and `retrieveProxy` in the same test.
      * These methods cannot currently be tested separately
      * in any meaningful way other than to show that the
-     * methods do not throw exception when called. </P>
+     * methods do not throw exception when called. 
      */
     test("testRegisterAndRetrieveProxy", () => {
         // register a proxy and retrieve it.
         const model: IModel = Model.getInstance("ModelTestKey2", (key: string) => new Model(key));
         model.registerProxy(new Proxy("colors", ["red", "green", "blue"]));
-        let proxy: IProxy | null = model.retrieveProxy("colors");
+        const proxy: IProxy | null = model.retrieveProxy("colors");
         expect(proxy).toBeDefined();
-        let data = proxy?.data as string[];
+        const data = proxy?.data as string[];
 
         // test assertions
         expect(data).not.toBeNull();
@@ -57,18 +57,18 @@ describe("ModelTest", () => {
     test("testRegisterAndRemoveProxy", () => {
         // register a proxy, remove it, then try to retrieve it
         const model: IModel = Model.getInstance("ModelTestKey3", (key: string) => new Model(key));
-        let proxy: IProxy = new Proxy("sizes", ["7", "13", "21"]);
+        const proxy: IProxy = new Proxy("sizes", ["7", "13", "21"]);
         model.registerProxy(proxy);
 
         // remove the proxy
-        let removedProxy: IProxy | null = model.removeProxy("sizes");
+        const removedProxy: IProxy | null = model.removeProxy("sizes");
 
         // assert that we removed the appropriate proxy
         expect(removedProxy).not.toBeNull();
         expect(removedProxy?.name).toBe("sizes");
 
         // ensure that the proxy is no longer retrievable from the model
-        let proxy1 = model.retrieveProxy("sizes");
+        const proxy1 = model.retrieveProxy("sizes");
 
         // test assertions
         expect(proxy1).toBeNull();
@@ -80,7 +80,7 @@ describe("ModelTest", () => {
     test("testHasProxy", () => {
         // register a proxy
         const model: IModel = Model.getInstance("ModelTestKey4", (key: string) => new Model(key));
-        let proxy: IProxy = new Proxy("aces", ["clubs", "spades", "hearts", "diamonds"]);
+        const proxy: IProxy = new Proxy("aces", ["clubs", "spades", "hearts", "diamonds"]);
         model.registerProxy(proxy);
 
         // assert that the model.hasProxy method returns true
@@ -103,7 +103,7 @@ describe("ModelTest", () => {
         const model: IModel = Model.getInstance("ModelTestKey5", (key: string) => new Model(key));
 
         // Create and register the test proxy
-        let proxy: IProxy = new ModelTestProxy();
+        const proxy: IProxy = new ModelTestProxy();
         model.registerProxy(proxy);
 
         // assert that onRegister was called, and the proxy responded by setting its data accordingly

@@ -6,7 +6,7 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {Notification} from "../../../src"
+import {Notification} from "../../../src";
 import {MacroCommandTestVO} from "./MacroCommandTestVO";
 import {MacroCommandTestCommand} from "./MacroCommandTestCommand";
 
@@ -21,39 +21,39 @@ describe("MacroCommandTest", () => {
     /**
      * Tests operation of a `MacroCommand`.
      *
-     * <P>This test creates a new `Notification`, adding a
+     * This test creates a new `Notification`, adding a
      * `MacroCommandTestVO` as the body.
      * It then creates a `MacroCommandTestCommand` and invokes
      * its `execute` method, passing in the
-     * `Notification`.</P>
+     * `Notification`.
      *
-     * <P>The `MacroCommandTestCommand` has defined an
+     * The `MacroCommandTestCommand` has defined an
      * `initializeMacroCommand` method, which is
      * called automatically by its constructor. In this method
      * the `MacroCommandTestCommand` adds 2 SubCommands
      * to itself, `MacroCommandTestSub1Command` and
-     * `MacroCommandTestSub2Command`.</P>
+     * `MacroCommandTestSub2Command`.
      *
-     * <P>The `MacroCommandTestVO` has 2 result properties,
+     * The `MacroCommandTestVO` has 2 result properties,
      * one is set by `MacroCommandTestSub1Command` by
      * multiplying the input property by 2, and the other is set
      * by `MacroCommandTestSub2Command` by multiplying
-     * the input property by itself.</P>
+     * the input property by itself.
      *
-     * <P>Success is determined by evaluating the 2 result properties
+     * Success is determined by evaluating the 2 result properties
      * on the `MacroCommandTestVO` that was passed to
      * the `MacroCommandTestCommand` on the Notification
-     * body.</P>
+     * body.
      */
     test("testMacroCommandExecute", () => {
         // Create the VO
-        let vo: MacroCommandTestVO = new MacroCommandTestVO(5);
+        const vo: MacroCommandTestVO = new MacroCommandTestVO(5);
 
         // Create the Notification
-        let notification = new Notification("MacroCommandTest", vo);
+        const notification = new Notification("MacroCommandTest", vo);
 
         // Create the SimpleCommand
-        let command: MacroCommandTestCommand = new MacroCommandTestCommand();
+        const command: MacroCommandTestCommand = new MacroCommandTestCommand();
 
         // Execute the SimpleCommand
         command.execute(notification);

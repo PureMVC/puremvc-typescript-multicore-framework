@@ -6,8 +6,8 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {SimpleCommand, INotification} from "../../../src"
-import {FacadeTestVO} from "./FacadeTestVO"
+import {SimpleCommand, INotification} from "../../../src";
+import {FacadeTestVO} from "./FacadeTestVO";
 
 /**
  * A SimpleCommand subclass used by FacadeTest.
@@ -26,7 +26,7 @@ export class FacadeTestCommand extends SimpleCommand {
      * @param {Notification} notification the Notification carrying the FacadeTestVO
      */
     public override execute(notification: INotification): void  {
-        let vo: FacadeTestVO = notification.body as FacadeTestVO
+        const vo: FacadeTestVO = notification.body as FacadeTestVO;
 
         // Fabricate a result
         vo.result = vo.input * 2;

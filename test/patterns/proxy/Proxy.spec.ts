@@ -6,7 +6,7 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {IProxy, Proxy} from "../../../src"
+import {IProxy, Proxy} from "../../../src";
 
 /**
  * Test the PureMVC Proxy class.
@@ -26,7 +26,7 @@ describe("ProxyTest", () => {
         // test assertions
         expect(proxy.name).toBe("TestProxy");
 
-        let proxy2 = new Proxy();
+        const proxy2 = new Proxy();
 
         // test assertions
         expect(proxy2.name).toBe(Proxy.NAME);
@@ -39,7 +39,7 @@ describe("ProxyTest", () => {
         // Create a new Proxy and use accessors to set the data
         const proxy = new Proxy("colors");
         proxy.data = ["red", "green", "blue"];
-        let data = proxy.data;
+        const data = proxy.data;
 
         // test assertions
         expect(data.length).toBe(3);
@@ -54,7 +54,7 @@ describe("ProxyTest", () => {
     test("testConstructor", () => {
         // Create a new Proxy using the Constructor to set the name and data
         const proxy = new Proxy("colors", ["red", "green", "blue"]);
-        let data = proxy.data;
+        const data = proxy.data;
 
         // test assertions
         expect(data.length).toBe(3);

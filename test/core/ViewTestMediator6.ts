@@ -6,7 +6,7 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {Mediator, INotification} from "../../src"
+import {Mediator, INotification} from "../../src";
 import {ViewTestNote} from "./ViewTestNote";
 
 /**

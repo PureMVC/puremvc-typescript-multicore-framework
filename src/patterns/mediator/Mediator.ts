@@ -29,7 +29,7 @@ export class Mediator extends Notifier implements IMediator {
     protected readonly _name: string;
 
     /** The view component
-     * @type {Object} */
+     * @type {any} */
     protected _viewComponent?: any;
 
     /**

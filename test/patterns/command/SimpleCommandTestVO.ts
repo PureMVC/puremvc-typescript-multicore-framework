@@ -25,7 +25,7 @@ export class SimpleCommandTestVO {
      * @param {number} input the number to be fed to the SimpleCommandTestCommand
      */
     public constructor(input: number) {
-        this.input = input
+        this.input = input;
     }
 
 }

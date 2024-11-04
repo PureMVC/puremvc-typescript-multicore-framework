@@ -6,18 +6,18 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {INotification, Notification, Observer} from "../../../src"
+import {INotification, Notification, Observer} from "../../../src";
 
 /**
  * Tests PureMVC Observer class.
  *
- * <P>Since the Observer encapsulates the interested object's
+ * Since the Observer encapsulates the interested object's
  * callback information, there are no getters, only setters.
- * It is, in effect write-only memory.</P>
+ * It is, in effect write-only memory.
  *
- * <P>Therefore, the only way to test it is to set the
+ * Therefore, the only way to test it is to set the
  * notification method and context and call the notifyObserver
- * method.</P>
+ * method.
  */
 describe("ObserverTest", () => {
 
@@ -43,7 +43,7 @@ describe("ObserverTest", () => {
         // successful notification will result in our local
         // observerTestVar being set to the value we pass in
         // on the note body.
-        let notification: INotification = new Notification("ObserverTestNote", 10);
+        const notification: INotification = new Notification("ObserverTestNote", 10);
         observer.notifyObserver(notification);
 
         // test assertions
@@ -64,7 +64,7 @@ describe("ObserverTest", () => {
         // successful notification will result in our local
         // observerTestVar being set to the value we pass in
         // on the note body.
-        let notification: INotification = new Notification("ObserverTestNote", 5);
+        const notification: INotification = new Notification("ObserverTestNote", 5);
         observer.notifyObserver(notification);
 
         // test assertions
@@ -77,7 +77,7 @@ describe("ObserverTest", () => {
     test("testCompareNotifyContext", () => {
         // Create observer passing in notification method and context
         const observer = new Observer(observerTestMethod, this);
-        let negTestObject: Object = {};
+        const negTestObject: object = {};
 
         // test assertions
         expect(observer.compareNotifyContext(negTestObject)).toBe(false);

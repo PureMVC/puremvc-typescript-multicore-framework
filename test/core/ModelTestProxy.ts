@@ -6,7 +6,7 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {Proxy} from "../../src"
+import {Proxy} from "../../src";
 
 /**
  * @class ModelTestProxy

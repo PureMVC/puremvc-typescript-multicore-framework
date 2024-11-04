@@ -6,7 +6,7 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {Notification} from "../../src"
+import {Notification} from "../../src";
 
 export class ViewTestNote extends Notification {
 
