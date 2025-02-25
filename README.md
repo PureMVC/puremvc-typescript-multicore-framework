@@ -27,8 +27,8 @@ npm i @puremvc/puremvc-typescript-multicore-framework
 Production - [Version 2.0.2](https://github.com/PureMVC/puremvc-typescript-multicore-framework/blob/master/VERSION)
 
 ## License
-* PureMVC MultiCore Framework for TypeScript - Copyright © 2024 [Saad Shams](https://www.linkedin.com/in/muizz)
-* PureMVC - Copyright © 2024 [Futurescale, Inc.](http://futurescale.com/)
+* PureMVC MultiCore Framework for TypeScript - Copyright © 2025 [Saad Shams](https://www.linkedin.com/in/muizz)
+* PureMVC - Copyright © 2025 [Futurescale, Inc.](http://futurescale.com/)
 * All rights reserved.
 
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:

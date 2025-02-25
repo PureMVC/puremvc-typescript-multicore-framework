@@ -17,7 +17,7 @@ export declare class Mediator extends Notifier implements IMediator {
     @type {string} */
     protected readonly _name: string;
     /** The view component
-     * @type {Object} */
+     * @type {any} */
     protected _viewComponent?: any;
     /**
      * Constructor.

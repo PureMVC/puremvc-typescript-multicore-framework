@@ -111,28 +111,4 @@ export interface IFacade extends INotifier {
      * @returns {void}
      */
     notifyObservers(notification: INotification): void;
-    /**
-     * Create and send an `Notification`.
-     *
-     * Keeps us from having to construct new notification
-     * instances in our implementation code.
-     *
-     * @param {string} notificationName - the `INotification` to have the `View` notify `Observers` of.
-     * @param {any} [body] - Optional data to be included in the notification.
-     * @param {string} [type] - Optional type of the notification.
-     * @returns {void}
-     */
-    sendNotification(notificationName: string, body?: any, type?: string): void;
-    /**
-     * Set the Multiton key for this facade instance.
-     *
-     * Not called directly, but instead from the
-     * constructor when `getInstance` is invoked.
-     * It is necessary to be public in order to
-     * implement Notifier.
-     *
-     * @param {string} key - The unique key to initialize the notifier with.
-     * @returns {void}
-     */
-    initializeNotifier(key: string): void;
 }
