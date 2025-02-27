@@ -32,7 +32,7 @@ describe("ModelTest", () => {
      * Tests `registerProxy` and `retrieveProxy` in the same test.
      * These methods cannot currently be tested separately
      * in any meaningful way other than to show that the
-     * methods do not throw exception when called. 
+     * methods do not throw exception when called.
      */
     test("testRegisterAndRetrieveProxy", () => {
         // register a proxy and retrieve it.
@@ -114,6 +114,28 @@ describe("ModelTest", () => {
 
         // assert that onRemove was called, and the proxy responded by setting its data accordingly
         expect(proxy.data).toBe(ModelTestProxy.ON_REMOVE_CALLED);
+    });
+
+    // Test for constructor with an existing key
+    test("testModelConstructorWithExistingKeyThrowsError", () => {
+        const key = "ExistingModelKey";
+        Model.getInstance(key, k => new Model(k));
+
+        expect(() => new Model(key)).toThrow("Model instance for this Multiton key already constructed!");
+    });
+
+    // Test for removing a proxy twice
+    test("testRemoveProxyTwice", () => {
+        const model: IModel = Model.getInstance("ModelTestKeyTwice", k => new Model(k));
+
+        const proxy: IProxy = new Proxy("testProxy", {});
+        model.registerProxy(proxy);
+
+        const removedProxy = model.removeProxy("testProxy");
+        expect(removedProxy).toBe(proxy);
+
+        const secondRemovedProxy = model.removeProxy("testProxy");
+        expect(secondRemovedProxy).toBeNull();
     });
 
 });

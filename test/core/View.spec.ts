@@ -354,4 +354,35 @@ describe("ViewTest", () => {
         expect(obj.counter).toBe(0);
     });
 
+    // Test for removing a mediator twice
+    test("testRemoveMediatorTwice", () => {
+        // Get the Multiton View instance
+        const view = View.getInstance("ViewTestKey12", (key: string) => new View(key));
+
+        // Create and register the test mediator
+        const mediator: IMediator = new Mediator("testMediator", {});
+        view.registerMediator(mediator);
+
+        // Remove the mediator
+        const removedMediator = view.removeMediator("testMediator");
+
+        // Assert that the mediator is removed
+        expect(removedMediator).toBe(mediator);
+
+        // Attempt to remove the mediator again and expect `null`
+        const secondRemovedMediator = view.removeMediator("testMediator");
+        expect(secondRemovedMediator).toBe(null);
+    });
+
+    // Test for notifyObservers with no registrations
+    test("testNotifyObserversWithNoRegistrations", () => {
+        const view: IView = View.getInstance("ViewTestKeyNoObservers", (key: string) => new View(key));
+
+        const notification = new Notification("UnusedNotification");
+
+        // Call notifyObservers on a notification with no registered observers
+        // Should not throw an error and should be handled gracefully
+        expect(() => view.notifyObservers(notification)).not.toThrow();
+    });
+
 });

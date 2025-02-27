@@ -33,4 +33,14 @@ describe("NotifierTest", () => {
         expect(vo.result).toBe(10);
     });
 
+    // Test accessing facade before initialization
+    test("testAccessFacadeBeforeInitializationThrowsError", () => {
+        const notifier = new Notifier();
+
+        expect(() => {
+            // Attempt to access facade before calling initializeNotifier
+            console.log(notifier.facade);
+        }).toThrow("multitonKey for this Notifier not yet initialized!");
+    });
+
 });

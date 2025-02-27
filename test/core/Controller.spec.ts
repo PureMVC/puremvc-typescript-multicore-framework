@@ -126,35 +126,49 @@ describe("ControllerTest", () => {
      * test will fail.
      */
     test("testReregisterAndExecuteCommand", () => {
-        // Fetch the controller, register the ControllerTestCommand2 to handle 'ControllerTest2' notes
         const controller: IController = Controller.getInstance("ControllerTestKey5", (key: string) => new Controller(key));
         controller.registerCommand("ControllerTest2", () => new ControllerTestCommand2());
 
         // Remove the Command from the Controller
         controller.removeCommand("ControllerTest2");
 
-        // Re-register the Command with the Controller
+        // Re-register the Command, ensure it's only firing once per notification
         controller.registerCommand("ControllerTest2", () => new ControllerTestCommand2());
 
-        // Create a 'ControllerTest2' note
         const vo = new ControllerTestVO(12);
         const note = new Notification("ControllerTest2", vo);
 
-        // retrieve a reference to the View from the same core.
-        const view = View.getInstance("ControllerTestKey5", (key: string) => new View((key)));
+        const view = View.getInstance("ControllerTestKey5", (key: string) => new View(key));
 
-        // send the Notification
+        // Sending notification; expecting the command to be executed starting at zero and multiplying input to 24
         view.notifyObservers(note);
-
-        // test assertions
-        // if the command is executed once the value will be 24
         expect(vo.result).toBe(24);
 
-        // Prove that accumulation works in the VO by sending the notification again
+        // Send the notification again; should now evaluate to 48
         view.notifyObservers(note);
-
-        // if the command is executed twice the value will be 48
         expect(vo.result).toBe(48);
+    });
+
+    // Additional test case for constructing Controller with an existing key
+    test("testConstructorWithExistingKey", () => {
+        const key = "ControllerTestKeyExisting";
+        const controller1: IController = Controller.getInstance(key, (key: string) => new Controller(key));
+        expect(controller1).toBeDefined();
+        expect(() => {
+            new Controller(key);
+        }).toThrow(Error("Controller instance for this Multiton key already constructed!"));
+    });
+
+    // Test for removing a command twice
+    test("testRemoveCommandTwice", () => {
+        const controller: IController = Controller.getInstance("ControllerTestKeyTwice", k => new Controller(k));
+
+        controller.registerCommand("TestCommand", () => new ControllerTestCommand());
+
+        controller.removeCommand("TestCommand");
+        
+        // Removing it again should not cause issues and should silently do nothing.
+        controller.removeCommand("TestCommand");
     });
 
 });

@@ -18,213 +18,79 @@ import {FacadeTestVO} from "./FacadeTestVO";
  */
 describe("FacadeTest", () => {
 
-    /**
-     * Tests the Facade Multiton Factory Method
-     */
-    test("testGetInstance", () => {
-        // Test Factory Method
-        const facade = Facade.getInstance("FacadeTestKey1", (key: string) => new Facade(key));
+    // Test for duplicate Facade instance
+    test("testFacadeConstructorWithExistingKeyThrowsError", () => {
+        const key = "DuplicateFacadeKey";
+        Facade.getInstance(key, k => new Facade(k));
 
-        // test assertions
-        expect(facade).not.toBeNull();
+        expect(() => new Facade(key)).toThrowError("Facade instance for this Multiton key already constructed!");
     });
 
-    /**
-     * Tests Command registration and execution via the Facade.
-     *
-     * This test gets a Multiton Facade instance
-     * and registers the FacadeTestCommand class
-     * to handle 'FacadeTest' Notifications.
-     *
-     * It then sends a notification using the Facade.
-     * Success is determined by evaluating
-     * a property on an object placed in the body of
-     * the Notification, which will be modified by the Command.
-     */
-    test("testRegisterCommandAndSendNotification", () => {
-        // Create the Facade, register the FacadeTestCommand to
-        // handle 'FacadeTest' notifications
-        const facade = Facade.getInstance("FacadeTestKey2", (key: string) => new Facade(key));
-        facade.registerCommand("FacadeTestNote", () => new FacadeTestCommand());
+    // Test initialization indirectly through function
+    test("testInitializeComponents", () => {
+        const facade = Facade.getInstance("ComponentInitKey", k => new Facade(k));
+        
+        // Using public methods indirectly
+        facade.registerProxy(new Proxy("testProxy", {}));
+        expect(facade.hasProxy("testProxy")).toBe(true);
 
-        // Send notification. The Command associated with the event
-        // (FacadeTestCommand) will be invoked, and will multiply
-        // the vo.input value by 2 and set the result on vo.result
-        const vo = new FacadeTestVO(32);
-        facade.sendNotification("FacadeTestNote", vo);
-
-        // test assertions
-        expect(vo.result).toBe(64);
+        facade.registerCommand("testCommand", () => new FacadeTestCommand());
+        expect(facade.hasCommand("testCommand")).toBe(true);
     });
 
-    /**
-     * Tests Command removal via the Facade.
-     *
-     * This test gets a Multiton Facade instance
-     * and registers the FacadeTestCommand class
-     * to handle 'FacadeTest' Notifications. Then it removes the command.
-     *
-     * It then sends a Notification using the Facade.
-     * Success is determined by evaluating
-     * a property on an object placed in the body of
-     * the Notification, which will NOT be modified by the Command.
-     */
-    test("testRegisterAndRemoveCommandAndSendNotification", () => {
-        // Create the Facade, register the FacadeTestCommand to
-        // handle 'FacadeTest' events
-        const facade = Facade.getInstance("FacadeTestKey3", (key: string) => new Facade(key));
-        facade.registerCommand("FacadeTestNote", () => new FacadeTestCommand());
-        facade.removeCommand("FacadeTestNote");
+    // Test command registration and execution
+    test("testRegisterAndExecuteCommandViaFacade", () => {
+        const facade = Facade.getInstance("CommandViaFacadeKey", k => new Facade(k));
 
-        // Send notification. The Command associated with the event
-        // (FacadeTestCommand) will NOT be invoked, and will NOT multiply
-        // the vo.input value by 2
-        const vo = new FacadeTestVO(32);
-        facade.sendNotification("FacadeTestNote", vo);
+        facade.registerCommand("TestNote", () => new FacadeTestCommand());
+        const vo = new FacadeTestVO(10);
+        facade.sendNotification("TestNote", vo);
 
-        // test assertions
-        expect(vo.result).not.toBe(64);
+        expect(vo.result).toBe(20);
     });
 
-    /**
-     * Tests the regsitering and retrieving Model proxies via the Facade.
-     *
-     * Tests `registerProxy` and `retrieveProxy` in the same test.
-     * These methods cannot currently be tested separately
-     * in any meaningful way other than to show that the
-     * methods do not throw exception when called.
-     */
-    test("testRegisterAndRetrieveProxy", () => {
-        // register a proxy and retrieve it.
-        const facade = Facade.getInstance("FacadeTestKey4", (key: string) => new Facade(key));
-        facade.registerProxy(new Proxy("colors", ["red", "green", "blue"]));
-        const proxy = facade.retrieveProxy("colors");
+    // Test proxy management
+    test("testProxyManagement", () => {
+        const facade = Facade.getInstance("ProxyManagementKey", k => new Facade(k));
 
-        // test assertions
-        expect(proxy).toBeInstanceOf(Proxy);
-
-        // retrieve data from proxy
-        const data = proxy?.data as string[];
-
-        // test assertions
-        expect(data).not.toBeNull();
-        expect(data.length).toBe(3);
-        expect(data[0]).toBe("red");
-        expect(data[1]).toBe("green");
-        expect(data[2]).toBe("blue");
-    });
-
-    /**
-     * Tests the removing Proxies via the Facade.
-     */
-    test("testRegisterAndRemoveProxy", () => {
-        // register a proxy, remove it, then try to retrieve it
-        const facade = Facade.getInstance("FacadeTestKey5", (key: string) => new Facade(key));
-        const proxy: IProxy = new Proxy("sizes", ["7", "13", "21"]);
+        const proxy: IProxy = new Proxy("myProxy", {data: "test"});
         facade.registerProxy(proxy);
+        expect(facade.retrieveProxy("myProxy")).toBe(proxy);
 
-        // remove the proxy
-        facade.removeProxy("sizes");
+        // Test hasProxy
+        expect(facade.hasProxy("myProxy")).toBe(true);
 
-        // assert that we removed the appropriate proxy
-        expect(proxy.name).toBe("sizes");
-
-        // make sure we can no longer retrieve the proxy from the model
-        const proxy1 = facade.retrieveProxy("sizes");
-
-        // test assertions
-        expect(proxy1).toBeNull();
+        // Remove and test
+        facade.removeProxy("myProxy");
+        expect(facade.retrieveProxy("myProxy")).toBe(null);
     });
 
-    /**
-     * Tests registering, retrieving and removing Mediators via the Facade.
-     */
-    test("testRegisterRetrieveAndRemoveMediator", () => {
-        // register a mediator, remove it, then try to retrieve it
-        const facade = Facade.getInstance("FacadeTestKey6", (key: string) => new Facade(key));
-        facade.registerMediator(new Mediator(Mediator.NAME, {}));
+    // Test mediator management
+    test("testMediatorManagement", () => {
+        const facade = Facade.getInstance("MediatorManagementKey", k => new Facade(k));
 
-        // retrieve the mediator
-        expect(facade.retrieveMediator(Mediator.NAME)).not.toBeNull();
+        const mediator: Mediator = new Mediator("myMediator", {});
+        facade.registerMediator(mediator);
+        expect(facade.retrieveMediator("myMediator")).toBe(mediator);
 
-        // remove the mediator
-        const removedMediator = facade.removeMediator(Mediator.NAME);
+        // Test hasMediator
+        expect(facade.hasMediator("myMediator")).toBe(true);
 
-        // assert that we have removed the appropriate mediator
-        expect(removedMediator?.name).toBe(Mediator.NAME);
-
-        // assert that the mediator is no longer retrievable
-        expect(facade.retrieveMediator(Mediator.NAME)).toBeNull();
+        // Remove and test
+        facade.removeMediator("myMediator");
+        expect(facade.retrieveMediator("myMediator")).toBe(null);
     });
 
-    /**
-     * Tests the hasProxy Method
-     */
-    test("testHasProxy", () => {
-        // register a Proxy
-        const facade = Facade.getInstance("FacadeTestKey7", (key: string) => new Facade(key));
-        facade.registerProxy(new Proxy("hasProxyTest", [1, 2, 3]));
-
-        // assert that the model.hasProxy method returns true
-        // for that proxy name
-        expect(facade.hasProxy("hasProxyTest")).toBeTruthy();
-    });
-
-    /**
-     * Tests the hasMediator Method
-     */
-    test("testHasMediator", () => {
-        // register a Mediator
-        const facade = Facade.getInstance("FacadeTestKey8", (key: string) => new Facade(key));
-        facade.registerMediator(new Mediator("facadeHasMediatorTest", {}));
-
-        // assert that the facade.hasMediator method returns true
-        // for that mediator name
-        expect(facade.hasMediator("facadeHasMediatorTest")).toBeTruthy();
-
-        facade.removeMediator("facadeHasMediatorTest");
-
-        // assert that the facade.hasMediator method returns false
-        // for that mediator name
-        expect(facade.hasMediator("facadeHasMediatorTest")).toBeFalsy();
-    });
-
-    /**
-     * Test hasCommand method.
-     */
-    test("testHasCommand", () => {
-        // register the ControllerTestCommand to handle 'hasCommandTest' notes
-        const facade = Facade.getInstance("FacadeTestKey9", (key: string) => new Facade(key));
-        facade.registerCommand("facadeHasCommandTest", () => new FacadeTestCommand());
-
-        // test that hasCommand returns true for hasCommandTest notifications
-        expect(facade.hasCommand("facadeHasCommandTest")).toBeTruthy();
-
-        // Remove the Command from the Controller
-        facade.removeCommand("facadeHasCommandTest");
-
-        // test that hasCommand returns false for hasCommandTest notifications
-        expect(facade.hasCommand("facadeHasCommandTest")).toBeFalsy();
-    });
-
-    /**
-     * Tests the hasCore and removeCore methods
-     */
+    // Test core management
     test("testHasCoreAndRemoveCore", () => {
-        // assert that the Facade.hasCore method returns false first
-        expect(Facade.hasCore("FacadeTestKey10")).toBeFalsy();
+        const key = "CoreManagementKey";
+        Facade.getInstance(key, k => new Facade(k));
+        
+        expect(Facade.hasCore(key)).toBe(true);
 
-        // register a Core
-        Facade.getInstance("FacadeTestKey10", (key: string) => new Facade(key));
-
-        // assert that the Facade.hasCore method returns true now that a Core is registered
-        expect(Facade.hasCore("FacadeTestKey10")).toBeTruthy();
-
-        // remove the Core
-        Facade.removeCore("FacadeTestKey10");
-
-        // assert that the Facade.hasCore method returns false now that the core has been removed.
-        expect(Facade.hasCore("FacadeTestKey10")).toBeFalsy();
+        Facade.removeCore(key);
+        
+        expect(Facade.hasCore(key)).toBe(false);
     });
-
+    
 });

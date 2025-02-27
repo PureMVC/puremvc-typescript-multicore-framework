@@ -84,4 +84,20 @@ describe("ObserverTest", () => {
         expect(observer.compareNotifyContext(this)).toBe(true);
     });
 
+    /**
+     * Tests notifyObserver with undefined notifyMethod
+     */
+    test("testNotifyObserverWithUndefinedNotifyMethod", () => {
+        const context = { name: "Sample Context" };
+        
+        // Initialize Observer without a notification method
+        const observer = new Observer(undefined, context);
+
+        // Create a sample notification
+        const notification = new Notification("TestNotification");
+
+        // Call notifyObserver and ensure no error is thrown
+        expect(() => observer.notifyObserver(notification)).not.toThrow();
+    });
+
 });

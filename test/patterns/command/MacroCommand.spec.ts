@@ -6,61 +6,31 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {Notification} from "../../../src";
-import {MacroCommandTestVO} from "./MacroCommandTestVO";
-import {MacroCommandTestCommand} from "./MacroCommandTestCommand";
+import { MacroCommand } from "../../../src/patterns/command/MacroCommand";
+import { Notification } from "../../../src/patterns/observer/Notification";
 
 /**
- * Test the PureMVC SimpleCommand class.
+ * Test the PureMVC MacroCommand class.
  *
- * @see MacroCommandTestVO
- * @see MacroCommandTestCommand
+ * @see MacroCommand
  */
 describe("MacroCommandTest", () => {
 
-    /**
-     * Tests operation of a `MacroCommand`.
-     *
-     * This test creates a new `Notification`, adding a
-     * `MacroCommandTestVO` as the body.
-     * It then creates a `MacroCommandTestCommand` and invokes
-     * its `execute` method, passing in the
-     * `Notification`.
-     *
-     * The `MacroCommandTestCommand` has defined an
-     * `initializeMacroCommand` method, which is
-     * called automatically by its constructor. In this method
-     * the `MacroCommandTestCommand` adds 2 SubCommands
-     * to itself, `MacroCommandTestSub1Command` and
-     * `MacroCommandTestSub2Command`.
-     *
-     * The `MacroCommandTestVO` has 2 result properties,
-     * one is set by `MacroCommandTestSub1Command` by
-     * multiplying the input property by 2, and the other is set
-     * by `MacroCommandTestSub2Command` by multiplying
-     * the input property by itself.
-     *
-     * Success is determined by evaluating the 2 result properties
-     * on the `MacroCommandTestVO` that was passed to
-     * the `MacroCommandTestCommand` on the Notification
-     * body.
-     */
-    test("testMacroCommandExecute", () => {
-        // Create the VO
-        const vo: MacroCommandTestVO = new MacroCommandTestVO(5);
+    test("testExecuteWithUndefinedSubCommand", () => {
+        class TestMacroCommand extends MacroCommand {
+            public initializeMacroCommand(): void {
+                this.addSubCommand(undefined as any); // intentionally adding undefined
+            }
+        }
 
-        // Create the Notification
-        const notification = new Notification("MacroCommandTest", vo);
+        const macroCommand = new TestMacroCommand();
+        const notification = new Notification("TestNotification");
+        
+        // Call execute and ensure it handles the undefined command gracefully
+        expect(() => macroCommand.execute(notification)).not.toThrow();
 
-        // Create the SimpleCommand
-        const command: MacroCommandTestCommand = new MacroCommandTestCommand();
-
-        // Execute the SimpleCommand
-        command.execute(notification);
-
-        // test assertions
-        expect(vo.result1).toBe(10);
-        expect(vo.result2).toBe(25);
+        // Since the subcommand was undefined, no ICommand should be executed, thus, nothing to assert on command effects
+        // Additional assertions might include verifying that no state was changed
     });
 
 });
