@@ -4,7 +4,7 @@ Release Date: 2/27/25
     Platform: TypeScript
      Version: 2
     Revision: 0
-       Minor: 7
+       Minor: 8
       Authors: Saad Shams <saad.shams@puremvc.org>
 --------------------------------------------------------------------------
 2.0.0 - Brand new implementation of ported code, equivalent to AS3 MultiCore Version 1.0.5.
@@ -16,3 +16,4 @@ Release Date: 2/27/25
 2.0.5 - Fix package.json for importing types properly
 2.0.6 - Add test coverage reporting
 2.0.7 - Increase test coverage
+2.0.8 - Remove auto-publish to npm. It makes it difficult to improve tests without upgrading version
