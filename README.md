@@ -24,7 +24,7 @@ npm i @puremvc/puremvc-typescript-multicore-framework
 * [React Native](https://en.wikipedia.org/wiki/React_Native)
 
 ## Status
-Production - [Version 2.0.5](https://github.com/PureMVC/puremvc-typescript-multicore-framework/blob/master/VERSION)
+Production - [Version 2.0.6](https://github.com/PureMVC/puremvc-typescript-multicore-framework/blob/master/VERSION)
 
 ## License
 * PureMVC MultiCore Framework for TypeScript - Copyright © 2025 [Saad Shams](https://www.linkedin.com/in/muizz)

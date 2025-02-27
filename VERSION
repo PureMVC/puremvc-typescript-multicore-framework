@@ -1,10 +1,10 @@
 PureMVC MultiCore Framework for TypeScript
 --------------------------------------------------------------------------
-Release Date: 2/25/25
+Release Date: 2/27/25
     Platform: TypeScript
      Version: 2
     Revision: 0
-       Minor: 5
+       Minor: 6
       Authors: Saad Shams <saad.shams@puremvc.org>
 --------------------------------------------------------------------------
 2.0.0 - Brand new implementation of ported code, equivalent to AS3 MultiCore Version 1.0.5.
@@ -14,3 +14,4 @@ Release Date: 2/25/25
 2.0.4 - Update IFacade (remove inherited sendNotification initializeNotifier methods)
         and Mediator (viewComponent type any, not Object)
 2.0.5 - Fix package.json for importing types properly
+2.0.6 - Add test coverage reporting

@@ -1,6 +1,6 @@
 {
   "name": "@puremvc/puremvc-typescript-multicore-framework",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "PureMVC MultiCore Framework for TypeScript",
   "main": "./bin/cjs/index.js",
   "module": "./bin/esm/index.js",
@@ -14,7 +14,6 @@
         "types": "./bin/types/index.d.ts",
         "default": "./bin/cjs/index.cjs"
       }
-      
     }
   },
   "types": "./bin/types/index.d.ts",
@@ -25,9 +24,21 @@
     "build:cjs": "tsc --module commonjs --outDir bin/cjs && echo '{\"type\": \"commonjs\"}' > bin/cjs/package.json",
     "build:doc": "typedoc",
     "clean": "rm -rf bin",
-    "test": "jest",
+    "test": "jest --coverage",
     "npm:publish:dry-run": "npm publish --dry-run",
     "npm:publish": "npm publish --access public"
+  },
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "include": [
+      "src/**/*.ts"
+    ],
+    "reporter": [
+      "text",
+      "lcov"
+    ]
   },
   "repository": {
     "type": "git",
@@ -61,6 +72,7 @@
     "@typescript-eslint/parser": "^6.13.2",
     "eslint": "^8.55.0",
     "jest": "^29.7.0",
+    "nyc": "^17.1.0",
     "ts-jest": "^29.1.1",
     "typedoc": "^0.26.11",
     "typescript": "^5.6.3"
