@@ -1,6 +1,6 @@
 {
   "name": "@puremvc/puremvc-typescript-multicore-framework",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "PureMVC MultiCore Framework for TypeScript",
   "main": "./bin/cjs/index.js",
   "module": "./bin/esm/index.js",
@@ -20,8 +20,8 @@
   "scripts": {
     "build": "npm run clean && npm run build:lib",
     "build:lib": "npm run build:cjs && npm run build:esm",
-    "build:esm": "tsc --module esnext --outDir bin/esm && echo '{\"type\": \"module\"}' > bin/esm/package.json",
-    "build:cjs": "tsc --module commonjs --outDir bin/cjs && echo '{\"type\": \"commonjs\"}' > bin/cjs/package.json",
+    "build:esm": "tsc --module esnext --outDir bin/esm && echo '{\"type\": \"module\"}' > bin/esm/package.json && rm -rf bin/esm/interfaces",
+    "build:cjs": "tsc --module commonjs --outDir bin/cjs && echo '{\"type\": \"commonjs\"}' > bin/cjs/package.json && rm -rf bin/esm/interfaces",
     "build:doc": "typedoc",
     "clean": "rm -rf bin",
     "test": "jest --coverage",

@@ -1,6 +1,6 @@
 PureMVC MultiCore Framework for TypeScript
 --------------------------------------------------------------------------
-Release Date: 2/27/25
+Release Date: 4/13/25
     Platform: TypeScript
      Version: 2
     Revision: 0
@@ -16,4 +16,4 @@ Release Date: 2/27/25
 2.0.5 - Fix package.json for importing types properly
 2.0.6 - Add test coverage reporting
 2.0.7 - Increase test coverage
-2.0.8 - Remove auto-publish to npm. It makes it difficult to improve tests without upgrading version
+2.0.8 - Remove auto-publish to npm. Remove interfaces folder from bin/cjs and bin/esm

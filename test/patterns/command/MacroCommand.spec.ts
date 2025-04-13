@@ -6,8 +6,8 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import { MacroCommand } from "../../../src/patterns/command/MacroCommand";
-import { Notification } from "../../../src/patterns/observer/Notification";
+import { MacroCommand } from "../../../src";
+import { Notification } from "../../../src";
 
 /**
  * Test the PureMVC MacroCommand class.
@@ -25,7 +25,7 @@ describe("MacroCommandTest", () => {
 
         const macroCommand = new TestMacroCommand();
         const notification = new Notification("TestNotification");
-        
+
         // Call execute and ensure it handles the undefined command gracefully
         expect(() => macroCommand.execute(notification)).not.toThrow();
 
