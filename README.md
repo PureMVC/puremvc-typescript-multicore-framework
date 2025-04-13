@@ -15,8 +15,8 @@ npm i @puremvc/puremvc-typescript-multicore-framework
 * [Basic Employee Admin](https://github.com/PureMVC/puremvc-typescript-demo-employeeadmin/wiki)
 
 ## Utilities
-* [Async Command]() https://github.com/PureMVC/puremvc-typescript-util-async-command
-* [State Machine]() https://github.com/PureMVC/puremvc-typescript-util-state-machine
+* [Async Command](https://github.com/PureMVC/puremvc-typescript-util-async-command)
+* [State Machine](https://github.com/PureMVC/puremvc-typescript-util-state-machine)
 
 
 ## Platforms / Technologies
@@ -25,8 +25,7 @@ npm i @puremvc/puremvc-typescript-multicore-framework
 * [ECMAScript](https://en.wikipedia.org/wiki/ECMAScript)
 * [CommonJS](https://en.wikipedia.org/wiki/CommonJS)
 * [Node.js](https://en.wikipedia.org/wiki/Node.js)
-* [React](https://en.wikipedia.org/wiki/React_(JavaScript_library))
-* [React Native](https://en.wikipedia.org/wiki/React_Native)
+
 
 ## Status
 Production - [Version 2.0.9](https://github.com/PureMVC/puremvc-typescript-multicore-framework/blob/master/VERSION)
