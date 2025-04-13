@@ -4,7 +4,7 @@ Release Date: 4/13/25
     Platform: TypeScript
      Version: 2
     Revision: 1
-       Minor: 0
+       Minor: 1
       Authors: Saad Shams <saad.shams@puremvc.org>
              : Cliff Hall <cliff@puremvc.org>
 --------------------------------------------------------------------------
@@ -20,3 +20,4 @@ Release Date: 4/13/25
 2.0.8 - Remove auto-publish to npm. Remove interfaces folder from bin/cjs and bin/esm
 2.0.9 - README demos and utils
 2.1.0 - Final esm/cjs release with proper types.
+2.1.1 - README Update
