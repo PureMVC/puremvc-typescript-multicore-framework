@@ -18,7 +18,7 @@
   },
   "types": "./bin/types/index.d.ts",
   "scripts": {
-    "build": "npm run clean && npm run build:lib",
+    "build": "npm run clean && npm run build:lib && npm run build:doc",
     "build:lib": "npm run build:cjs && npm run build:esm",
     "build:esm": "tsc --module esnext --outDir bin/esm && echo '{\"type\": \"module\"}' > bin/esm/package.json && rm -rf bin/esm/interfaces",
     "build:cjs": "tsc --module commonjs --outDir bin/cjs && echo '{\"type\": \"commonjs\"}' > bin/cjs/package.json && rm -rf bin/cjs/interfaces",
@@ -59,7 +59,7 @@
     "VERSION",
     "package.json"
   ],
-  "author": "Saad Shams <saad.shams@puremvc.org>",
+  "authors": "Saad Shams <saad.shams@puremvc.org>, Cliff Hall <cliff@futurescale.com>",
   "license": "BSD-3-Clause",
   "directories": {
     "doc": "docs",
