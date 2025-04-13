@@ -12,7 +12,12 @@ npm i @puremvc/puremvc-typescript-multicore-framework
 ```
 
 ## Demos
-* [React Native Demo: EmployeeAdmin](https://github.com/PureMVC/puremvc-typescript-demo-reactnative-employeeadmin)
+* [Basic Employee Admin](https://github.com/PureMVC/puremvc-typescript-demo-employeeadmin/wiki)
+
+## Utilities
+* [Async Command]() https://github.com/PureMVC/puremvc-typescript-util-async-command
+* [State Machine]() https://github.com/PureMVC/puremvc-typescript-util-state-machine
+
 
 ## Platforms / Technologies
 * [TypeScript](https://en.wikipedia.org/wiki/TypeScript)
@@ -24,7 +29,7 @@ npm i @puremvc/puremvc-typescript-multicore-framework
 * [React Native](https://en.wikipedia.org/wiki/React_Native)
 
 ## Status
-Production - [Version 2.0.8](https://github.com/PureMVC/puremvc-typescript-multicore-framework/blob/master/VERSION)
+Production - [Version 2.0.9](https://github.com/PureMVC/puremvc-typescript-multicore-framework/blob/master/VERSION)
 
 ## License
 * PureMVC MultiCore Framework for TypeScript - Copyright © 2025 [Saad Shams](https://www.linkedin.com/in/muizz)
