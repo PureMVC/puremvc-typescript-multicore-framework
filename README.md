@@ -20,7 +20,7 @@ npm install @puremvc/puremvc-typescript-multicore-framework
 ## Utilities
 * [Async Command](https://github.com/PureMVC/puremvc-typescript-util-async-command)
 * [State Machine](https://github.com/PureMVC/puremvc-typescript-util-state-machine)
-* [Pipes](https://github.com/PureMVC/puremvc-typescript-pipes)
+* [Pipes](https://github.com/PureMVC/puremvc-typescript-util-pipes)
 
 ## Platforms / Technologies
 * [TypeScript](https://typescriptlang.org)
