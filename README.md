@@ -11,8 +11,11 @@ npm install @puremvc/puremvc-typescript-multicore-framework
 * [API Docs](https://puremvc.org/pages/docs/TypeScript/multicore/)
 * [Legacy Implementation](https://github.com/PureMVC/puremvc-typescript-multicore-framework/tree/1.3)
 
+## Ported Framework
+* This is a direct port of the original [AS3 MultiCore Framework](https://github.com/PureMVC/puremvc-as3-multicore-framework)
+
 ## Demos
-* [Basic Employee Admin](https://github.com/PureMVC/puremvc-typescript-demo-employeeadmin/wiki)
+* [Basic Employee Admin](https://github.com/PureMVC/puremvc-typescript-demo-employeeadmin)
 
 ## Utilities
 * [Async Command](https://github.com/PureMVC/puremvc-typescript-util-async-command)
@@ -25,7 +28,7 @@ npm install @puremvc/puremvc-typescript-multicore-framework
 * [NPM](https://www.npmjs.com/package/@puremvc/puremvc-typescript-multicore-framework?activeTab=readme)
 
 ## License
-* PureMVC MultiCore Framework for TypeScript - Copyright © 2025 [Saad Shams](https://www.linkedin.com/in/muizz)
+* PureMVC MultiCore Framework for TypeScript - Copyright © 2025 [Saad Shams](https://www.linkedin.com/in/muizz), [Cliff Hall](https://www.linkedin.com/in/cliffhall)
 * PureMVC - Copyright © 2025 [Futurescale, Inc.](http://futurescale.com/)
 * All rights reserved.
 
