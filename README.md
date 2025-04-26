@@ -2,14 +2,14 @@
 
 PureMVC is a lightweight framework for creating applications based upon the classic [Model-View-Controller](http://en.wikipedia.org/wiki/Model-view-controller) design meta-pattern. It supports [modular programming](http://en.wikipedia.org/wiki/Modular_programming) through the use of [Multiton](http://en.wikipedia.org/wiki/Multiton) Core actors instead of the [Singletons](http://en.wikipedia.org/wiki/Singleton_pattern).
 
-* [NPM Package](https://www.npmjs.com/package/@puremvc/puremvc-typescript-multicore-framework?activeTab=readme)
-* [API Docs](https://puremvc.org/pages/docs/TypeScript/multicore/)
-* [Legacy Implementation](https://github.com/PureMVC/puremvc-typescript-multicore-framework/tree/1.3)
-
 ## Installation
 ```shell
-npm i @puremvc/puremvc-typescript-multicore-framework
+npm install @puremvc/puremvc-typescript-multicore-framework
 ```
+
+## Documentation
+* [API Docs](https://puremvc.org/pages/docs/TypeScript/multicore/)
+* [Legacy Implementation](https://github.com/PureMVC/puremvc-typescript-multicore-framework/tree/1.3)
 
 ## Demos
 * [Basic Employee Admin](https://github.com/PureMVC/puremvc-typescript-demo-employeeadmin/wiki)
@@ -17,18 +17,12 @@ npm i @puremvc/puremvc-typescript-multicore-framework
 ## Utilities
 * [Async Command](https://github.com/PureMVC/puremvc-typescript-util-async-command)
 * [State Machine](https://github.com/PureMVC/puremvc-typescript-util-state-machine)
-
+* [Pipes](https://github.com/PureMVC/puremvc-typescript-pipes)
 
 ## Platforms / Technologies
-* [TypeScript](https://en.wikipedia.org/wiki/TypeScript)
-* [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
-* [ECMAScript](https://en.wikipedia.org/wiki/ECMAScript)
-* [CommonJS](https://en.wikipedia.org/wiki/CommonJS)
-* [Node.js](https://en.wikipedia.org/wiki/Node.js)
-
-
-## Status
-Production - [Version 2.1,1](https://github.com/PureMVC/puremvc-typescript-multicore-framework/blob/master/VERSION)
+* [TypeScript](https://typescriptlang.org)
+* [Node.js](https://nodejs.org)
+* [NPM](https://www.npmjs.com/package/@puremvc/puremvc-typescript-multicore-framework?activeTab=readme)
 
 ## License
 * PureMVC MultiCore Framework for TypeScript - Copyright © 2025 [Saad Shams](https://www.linkedin.com/in/muizz)

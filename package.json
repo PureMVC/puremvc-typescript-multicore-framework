@@ -1,6 +1,6 @@
 {
   "name": "@puremvc/puremvc-typescript-multicore-framework",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "PureMVC MultiCore Framework for TypeScript",
   "main": "./bin/cjs/index.js",
   "module": "./bin/esm/index.js",
@@ -12,7 +12,7 @@
       },
       "require": {
         "types": "./bin/types/index.d.ts",
-        "default": "./bin/cjs/index.cjs"
+        "default": "./bin/cjs/index.js"
       }
     }
   },
