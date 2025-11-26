@@ -4,7 +4,7 @@ Release Date: 4/22/25
     Platform: TypeScript
      Version: 2
     Revision: 1
-       Minor: 2
+       Minor: 3
       Authors: Saad Shams <saad.shams@puremvc.org>
              : Cliff Hall <cliff@puremvc.org>
 --------------------------------------------------------------------------
@@ -22,3 +22,4 @@ Release Date: 4/22/25
 2.1.0 - Final esm/cjs release with proper types.
 2.1.1 - README Update
 2.1.2 - Fix entrypoint
+2.1.3 - NPM trusted publisher workflow

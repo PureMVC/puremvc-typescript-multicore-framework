@@ -15,17 +15,15 @@
  * @class ControllerTestVO
  */
 export class ControllerTestVO {
+  public input: number = 0;
+  public result: number = 0;
 
-    public input: number = 0;
-    public result: number = 0;
-
-    /**
-     * Constructor
-     *
-     * @param {number} input
-     */
-    public constructor(input: number) {
-        this.input = input;
-    }
-
+  /**
+   * Constructor
+   *
+   * @param {number} input
+   */
+  public constructor(input: number) {
+    this.input = input;
+  }
 }

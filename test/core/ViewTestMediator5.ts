@@ -6,39 +6,38 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {Mediator, INotification} from "../../src";
-import {ViewTestNote} from "./ViewTestNote";
+import { Mediator, INotification } from "../../src";
+import { ViewTestNote } from "./ViewTestNote";
 
 /**
  * @class ViewTestMediator5
  * @extends Mediator
  */
 export class ViewTestMediator5 extends Mediator {
+  public static NAME: string = "ViewTestMediator5";
 
-    public static NAME: string = "ViewTestMediator5";
+  /**
+   *
+   * @param {Object} view
+   */
+  public constructor(view: any) {
+    super(ViewTestMediator5.NAME, view);
+  }
 
-    /**
-     *
-     * @param {Object} view
-     */
-    public constructor(view: any) {
-        super(ViewTestMediator5.NAME, view);
-    }
+  /**
+   * @override
+   * @returns {[string]}
+   */
+  public override listNotificationInterests(): string[] {
+    return [ViewTestNote.NOTE5];
+  }
 
-    /**
-     * @override
-     * @returns {[string]}
-     */
-    public override listNotificationInterests(): string[] {
-        return [ViewTestNote.NOTE5];
-    }
-
-    /**
-     * @override
-     * @param {Notification} notification
-     */
-    public override handleNotification(notification: INotification): void {
-        this.viewComponent.counter++;
-    }
-
+  /**
+   * @override
+   * @param {Notification} notification
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public override handleNotification(notification: INotification): void {
+    this.viewComponent.counter++;
+  }
 }

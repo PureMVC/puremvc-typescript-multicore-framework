@@ -6,8 +6,8 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {ICommand} from "./ICommand";
-import {INotification} from "./INotification";
+import { ICommand } from "./ICommand";
+import { INotification } from "./INotification";
 
 /**
  * `IController` The interface definition for a PureMVC `Controller`.
@@ -27,38 +27,38 @@ import {INotification} from "./INotification";
  * @interface IController
  */
 export interface IController {
-    /**
-     * Register a particular `ICommand` class as the handler
-     * for a particular INotification.
-     *
-     * @param {string} notificationName - the name of the `INotification`
-     * @param {() => ICommand} factory - A factory that returns `ICommand`
-     * @returns {void}
-     */
-    registerCommand(notificationName: string, factory: () => ICommand): void;
+  /**
+   * Register a particular `ICommand` class as the handler
+   * for a particular INotification.
+   *
+   * @param {string} notificationName - the name of the `INotification`
+   * @param {() => ICommand} factory - A factory that returns `ICommand`
+   * @returns {void}
+   */
+  registerCommand(notificationName: string, factory: () => ICommand): void;
 
-    /**
-     * Execute the `ICommand` previously registered as the
-     * handler for `INotifications` with the given notification name.
-     *
-     * @param {INotification} notification - the `INotification` to execute the associated `ICommand` for
-     * @returns {void}
-     */
-    executeCommand(notification: INotification): void;
+  /**
+   * Execute the `ICommand` previously registered as the
+   * handler for `INotifications` with the given notification name.
+   *
+   * @param {INotification} notification - the `INotification` to execute the associated `ICommand` for
+   * @returns {void}
+   */
+  executeCommand(notification: INotification): void;
 
-    /**
-     * Check if a `Command` is registered for a given `Notification`
-     *
-     * @param {string} notificationName - The name of the notification to check.
-     * @returns {boolean} `true` if a command is registered for the notification name, `false` otherwise.
-     */
-    hasCommand(notificationName: string): boolean;
+  /**
+   * Check if a `Command` is registered for a given `Notification`
+   *
+   * @param {string} notificationName - The name of the notification to check.
+   * @returns {boolean} `true` if a command is registered for the notification name, `false` otherwise.
+   */
+  hasCommand(notificationName: string): boolean;
 
-    /**
-     * Remove a previously registered `ICommand` to `INotification` mapping.
-     *
-     * @param {string} notificationName - the name of the INotification to remove the ICommand mapping for
-     * @returns {void}
-     */
-    removeCommand(notificationName: string): void;
+  /**
+   * Remove a previously registered `ICommand` to `INotification` mapping.
+   *
+   * @param {string} notificationName - the name of the INotification to remove the ICommand mapping for
+   * @returns {void}
+   */
+  removeCommand(notificationName: string): void;
 }

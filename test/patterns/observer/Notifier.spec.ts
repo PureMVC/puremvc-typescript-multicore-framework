@@ -6,9 +6,9 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {Facade, Notifier} from "../../../src";
-import {FacadeTestVO} from "../facade/FacadeTestVO";
-import {FacadeTestCommand} from "../facade/FacadeTestCommand";
+import { Facade, Notifier } from "../../../src";
+import { FacadeTestVO } from "../facade/FacadeTestVO";
+import { FacadeTestCommand } from "../facade/FacadeTestCommand";
 
 /**
  * Test the PureMVC Notifier class.
@@ -16,31 +16,32 @@ import {FacadeTestCommand} from "../facade/FacadeTestCommand";
  * @see Facade
  */
 describe("NotifierTest", () => {
+  test("test", () => {
+    const facade = Facade.getInstance(
+      "notifierTest",
+      (key: string) => new Facade(key),
+    );
 
-    test("test", () => {
-        const facade = Facade.getInstance("notifierTest", (key: string) => new Facade(key));
+    expect(Facade.hasCore("notifierTest")).toBeTruthy();
 
-        expect(Facade.hasCore("notifierTest")).toBeTruthy();
+    const vo = new FacadeTestVO(5);
+    facade.registerCommand("testCommand", () => new FacadeTestCommand());
 
-        const vo = new FacadeTestVO(5);
-        facade.registerCommand("testCommand", () => new FacadeTestCommand());
+    const notifier = new Notifier();
+    notifier.initializeNotifier("notifierTest");
+    notifier.sendNotification("testCommand", vo);
 
-        const notifier = new Notifier();
-        notifier.initializeNotifier("notifierTest");
-        notifier.sendNotification("testCommand", vo);
+    // test assertions
+    expect(vo.result).toBe(10);
+  });
 
-        // test assertions
-        expect(vo.result).toBe(10);
-    });
+  // Test accessing facade before initialization
+  test("testAccessFacadeBeforeInitializationThrowsError", () => {
+    const notifier = new Notifier();
 
-    // Test accessing facade before initialization
-    test("testAccessFacadeBeforeInitializationThrowsError", () => {
-        const notifier = new Notifier();
-
-        expect(() => {
-            // Attempt to access facade before calling initializeNotifier
-            console.log(notifier.facade);
-        }).toThrow("multitonKey for this Notifier not yet initialized!");
-    });
-
+    expect(() => {
+      // Attempt to access facade before calling initializeNotifier
+      console.log(notifier.facade);
+    }).toThrow("multitonKey for this Notifier not yet initialized!");
+  });
 });

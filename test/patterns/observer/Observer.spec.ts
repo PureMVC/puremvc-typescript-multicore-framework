@@ -6,7 +6,7 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {INotification, Notification, Observer} from "../../../src";
+import { INotification, Notification, Observer } from "../../../src";
 
 /**
  * Tests PureMVC Observer class.
@@ -20,84 +20,85 @@ import {INotification, Notification, Observer} from "../../../src";
  * method.
  */
 describe("ObserverTest", () => {
+  let observerTestVar: number = -1;
 
-    let observerTestVar: number = -1;
+  const observerTestMethod = (notification: INotification): void => {
+    observerTestVar = notification.body;
+  };
 
-    const observerTestMethod = (notification: INotification): void => {
-        observerTestVar = notification.body;
-    };
+  /**
+   * Tests observer class when initialized by accessor methods.
+   */
+  test("testObserverAccessors", () => {
+    // Create observer with null args, then
+    // use accessors to set notification method and context
+    const observer = new Observer(null, null);
+    observer.notifyContext = this;
+    observer.notifyMethod = observerTestMethod;
 
-    /**
-     * Tests observer class when initialized by accessor methods.
-     */
-    test("testObserverAccessors", () => {
-        // Create observer with null args, then
-        // use accessors to set notification method and context
-        const observer = new Observer(null, null);
-        observer.notifyContext = this;
-        observer.notifyMethod = observerTestMethod;
+    // create a test event, setting a payload value and notify
+    // the observer with it. since the observer is this class
+    // and the notification method is observerTestMethod,
+    // successful notification will result in our local
+    // observerTestVar being set to the value we pass in
+    // on the note body.
+    const notification: INotification = new Notification(
+      "ObserverTestNote",
+      10,
+    );
+    observer.notifyObserver(notification);
 
-        // create a test event, setting a payload value and notify
-        // the observer with it. since the observer is this class
-        // and the notification method is observerTestMethod,
-        // successful notification will result in our local
-        // observerTestVar being set to the value we pass in
-        // on the note body.
-        const notification: INotification = new Notification("ObserverTestNote", 10);
-        observer.notifyObserver(notification);
+    // test assertions
+    expect(observerTestVar).toBe(10);
+  });
 
-        // test assertions
-        expect(observerTestVar).toBe(10);
-    });
+  /**
+   * Tests observer class when initialized by constructor.
+   */
+  test("testObserverConstructor", () => {
+    // Create observer with null args, then
+    // use accessors to set notification method and context
+    const observer = new Observer(observerTestMethod, this);
 
-    /**
-     * Tests observer class when initialized by constructor.
-     */
-    test("testObserverConstructor", () => {
-        // Create observer with null args, then
-        // use accessors to set notification method and context
-        const observer = new Observer(observerTestMethod, this);
+    // create a test note, setting a body value and notify
+    // the observer with it. since the observer is this class
+    // and the notification method is observerTestMethod,
+    // successful notification will result in our local
+    // observerTestVar being set to the value we pass in
+    // on the note body.
+    const notification: INotification = new Notification("ObserverTestNote", 5);
+    observer.notifyObserver(notification);
 
-        // create a test note, setting a body value and notify
-        // the observer with it. since the observer is this class
-        // and the notification method is observerTestMethod,
-        // successful notification will result in our local
-        // observerTestVar being set to the value we pass in
-        // on the note body.
-        const notification: INotification = new Notification("ObserverTestNote", 5);
-        observer.notifyObserver(notification);
+    // test assertions
+    expect(observerTestVar).toBe(5);
+  });
 
-        // test assertions
-        expect(observerTestVar).toBe(5);
-    });
+  /**
+   * Tests the compareNotifyContext method of the Observer class
+   */
+  test("testCompareNotifyContext", () => {
+    // Create observer passing in notification method and context
+    const observer = new Observer(observerTestMethod, this);
+    const negTestObject: object = {};
 
-    /**
-     * Tests the compareNotifyContext method of the Observer class
-     */
-    test("testCompareNotifyContext", () => {
-        // Create observer passing in notification method and context
-        const observer = new Observer(observerTestMethod, this);
-        const negTestObject: object = {};
+    // test assertions
+    expect(observer.compareNotifyContext(negTestObject)).toBe(false);
+    expect(observer.compareNotifyContext(this)).toBe(true);
+  });
 
-        // test assertions
-        expect(observer.compareNotifyContext(negTestObject)).toBe(false);
-        expect(observer.compareNotifyContext(this)).toBe(true);
-    });
+  /**
+   * Tests notifyObserver with undefined notifyMethod
+   */
+  test("testNotifyObserverWithUndefinedNotifyMethod", () => {
+    const context = { name: "Sample Context" };
 
-    /**
-     * Tests notifyObserver with undefined notifyMethod
-     */
-    test("testNotifyObserverWithUndefinedNotifyMethod", () => {
-        const context = { name: "Sample Context" };
-        
-        // Initialize Observer without a notification method
-        const observer = new Observer(undefined, context);
+    // Initialize Observer without a notification method
+    const observer = new Observer(undefined, context);
 
-        // Create a sample notification
-        const notification = new Notification("TestNotification");
+    // Create a sample notification
+    const notification = new Notification("TestNotification");
 
-        // Call notifyObserver and ensure no error is thrown
-        expect(() => observer.notifyObserver(notification)).not.toThrow();
-    });
-
+    // Call notifyObserver and ensure no error is thrown
+    expect(() => observer.notifyObserver(notification)).not.toThrow();
+  });
 });

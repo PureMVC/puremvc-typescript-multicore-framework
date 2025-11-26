@@ -6,9 +6,9 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {INotifier} from "../../interfaces/INotifier";
-import {IFacade} from "../../interfaces/IFacade";
-import {Facade} from "../facade/Facade";
+import { INotifier } from "../../interfaces/INotifier";
+import { IFacade } from "../../interfaces/IFacade";
+import { Facade } from "../facade/Facade";
 
 /**
  * A Base `Notifier` implementation.
@@ -45,61 +45,67 @@ import {Facade} from "../facade/Facade";
  * @class Notifier
  */
 export class Notifier implements INotifier {
+  /** Message Constants
+   * @type {string} */
+  protected static MULTITON_MSG: string =
+    "multitonKey for this Notifier not yet initialized!";
 
-    /** Message Constants
-     * @type {string} */
-    protected static MULTITON_MSG: string = "multitonKey for this Notifier not yet initialized!";
+  /** The Multiton Key for this app
+   * @type {string} */
+  protected multitonKey!: string;
 
-    /** The Multiton Key for this app
-     * @type {string} */
-    protected multitonKey!: string;
+  /**
+   * Initialize this Notifier instance.
+   *
+   * This is how a Notifier gets its multitonKey.
+   * Calls to sendNotification or to access the
+   * facade will fail until after this method
+   * has been called.
+   *
+   * Mediators, Commands or Proxies may override
+   * this method in order to send notifications
+   * or access the Multiton Facade instance as
+   * soon as possible. They CANNOT access the facade
+   * in their constructors, since this method will not
+   * yet have been called.
+   *
+   * @param {string} key the multitonKey for this Notifier to use
+   * @returns {void}
+   */
+  public initializeNotifier(key: string): void {
+    this.multitonKey = key;
+  }
 
-    /**
-     * Initialize this Notifier instance.
-     *
-     * This is how a Notifier gets its multitonKey.
-     * Calls to sendNotification or to access the
-     * facade will fail until after this method
-     * has been called.
-     *
-     * Mediators, Commands or Proxies may override
-     * this method in order to send notifications
-     * or access the Multiton Facade instance as
-     * soon as possible. They CANNOT access the facade
-     * in their constructors, since this method will not
-     * yet have been called.
-     *
-     * @param {string} key the multitonKey for this Notifier to use
-     * @returns {void}
-     */
-    public initializeNotifier(key: string): void {
-        this.multitonKey = key;
-    }
+  /**
+   * Create and send an `Notification`.
+   *
+   * Keeps us from having to construct new Notification
+   * instances in our implementation code.
+   *
+   * @param {string} notificationName - The name of the notification to be sent.
+   * @param {any} [body] - Optional data to be included with the notification.
+   * @param {string} [type] - Optional type of the notification.
+   * @returns {void}
+   */
+  public sendNotification(
+    notificationName: string,
+    body?: any,
+    type?: string,
+  ): void {
+    this.facade.sendNotification(notificationName, body, type);
+  }
 
-    /**
-     * Create and send an `Notification`.
-     *
-     * Keeps us from having to construct new Notification
-     * instances in our implementation code.
-     *
-     * @param {string} notificationName - The name of the notification to be sent.
-     * @param {any} [body] - Optional data to be included with the notification.
-     * @param {string} [type] - Optional type of the notification.
-     * @returns {void}
-     */
-    public sendNotification(notificationName: string, body?: any, type?: string): void {
-        this.facade.sendNotification(notificationName, body, type);
-    }
-
-    /**
-     * Return the Multiton Facade instance
-     *
-     * @returns {IFacade} The facade instance.
-     * @throws {Error} If the multiton key is not initialized.
-     */
-    public get facade(): IFacade {
-        if (this.multitonKey == null) throw Error(Notifier.MULTITON_MSG);
-        return Facade.getInstance(this.multitonKey, (key: string) => new Facade(key));
-    }
-
+  /**
+   * Return the Multiton Facade instance
+   *
+   * @returns {IFacade} The facade instance.
+   * @throws {Error} If the multiton key is not initialized.
+   */
+  public get facade(): IFacade {
+    if (this.multitonKey == null) throw Error(Notifier.MULTITON_MSG);
+    return Facade.getInstance(
+      this.multitonKey,
+      (key: string) => new Facade(key),
+    );
+  }
 }

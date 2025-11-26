@@ -37,32 +37,31 @@
  * @interface INotification
  */
 export interface INotification {
+  /**
+   * The name of the notification.
+   *
+   * @type {string}
+   */
+  readonly name: string;
 
-    /**
-     * The name of the notification.
-     *
-     * @type {string}
-     */
-    readonly name: string;
+  /**
+   * The body of the notification.
+   *
+   * @type {any}
+   */
+  body?: any;
 
-    /**
-     * The body of the notification.
-     *
-     * @type {any}
-     */
-    body?: any;
+  /**
+   * The type of the notification.
+   *
+   * @type {string}
+   */
+  type?: string;
 
-    /**
-     * The type of the notification.
-     *
-     * @type {string}
-     */
-    type?: string;
-
-    /**
-     * Get the string representation of the `INotification` instance
-     *
-     * @returns {string} A string representation of the notification.
-     */
-    toString(): string;
+  /**
+   * Get the string representation of the `INotification` instance
+   *
+   * @returns {string} A string representation of the notification.
+   */
+  toString(): string;
 }

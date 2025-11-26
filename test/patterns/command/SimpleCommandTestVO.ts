@@ -15,17 +15,15 @@
  * @class SimpleCommandTestVO
  */
 export class SimpleCommandTestVO {
+  public input: number;
+  public result: number | undefined;
 
-    public input: number;
-    public result: number | undefined;
-
-    /**
-     * Constructor.
-     *
-     * @param {number} input the number to be fed to the SimpleCommandTestCommand
-     */
-    public constructor(input: number) {
-        this.input = input;
-    }
-
+  /**
+   * Constructor.
+   *
+   * @param {number} input the number to be fed to the SimpleCommandTestCommand
+   */
+  public constructor(input: number) {
+    this.input = input;
+  }
 }

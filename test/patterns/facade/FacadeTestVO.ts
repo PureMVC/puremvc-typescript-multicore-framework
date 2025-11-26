@@ -12,17 +12,14 @@
  * @class FacadeTestVO
  */
 export class FacadeTestVO {
+  public input: number;
+  public result: number = 0;
 
-    public input: number;
-    public result: number = 0;
-
-
-    /**
-     * @constructor
-     * @param {number} input the number to be fed to the FacadeTestCommand
-     */
-    public constructor(input: number) {
-        this.input = input;
-    }
-
+  /**
+   * @constructor
+   * @param {number} input the number to be fed to the FacadeTestCommand
+   */
+  public constructor(input: number) {
+    this.input = input;
+  }
 }

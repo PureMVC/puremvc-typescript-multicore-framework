@@ -15,22 +15,20 @@ import { Notification } from "../../../src";
  * @see MacroCommand
  */
 describe("MacroCommandTest", () => {
+  test("testExecuteWithUndefinedSubCommand", () => {
+    class TestMacroCommand extends MacroCommand {
+      public initializeMacroCommand(): void {
+        this.addSubCommand(undefined as any); // intentionally adding undefined
+      }
+    }
 
-    test("testExecuteWithUndefinedSubCommand", () => {
-        class TestMacroCommand extends MacroCommand {
-            public initializeMacroCommand(): void {
-                this.addSubCommand(undefined as any); // intentionally adding undefined
-            }
-        }
+    const macroCommand = new TestMacroCommand();
+    const notification = new Notification("TestNotification");
 
-        const macroCommand = new TestMacroCommand();
-        const notification = new Notification("TestNotification");
+    // Call execute and ensure it handles the undefined command gracefully
+    expect(() => macroCommand.execute(notification)).not.toThrow();
 
-        // Call execute and ensure it handles the undefined command gracefully
-        expect(() => macroCommand.execute(notification)).not.toThrow();
-
-        // Since the subcommand was undefined, no ICommand should be executed, thus, nothing to assert on command effects
-        // Additional assertions might include verifying that no state was changed
-    });
-
+    // Since the subcommand was undefined, no ICommand should be executed, thus, nothing to assert on command effects
+    // Additional assertions might include verifying that no state was changed
+  });
 });

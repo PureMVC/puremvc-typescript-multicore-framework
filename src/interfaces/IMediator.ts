@@ -6,8 +6,8 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {INotifier} from "./INotifier";
-import {INotification} from "./INotification";
+import { INotifier } from "./INotifier";
+import { INotification } from "./INotification";
 
 /**
  * `IMediator` The interface definition for a PureMVC `Mediator`.
@@ -43,48 +43,46 @@ import {INotification} from "./INotification";
  * @extends {INotifier}
  */
 export interface IMediator extends INotifier {
+  /**
+   * The name of the mediator.
+   *
+   * @type {string}
+   */
+  readonly name: string;
 
-    /**
-     * The name of the mediator.
-     *
-     * @type {string}
-     */
-    readonly name: string;
+  /**
+   * The view component associated with the mediator.
+   *
+   * @type {any}
+   */
+  viewComponent: any;
 
-    /**
-     * The view component associated with the mediator.
-     *
-     * @type {any}
-     */
-    viewComponent: any;
+  /**
+   * Called by the View when the `Mediator` is registered
+   *
+   * @returns {void}
+   */
+  onRegister(): void;
 
-    /**
-     * Called by the View when the `Mediator` is registered
-     *
-     * @returns {void}
-     */
-    onRegister(): void;
+  /**
+   * Called by the View when the `Mediator` is removed
+   *
+   * @returns {void}
+   */
+  onRemove(): void;
 
-    /**
-     * Called by the View when the `Mediator` is removed
-     *
-     * @returns {void}
-     */
-    onRemove(): void;
+  /**
+   * List `INotification` interests.
+   *
+   * @returns {string[]} an Array of the `INotification` names this `IMediator` has an interest in.
+   */
+  listNotificationInterests(): string[];
 
-    /**
-     * List `INotification` interests.
-     *
-     * @returns {string[]} an Array of the `INotification` names this `IMediator` has an interest in.
-     */
-    listNotificationInterests(): string[];
-
-    /**
-     * Handle an `INotification`.
-     *
-     * @param {INotification} notification - the `INotification` to be handled
-     * @returns {void}
-     */
-    handleNotification(notification: INotification): void;
-
+  /**
+   * Handle an `INotification`.
+   *
+   * @param {INotification} notification - the `INotification` to be handled
+   * @returns {void}
+   */
+  handleNotification(notification: INotification): void;
 }
