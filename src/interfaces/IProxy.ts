@@ -6,7 +6,7 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {INotifier} from "./INotifier";
+import { INotifier } from "./INotifier";
 
 /**
  * `IProxy` The interface definition for a PureMVC `Proxy`.
@@ -33,33 +33,31 @@ import {INotifier} from "./INotifier";
  * @extends INotifier
  */
 export interface IProxy extends INotifier {
+  /**
+   * The name of the proxy.
+   *
+   * @type {string}
+   */
+  readonly name: string;
 
-    /**
-     * The name of the proxy.
-     *
-     * @type {string}
-     */
-    readonly name: string;
+  /**
+   * The data associated with the proxy.
+   *
+   * @type {any}
+   */
+  data?: any;
 
-    /**
-     * The data associated with the proxy.
-     *
-     * @type {any}
-     */
-    data?: any;
+  /**
+   * Called by the Model when the Proxy is registered
+   *
+   * @returns {void}
+   */
+  onRegister(): void;
 
-    /**
-     * Called by the Model when the Proxy is registered
-     *
-     * @returns {void}
-     */
-    onRegister(): void;
-
-    /**
-     * Called by the Model when the Proxy is removed
-     *
-     * @returns {void}
-     */
-    onRemove(): void;
-
+  /**
+   * Called by the Model when the Proxy is removed
+   *
+   * @returns {void}
+   */
+  onRemove(): void;
 }

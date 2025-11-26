@@ -6,7 +6,7 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {IProxy} from "./IProxy";
+import { IProxy } from "./IProxy";
 
 /**
  * `IModel` The interface definition for a PureMVC `Model`.
@@ -23,36 +23,35 @@ import {IProxy} from "./IProxy";
  * @interface IModel
  */
 export interface IModel {
+  /**
+   * Register an `IProxy` instance with the `Model`.
+   *
+   * @param {IProxy} proxy - an object reference to be held by the `Model`.
+   * @returns {void}
+   */
+  registerProxy(proxy: IProxy): void;
 
-    /**
-     * Register an `IProxy` instance with the `Model`.
-     *
-     * @param {IProxy} proxy - an object reference to be held by the `Model`.
-     * @returns {void}
-     */
-    registerProxy(proxy: IProxy): void;
+  /**
+   * Retrieve an `IProxy` instance from the `Model`.
+   *
+   * @param {string} proxyName - The name of the proxy to retrieve.
+   * @returns {IProxy | null} The `IProxy` if registered, otherwise null.
+   */
+  retrieveProxy(proxyName: string): IProxy | null;
 
-    /**
-     * Retrieve an `IProxy` instance from the `Model`.
-     *
-     * @param {string} proxyName - The name of the proxy to retrieve.
-     * @returns {IProxy | null} The `IProxy` if registered, otherwise null.
-     */
-    retrieveProxy(proxyName: string): IProxy | null;
+  /**
+   * Check if a `Proxy` is registered
+   *
+   * @param {string} proxyName - The name of the proxy to check.
+   * @returns {boolean} True if the `IProxy` is registered, otherwise false.
+   */
+  hasProxy(proxyName: string): boolean;
 
-    /**
-     * Check if a `Proxy` is registered
-     *
-     * @param {string} proxyName - The name of the proxy to check.
-     * @returns {boolean} True if the `IProxy` is registered, otherwise false.
-     */
-    hasProxy(proxyName: string): boolean;
-
-    /**
-     * Remove an `IProxy` instance from the `Model`.
-     *
-     * @param {string} proxyName - The name of the proxy to remove.
-     * @returns {IProxy | null} The removed `IProxy` if found, otherwise null.
-     */
-    removeProxy(proxyName: string): IProxy | null;
+  /**
+   * Remove an `IProxy` instance from the `Model`.
+   *
+   * @param {string} proxyName - The name of the proxy to remove.
+   * @returns {IProxy | null} The removed `IProxy` if found, otherwise null.
+   */
+  removeProxy(proxyName: string): IProxy | null;
 }

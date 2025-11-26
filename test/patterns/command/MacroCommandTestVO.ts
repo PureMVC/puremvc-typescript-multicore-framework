@@ -17,18 +17,16 @@
  * @class MacroCommandTestVO
  */
 export class MacroCommandTestVO {
+  public input: number;
+  public result1: number | undefined;
+  public result2: number | undefined;
 
-    public input: number;
-    public result1: number | undefined;
-    public result2: number | undefined;
-
-    /**
-     * Constructor.
-     *
-     * @param {number} input the number to be fed to the MacroCommandTestCommand
-     */
-    constructor(input: number) {
-        this.input = input;
-    }
-
+  /**
+   * Constructor.
+   *
+   * @param {number} input the number to be fed to the MacroCommandTestCommand
+   */
+  constructor(input: number) {
+    this.input = input;
+  }
 }

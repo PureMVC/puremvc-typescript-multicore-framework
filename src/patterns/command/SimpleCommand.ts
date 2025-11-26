@@ -6,9 +6,9 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {ICommand} from "../../interfaces/ICommand";
-import {INotification} from "../../interfaces/INotification";
-import {Notifier} from "../observer/Notifier";
+import { ICommand } from "../../interfaces/ICommand";
+import { INotification } from "../../interfaces/INotification";
+import { Notifier } from "../observer/Notifier";
 
 /**
  * A base `Command` implementation.
@@ -24,20 +24,17 @@ import {Notifier} from "../observer/Notifier";
  * @extends Notifier
  */
 export class SimpleCommand extends Notifier implements ICommand {
-
-    /**
-     * Fulfill the use-case initiated by the given `Notification`.
-     *
-     * In the Command Pattern, an application use-case typically
-     * begins with some user action, which results in a `Notification` being broadcast, which
-     * is handled by business logic in the `execute` method of an
-     * `Command`.
-     *
-     * @param {INotification} notification - The notification containing the data or command details to be processed.
-     * @returns {void}
-     */
-    public execute(notification: INotification): void {
-
-    }
-
+  /**
+   * Fulfill the use-case initiated by the given `Notification`.
+   *
+   * In the Command Pattern, an application use-case typically
+   * begins with some user action, which results in a `Notification` being broadcast, which
+   * is handled by business logic in the `execute` method of an
+   * `Command`.
+   *
+   * @param {INotification} notification - The notification containing the data or command details to be processed.
+   * @returns {void}
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public execute(notification: INotification): void {}
 }

@@ -6,7 +6,7 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import {Mediator} from "../../src";
+import { Mediator } from "../../src";
 
 /**
  * A Mediator class used by ViewTest.
@@ -15,20 +15,18 @@ import {Mediator} from "../../src";
  * @extends Mediator
  */
 export class ViewTestMediator extends Mediator {
+  public static NAME = "ViewTestMediator";
 
-    public static NAME = "ViewTestMediator";
+  /**
+   * @param {any} view
+   */
+  public constructor(view: any) {
+    super(ViewTestMediator.NAME, view);
+  }
 
-    /**
-     * @param {any} view
-     */
-    public constructor(view: any) {
-        super(ViewTestMediator.NAME, view);
-    }
-
-    public override listNotificationInterests(): string[] {
-        // be sure that the mediator has some Observers created
-        // in order to test removeMediator
-        return ["ABC", "DEF", "GHI"];
-    }
-
+  public override listNotificationInterests(): string[] {
+    // be sure that the mediator has some Observers created
+    // in order to test removeMediator
+    return ["ABC", "DEF", "GHI"];
+  }
 }
