@@ -6,11 +6,11 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import { IView } from "../interfaces/IView";
-import { IMediator } from "../interfaces/IMediator";
-import { IObserver } from "../interfaces/IObserver";
-import { Observer } from "../patterns/observer/Observer";
-import { INotification } from "../interfaces/INotification";
+import { IView } from "../interfaces/IView.js";
+import { IMediator } from "../interfaces/IMediator.js";
+import { IObserver } from "../interfaces/IObserver.js";
+import { Observer } from "../patterns/observer/Observer.js";
+import { INotification } from "../interfaces/INotification.js";
 
 /**
  * A Multiton `View` implementation.

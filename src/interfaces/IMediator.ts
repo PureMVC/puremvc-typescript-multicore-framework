@@ -6,8 +6,8 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import { INotifier } from "./INotifier";
-import { INotification } from "./INotification";
+import { INotifier } from "./INotifier.js";
+import { INotification } from "./INotification.js";
 
 /**
  * `IMediator` The interface definition for a PureMVC `Mediator`.

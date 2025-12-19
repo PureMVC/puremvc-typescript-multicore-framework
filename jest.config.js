@@ -5,5 +5,9 @@ module.exports = {
     maxWorkers: 11,
     coverageDirectory: "coverage",
     collectCoverage: true,
-    collectCoverageFrom: ["src/**/*.ts"]
+    collectCoverageFrom: ["src/**/*.ts"],
+    // Map ESM-style relative imports with .js extension back to TS sources during tests
+    moduleNameMapper: {
+        '^(\\.{1,2}/.*)\\.js$': '$1'
+    }
 };

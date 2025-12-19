@@ -6,7 +6,7 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import { IProxy } from "./IProxy";
+import { IProxy } from "./IProxy.js";
 
 /**
  * `IModel` The interface definition for a PureMVC `Model`.

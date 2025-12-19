@@ -6,9 +6,9 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import { INotifier } from "../../interfaces/INotifier";
-import { IFacade } from "../../interfaces/IFacade";
-import { Facade } from "../facade/Facade";
+import { INotifier } from "../../interfaces/INotifier.js";
+import { IFacade } from "../../interfaces/IFacade.js";
+import { Facade } from "../facade/Facade.js";
 
 /**
  * A Base `Notifier` implementation.

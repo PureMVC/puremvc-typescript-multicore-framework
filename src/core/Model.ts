@@ -6,8 +6,8 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import { IModel } from "../interfaces/IModel";
-import { IProxy } from "../interfaces/IProxy";
+import { IModel } from "../interfaces/IModel.js";
+import { IProxy } from "../interfaces/IProxy.js";
 
 /**
  * A Multiton `Model` implementation.

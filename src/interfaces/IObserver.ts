@@ -6,7 +6,7 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import { INotification } from "./INotification";
+import { INotification } from "./INotification.js";
 
 /**
  * `IObserver` The interface definition for a PureMVC `Observer`.

@@ -6,8 +6,8 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import { IProxy } from "../../interfaces/IProxy";
-import { Notifier } from "../observer/Notifier";
+import { IProxy } from "../../interfaces/IProxy.js";
+import { Notifier } from "../observer/Notifier.js";
 
 /**
  * A base `Proxy` implementation.

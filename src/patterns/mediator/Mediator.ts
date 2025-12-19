@@ -6,9 +6,9 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import { IMediator } from "../../interfaces/IMediator";
-import { INotification } from "../../interfaces/INotification";
-import { Notifier } from "../observer/Notifier";
+import { IMediator } from "../../interfaces/IMediator.js";
+import { INotification } from "../../interfaces/INotification.js";
+import { Notifier } from "../observer/Notifier.js";
 
 /**
  * A base `Mediator` implementation.

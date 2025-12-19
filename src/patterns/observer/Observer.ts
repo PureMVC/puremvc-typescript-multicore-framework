@@ -6,8 +6,8 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import { IObserver } from "../../interfaces/IObserver";
-import { INotification } from "../../interfaces/INotification";
+import { IObserver } from "../../interfaces/IObserver.js";
+import { INotification } from "../../interfaces/INotification.js";
 
 /**
  * A base `Observer` implementation.

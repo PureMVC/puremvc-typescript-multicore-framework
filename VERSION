@@ -1,10 +1,10 @@
 PureMVC MultiCore Framework for TypeScript
 --------------------------------------------------------------------------
-Release Date: 4/22/25
+Release Date: 12/19/25
     Platform: TypeScript
      Version: 2
-    Revision: 1
-       Minor: 3
+    Revision: 2
+       Minor: 0
       Authors: Saad Shams <saad.shams@puremvc.org>
              : Cliff Hall <cliff@puremvc.org>
 --------------------------------------------------------------------------
@@ -23,3 +23,4 @@ Release Date: 4/22/25
 2.1.1 - README Update
 2.1.2 - Fix entrypoint
 2.1.3 - NPM trusted publisher workflow
+2.2.0 - Add .js to filenames imported and exported throughout the library for better importing.

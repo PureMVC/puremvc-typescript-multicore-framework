@@ -6,9 +6,9 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import { IMediator } from "./IMediator";
-import { INotification } from "./INotification";
-import { IObserver } from "./IObserver";
+import { IMediator } from "./IMediator.js";
+import { INotification } from "./INotification.js";
+import { IObserver } from "./IObserver.js";
 
 /**
  * `IView` The interface definition for a PureMVC `View`.

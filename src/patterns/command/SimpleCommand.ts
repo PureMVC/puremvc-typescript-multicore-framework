@@ -6,9 +6,9 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import { ICommand } from "../../interfaces/ICommand";
-import { INotification } from "../../interfaces/INotification";
-import { Notifier } from "../observer/Notifier";
+import { ICommand } from "../../interfaces/ICommand.js";
+import { INotification } from "../../interfaces/INotification.js";
+import { Notifier } from "../observer/Notifier.js";
 
 /**
  * A base `Command` implementation.

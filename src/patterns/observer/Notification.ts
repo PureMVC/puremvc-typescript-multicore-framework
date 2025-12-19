@@ -6,7 +6,7 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import { INotification } from "../../interfaces/INotification";
+import { INotification } from "../../interfaces/INotification.js";
 
 /**
  * A base `Notification` implementation.

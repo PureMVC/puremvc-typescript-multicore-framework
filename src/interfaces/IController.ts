@@ -6,8 +6,8 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import { ICommand } from "./ICommand";
-import { INotification } from "./INotification";
+import { ICommand } from "./ICommand.js";
+import { INotification } from "./INotification.js";
 
 /**
  * `IController` The interface definition for a PureMVC `Controller`.

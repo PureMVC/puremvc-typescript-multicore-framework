@@ -6,18 +6,18 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import { IController } from "../../interfaces/IController";
-import { IModel } from "../../interfaces/IModel";
-import { IView } from "../../interfaces/IView";
-import { ICommand } from "../../interfaces/ICommand";
-import { IFacade } from "../../interfaces/IFacade";
-import { IMediator } from "../../interfaces/IMediator";
-import { INotification } from "../../interfaces/INotification";
-import { IProxy } from "../../interfaces/IProxy";
-import { Controller } from "../../core/Controller";
-import { Model } from "../../core/Model";
-import { View } from "../../core/View";
-import { Notification } from "../observer/Notification";
+import { IController } from "../../interfaces/IController.js";
+import { IModel } from "../../interfaces/IModel.js";
+import { IView } from "../../interfaces/IView.js";
+import { ICommand } from "../../interfaces/ICommand.js";
+import { IFacade } from "../../interfaces/IFacade.js";
+import { IMediator } from "../../interfaces/IMediator.js";
+import { INotification } from "../../interfaces/INotification.js";
+import { IProxy } from "../../interfaces/IProxy.js";
+import { Controller } from "../../core/Controller.js";
+import { Model } from "../../core/Model.js";
+import { View } from "../../core/View.js";
+import { Notification } from "../observer/Notification.js";
 
 /**
  * A base Multiton `Facade` implementation.

@@ -6,11 +6,11 @@
 //  Your reuse is governed by the BSD-3-Clause License
 //
 
-import { INotifier } from "./INotifier";
-import { ICommand } from "./ICommand";
-import { IMediator } from "./IMediator";
-import { INotification } from "./INotification";
-import { IProxy } from "./IProxy";
+import { INotifier } from "./INotifier.js";
+import { ICommand } from "./ICommand.js";
+import { IMediator } from "./IMediator.js";
+import { INotification } from "./INotification.js";
+import { IProxy } from "./IProxy.js";
 
 /**
  * `IFacade` The interface definition for a PureMVC `Facade`.
