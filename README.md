@@ -11,7 +11,7 @@ npm install @puremvc/puremvc-typescript-multicore-framework
 ```
 
 ## Documentation
-* [API Docs](https://puremvc.org/pages/docs/TypeScript/multicore/)
+* [API Docs](http://puremvc.org/puremvc-typescript-multicore-framework/)
 * [Legacy Implementation](https://github.com/PureMVC/puremvc-typescript-multicore-framework/tree/1.3)
 
 ## Ported Framework
