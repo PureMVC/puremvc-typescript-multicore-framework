@@ -18,7 +18,8 @@ npm install @puremvc/puremvc-typescript-multicore-framework
 * This is a direct port of the original [AS3 MultiCore Framework](https://github.com/PureMVC/puremvc-as3-multicore-framework)
 
 ## Demos
-* [Basic Employee Admin](https://github.com/PureMVC/puremvc-typescript-demo-employeeadmin)
+* [React Native Employee Admin](https://github.com/PureMVC/puremvc-typescript-demo-reactnative-employeeadmin)
+* [Basic Employee Admin (Legacy)](https://github.com/PureMVC/puremvc-typescript-demo-employeeadmin)
 
 ## Utilities
 * [Async Command](https://github.com/PureMVC/puremvc-typescript-util-async-command)
